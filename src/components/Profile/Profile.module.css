@@ -1,0 +1,9 @@
+.content {
+	grid-area: content;
+	background-color: aliceblue;
+}
+
+.content .titleImg {
+	height: 80px;
+	width: 100%;
+}
