@@ -8,7 +8,8 @@ import { News } from './components/News/News';
 import { Settings } from './components/Settings/Settings';
 import { Music } from './components/Music/Music';
 
-function App() {
+
+export const App: React.FC<AppProps> = (props) => {
 	return (
 		<BrowserRouter>
 			<div className='app-wrapper'>
@@ -16,8 +17,17 @@ function App() {
 				<Navbar />
 				<div className='app-wrapper-content'>
 					<Routes>
-						<Route path='/profile' element={<Profile />} />
-						<Route path='/dialogs' element={<Dialogs />} />
+						<Route path='/profile' element={
+							<Profile
+								profileData={props.data.postsData}
+							/>}
+						/>
+						<Route path='/dialogs' element={
+							<Dialogs
+								dialogsData={props.data.dialogsData}
+								messagesData={props.data.messagesData}
+							/>}
+						/>
 						<Route path='/news' element={<News />} />
 						<Route path='/music' element={<Music />} />
 						<Route path='/settings' element={<Settings />} />
@@ -28,4 +38,3 @@ function App() {
 	);
 }
 
-export default App;

@@ -3,11 +3,11 @@ import { MyPosts } from './MyPosts/MyPosts';
 import styles from './Profile.module.css';
 import { ProfileInfo } from './ProfileInfo/ProfileInfo';
 
-export const Profile = () => {
+export const Profile: React.FC<ProfileProps> = (props) => {
 	return (
 		<div className={styles.content}>
 			<ProfileInfo />
-			<MyPosts />
+			<MyPosts postsData={props.profileData} />
 		</div>
 	);
 }
