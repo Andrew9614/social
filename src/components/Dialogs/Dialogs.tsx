@@ -4,12 +4,12 @@ import styles from './Dialogs.module.css'
 
 type DialogItemProps = {
 	name: string
-	id: string
+	id: number
 }
 const DialogItem: React.FC<DialogItemProps> = (props) => {
 	return (
 		<div className={styles.dialog}>
-			<NavLink to={props.id} className={({ isActive }) => (isActive ? styles.active : "")} end>{props.name}</NavLink>
+			<NavLink to={(props.id).toString()} className={({ isActive }) => (isActive ? styles.active : "")} end>{props.name}</NavLink>
 		</div>
 	);
 }
@@ -27,35 +27,36 @@ const Message: React.FC<MessageProps> = (props) => {
 }
 
 
+let dialogsData: { id: number, name: string }[] = [
+	{ id: 0, name: 'Masha' },
+	{ id: 1, name: 'Sasha' },
+	{ id: 2, name: 'Dasha' },
+	{ id: 3, name: 'Evgeniy' },
+	{ id: 4, name: 'Obema' }
+]
+
+let messagesData: { id: number, message: string }[] = [
+	{ id: 0, message: 'Hello' },
+	{ id: 1, message: 'How are you' },
+	{ id: 2, message: 'Gay' },
+]
+
 export const Dialogs = () => {
 	return (
 		<div className={styles.dialogs}>
 			<div className={styles.dialogsItems}>
 				<DialogItem
-					name='Masha'
-					id='1'
+					name={dialogsData[0].name}
+					id={dialogsData[0].id}
 				/>
 				<DialogItem
-					name='Sasha'
-					id='2'
-				/>
-				<DialogItem
-					name='Dasha'
-					id='3'
-				/>
-				<DialogItem
-					name='Evgeniy'
-					id='4'
-				/>
-				<DialogItem
-					name='Obema'
-					id='5'
+					name={dialogsData[1].name}
+					id={dialogsData[1].id}
 				/>
 			</div>
 			<div className={styles.messages}>
-				<Message message='Hi' />
-				<Message message='Zhopa'/>
-				<Message message='Babababebebe'/>
+				<Message message={messagesData[0].message} />
+				<Message message={messagesData[1].message} />
 			</div>
 		</div>
 	)
