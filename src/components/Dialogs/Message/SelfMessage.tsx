@@ -1,9 +1,7 @@
-import styles from './Message.module.css';
+import styles from './SelfMessage.module.css';
+import { MessageProps } from './type';
 
-type MessageProps = {
-	message: string;
-};
-export const Message: React.FC<MessageProps> = (props) => {
+export const SelfMessage: React.FC<MessageProps> = (props) => {
 	return (
 		<div className={styles.messageContainer}>
 			{/* <img src={props.avatar} alt="avatar" className={s.avatarMessage} /> */}

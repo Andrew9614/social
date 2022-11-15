@@ -1,8 +1,10 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { FriendsListMini } from './FriendsListMini/FriendsListMini';
 import styles from './Navbar.module.css';
+import { NavbarProps } from './type';
 
-export const Navbar = () => {
+export const Navbar:React.FC<NavbarProps> = (props) => {
 	return (
 		<nav className={styles.nav}>
 			<div className={styles.item}>
@@ -20,6 +22,7 @@ export const Navbar = () => {
 			<div className={styles.item}>
 				<NavLink to='/settings' className={({ isActive }) => (isActive ? styles.active : "")}>Settings</NavLink>
 			</div>
+			<FriendsListMini state={props.state.friendsListMini}/>
 		</nav>
 	);
 }

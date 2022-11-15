@@ -7,7 +7,7 @@ export const Profile: React.FC<ProfileProps> = (props) => {
 	return (
 		<div className={styles.content}>
 			<ProfileInfo />
-			<MyPosts postsData={props.profileData} />
+			<MyPosts postsData={props.state.postsData} />
 		</div>
 	);
 }

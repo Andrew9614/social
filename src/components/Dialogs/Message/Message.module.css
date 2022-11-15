@@ -1,0 +1,57 @@
+.messageContainer {
+	align-self: flex-end;
+	margin-left: 10px;
+	padding: 5px;
+	display: inline-flex;
+	align-items: flex-end;
+	box-sizing: border-box;
+}
+
+.textBlockMessage {
+	background-color:rgb(187, 225, 255);
+	border-radius: 10px;
+	border-bottom-right-radius: 0%;
+	position: relative;
+}
+
+.tailMessage {
+	transform: scaleX(-1);
+	fill:rgb(187, 225, 255);
+	position: absolute;
+	width: 10px;
+	bottom: 0;
+	right: -10px;
+
+}
+
+.avatarMessage {
+	image-rendering: -webkit-optimize-contrast !important;
+	width: 40px;
+	aspect-ratio: 1/1;
+	object-fit: cover;
+	border: 1px solid black;
+	border-radius: 50%;
+	margin-right: 10px;
+
+}
+
+.textMessage {
+	margin-left: 10%;
+	word-wrap: break-word;
+	margin-left: 10px;
+	margin-right: 10px;
+	max-width: 30vw;
+}
+
+.nameMessage {
+	margin-top: 10px;
+	margin-left: 10px;
+	color: rgb(219, 152, 255);
+}
+
+.timeMessage {
+	float: right;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	color: rgb(139, 139, 139);
+}

@@ -1,46 +1,57 @@
 type DialogsProps = {
-	dialogsData: DialogsData[]
-	messagesData: MessageData[]
+	state: DialogsPage
 }
 
 type AppProps = {
-	data: Data
+	state: State
 }
 
-type Data = {
+type State = {
+	dialogsPage: DialogsPage
+	profilePage: ProfilePage
+	sidebarPage: SidebarPage
+}
+
+type DialogsPage = {
 	dialogsData: DialogsData[]
-	messagesData: MessageData[]
+	messagesData: MessagesData[]
+}
+
+type ProfilePage = {
 	postsData: PostsData[]
 }
 
-type DialogItemProps = {
-	name: string;
-	id: number;
+type SidebarPage = {
+	friendsListMini: FriendsListMini[]
 }
 
 type ProfileProps = {
-	profileData: PostsData[]
+	state: PostsPage
 }
 
 type MyPostsProps = {
 	postsData: PostsData[]
 }
 
-type MessageProps = {
-	message: string;
-}
-
 type DialogsData = {
 	id: number
 	name: string
+	imgLink: string
 }
 
 type MessagesData = {
 	id: number
-	name: string
+	message: string
+	self: boolean
 }
 
 type PostsData = {
 	message: string
 	likes: number
+}
+
+type FriendsListMini = {
+	id: number
+	name: string
+	link: string
 }
