@@ -1,4 +1,4 @@
-.friendsContainer{
+.friendsContainer {
 	margin: 10px 10px 10px 10px;
 	padding: 10px;
 	border: 2px cornflowerblue solid;
@@ -9,24 +9,23 @@
 
 }
 
-.friendsWrapper{
+.friendsWrapper {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	
+
 }
 
-.friends{
+.friends {
 	margin-top: 10px;
 	display: flex;
 	flex-direction: column;
 	width: 40px;
 }
 
-.friends img{
+.friends img {
 	aspect-ratio: 1;
 	object-fit: cover;
 	width: 100%;
 	border-radius: 50%;
 }
-

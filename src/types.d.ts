@@ -1,9 +1,15 @@
 type DialogsProps = {
 	state: DialogsPage
+	handleChangeMessagesTextArea: Function
+	handleClickMessageButton: Function
 }
 
 type AppProps = {
 	state: State
+	handleChangeMyPostsTextArea: Function
+	handleClickMyPostsButton: Function
+	handleChangeMessagesTextArea: Function
+	handleClickMessageButton: Function
 }
 
 type State = {
@@ -15,10 +21,12 @@ type State = {
 type DialogsPage = {
 	dialogsData: DialogsData[]
 	messagesData: MessagesData[]
+	newMessageTextArea: string
 }
 
 type ProfilePage = {
 	postsData: PostsData[]
+	newMyPostsTextArea: string
 }
 
 type SidebarPage = {
@@ -26,11 +34,16 @@ type SidebarPage = {
 }
 
 type ProfileProps = {
-	state: PostsPage
+	state: ProfilePage
+	handleChangeMyPostsTextArea: Function
+	handleClickMyPostsButton: Function
 }
 
 type MyPostsProps = {
 	postsData: PostsData[]
+	newMyPostsTextArea: string
+	handleChangeMyPostsTextArea: Function
+	handleClickMyPostsButton: Function
 }
 
 type DialogsData = {

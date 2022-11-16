@@ -14,17 +14,21 @@ export const App: React.FC<AppProps> = (props) => {
 		<BrowserRouter>
 			<div className='app-wrapper'>
 				<Header />
-				<Navbar state={props.state.sidebarPage}/>
+				<Navbar state={props.state.sidebarPage} />
 				<div className='app-wrapper-content'>
 					<Routes>
 						<Route path='/profile' element={
 							<Profile
 								state={props.state.profilePage}
+								handleChangeMyPostsTextArea={props.handleChangeMyPostsTextArea}
+								handleClickMyPostsButton={props.handleClickMyPostsButton}
 							/>}
 						/>
 						<Route path='/dialogs' element={
 							<Dialogs
-								state = {props.state.dialogsPage}
+								state={props.state.dialogsPage}
+								handleChangeMessagesTextArea={props.handleChangeMessagesTextArea}
+								handleClickMessageButton={props.handleClickMessageButton}
 							/>}
 						/>
 						<Route path='/news' element={<News />} />

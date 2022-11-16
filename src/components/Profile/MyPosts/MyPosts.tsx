@@ -9,16 +9,29 @@ import styles from './MyPosts.module.css';
 // 	{ message: 'faggot', likes: 1488 },
 // ]
 
-export const MyPosts:React.FC<MyPostsProps> = (props) => {
+export const MyPosts: React.FC<MyPostsProps> = (props) => {
+
+	const handleChangeTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+		debugger;
+		props.handleChangeMyPostsTextArea(e.target.value)
+	}
+
+	const handleClickButton = () => {
+		props.handleClickMyPostsButton()
+	}
+
 	return (
 		<div className={styles.postsBlock}>
 			<h2>My posts</h2>
 			<div>
 				<div>
-					<textarea></textarea>
+					<textarea
+						onChange={handleChangeTextArea}
+						value={props.newMyPostsTextArea}
+					/>
 				</div>
 				<div>
-					<button>Add post</button>
+					<button onClick={handleClickButton}>Add post</button>
 				</div>
 			</div>
 			<div className={styles.posts}>

@@ -7,7 +7,12 @@ export const Profile: React.FC<ProfileProps> = (props) => {
 	return (
 		<div className={styles.content}>
 			<ProfileInfo />
-			<MyPosts postsData={props.state.postsData} />
+			<MyPosts
+				postsData={props.state.postsData}
+				newMyPostsTextArea={props.state.newMyPostsTextArea}
+				handleChangeMyPostsTextArea={props.handleChangeMyPostsTextArea}
+				handleClickMyPostsButton={props.handleClickMyPostsButton}
+			/>
 		</div>
 	);
 }

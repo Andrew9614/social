@@ -1,3 +1,5 @@
+import { updateApp } from "../render";
+
 export let state: State = {
 	dialogsPage: {
 		dialogsData: [
@@ -8,10 +10,11 @@ export let state: State = {
 			{ id: 4, name: 'Obema', imgLink: '' }
 		],
 		messagesData: [
-			{ id: 0, message: 'Hello', self: true},
+			{ id: 0, message: 'Hello', self: true },
 			{ id: 1, message: 'How are you', self: true },
 			{ id: 2, message: 'I\'m gay', self: false },
-		]
+		],
+		newMessageTextArea: ''
 	},
 	profilePage: {
 		postsData: [
@@ -19,7 +22,8 @@ export let state: State = {
 			{ message: 'fgs', likes: 48 },
 			{ message: 'dsav', likes: 458 },
 			{ message: 'faggot', likes: 1488 },
-		]
+		],
+		newMyPostsTextArea: ''
 	},
 	sidebarPage: {
 		friendsListMini: [
@@ -28,4 +32,36 @@ export let state: State = {
 			{ id: 2, name: 'Dasha', link: 'https://imageio.forbes.com/specials-images/imageserve/611bde75926cb502bae8e75b/0x0.jpg?format=jpg&width=1200' }
 		]
 	}
+}
+
+
+export function changeMyPostsTextArea(message: string) {
+	state.profilePage.newMyPostsTextArea = message;
+	updateApp(state);
+}
+
+export function addPosts() {
+	let newPost: PostsData = {
+		message: state.profilePage.newMyPostsTextArea,
+		likes: 0
+	};
+	state.profilePage.postsData.push(newPost);
+	state.profilePage.newMyPostsTextArea = '';
+	updateApp(state);
+}
+
+export function changeMessageTextArea(message: string) {
+	state.dialogsPage.newMessageTextArea = message;
+	updateApp(state);
+}
+
+export function addMessage() {
+	let newMessage: MessagesData = {
+		id: 9,
+		message: state.dialogsPage.newMessageTextArea,
+		self: true
+	};
+	state.dialogsPage.messagesData.push(newMessage);
+	state.dialogsPage.newMessageTextArea = '';
+	updateApp(state);
 }
