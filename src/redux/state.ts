@@ -1,4 +1,4 @@
-import { updateApp } from "../render";
+let updateApp:Function;
 
 export let state: State = {
 	dialogsPage: {
@@ -41,6 +41,7 @@ export function changeMyPostsTextArea(message: string) {
 }
 
 export function addPosts() {
+	if(!state.profilePage.newMyPostsTextArea) return;
 	let newPost: PostsData = {
 		message: state.profilePage.newMyPostsTextArea,
 		likes: 0
@@ -56,6 +57,7 @@ export function changeMessageTextArea(message: string) {
 }
 
 export function addMessage() {
+	if(!state.dialogsPage.newMessageTextArea) return;
 	let newMessage: MessagesData = {
 		id: 9,
 		message: state.dialogsPage.newMessageTextArea,
@@ -64,4 +66,8 @@ export function addMessage() {
 	state.dialogsPage.messagesData.push(newMessage);
 	state.dialogsPage.newMessageTextArea = '';
 	updateApp(state);
+}
+
+export const subscriber = (observer: Function) => {
+	updateApp = observer;
 }
