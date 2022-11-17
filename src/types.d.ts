@@ -1,15 +1,24 @@
 type DialogsProps = {
 	state: DialogsPage
-	handleChangeMessagesTextArea: Function
-	handleClickMessageButton: Function
+	
+	
+	dispatch: (action: DispatchAction) => void
 }
-
+type DispatchAction = {
+	type:
+	'ADD-MESSAGE' |
+	'CHANGE-MESSAGE-TEXT-AREA' |
+	'ADD-POST' |
+	'CHANGE-MY-POST-TEXT-AREA'
+	message?: string
+}
 type AppProps = {
 	state: State
-	handleChangeMyPostsTextArea: Function
-	handleClickMyPostsButton: Function
-	handleChangeMessagesTextArea: Function
-	handleClickMessageButton: Function
+	
+	
+	
+	
+	dispatch: (action: DispatchAction) => void
 }
 
 type State = {
@@ -35,15 +44,17 @@ type SidebarPage = {
 
 type ProfileProps = {
 	state: ProfilePage
-	handleChangeMyPostsTextArea: Function
-	handleClickMyPostsButton: Function
+	
+	
+	dispatch: (action: DispatchAction) => void
 }
 
 type MyPostsProps = {
 	postsData: PostsData[]
 	newMyPostsTextArea: string
-	handleChangeMyPostsTextArea: Function
-	handleClickMyPostsButton: Function
+	
+	
+	dispatch: (action: DispatchAction) => void
 }
 
 type DialogsData = {

@@ -20,15 +20,17 @@ export const App: React.FC<AppProps> = (props) => {
 						<Route path='/profile' element={
 							<Profile
 								state={props.state.profilePage}
-								handleChangeMyPostsTextArea={props.handleChangeMyPostsTextArea}
-								handleClickMyPostsButton={props.handleClickMyPostsButton}
+								
+								
+								dispatch={props.dispatch}
 							/>}
 						/>
 						<Route path='/dialogs' element={
 							<Dialogs
 								state={props.state.dialogsPage}
-								handleChangeMessagesTextArea={props.handleChangeMessagesTextArea}
-								handleClickMessageButton={props.handleClickMessageButton}
+								
+								
+								dispatch={props.dispatch}
 							/>}
 						/>
 						<Route path='/news' element={<News />} />

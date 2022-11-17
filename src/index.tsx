@@ -14,10 +14,11 @@ const updateApp = (state: State) => {
 		<React.StrictMode>
 			<App
 				state={state}
-				handleChangeMyPostsTextArea={store.changeMyPostsTextArea.bind(store)}
-				handleClickMyPostsButton={store.addPosts.bind(store)}
-				handleChangeMessagesTextArea={store.changeMessageTextArea.bind(store)}
-				handleClickMessageButton={store.addMessage.bind(store)}
+				dispatch={store.dispatch.bind(store)}
+			
+			
+			
+			
 			/>
 		</React.StrictMode>
 	);

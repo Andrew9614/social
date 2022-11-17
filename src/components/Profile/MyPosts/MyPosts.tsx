@@ -2,21 +2,14 @@ import React from 'react';
 import { Post } from './Post/Post';
 import styles from './MyPosts.module.css';
 
-// let postsData: { message: string, likes: number }[] = [
-// 	{ message: 'Hello', likes: 5 },
-// 	{ message: 'fgs', likes: 48 },
-// 	{ message: 'dsav', likes: 458 },
-// 	{ message: 'faggot', likes: 1488 },
-// ]
-
 export const MyPosts: React.FC<MyPostsProps> = (props) => {
 
 	const handleChangeTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		props.handleChangeMyPostsTextArea(e.target.value)
+		props.dispatch({ type: 'CHANGE-MY-POST-TEXT-AREA', message: e.target.value })
 	}
 
 	const handleClickButton = () => {
-		props.handleClickMyPostsButton()
+		props.dispatch({ type: 'ADD-POST' })
 	}
 
 	return (

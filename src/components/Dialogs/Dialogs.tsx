@@ -8,7 +8,7 @@ import { SelfMessage } from './Message/SelfMessage';
 
 export const Dialogs: React.FC<DialogsProps> = (props) => {
 	const handleSendClick = () => {
-		props.handleClickMessageButton();
+		props.dispatch({ type: 'ADD-MESSAGE' })
 	}
 	return (
 		<div className={styles.dialogs}>
@@ -23,7 +23,7 @@ export const Dialogs: React.FC<DialogsProps> = (props) => {
 						<SelfMessage message={el.message} /> : <Message message={el.message} />
 				)}
 				<textarea
-					onChange={(e) => props.handleChangeMessagesTextArea(e.target.value)}
+					onChange={(e) => props.dispatch({ type: 'CHANGE-MESSAGE-TEXT-AREA', message: e.target.value })}
 					value={props.state.newMessageTextArea}
 				/>
 				<button onClick={handleSendClick}>Send</button>

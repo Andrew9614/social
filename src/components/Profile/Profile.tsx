@@ -10,8 +10,9 @@ export const Profile: React.FC<ProfileProps> = (props) => {
 			<MyPosts
 				postsData={props.state.postsData}
 				newMyPostsTextArea={props.state.newMyPostsTextArea}
-				handleChangeMyPostsTextArea={props.handleChangeMyPostsTextArea}
-				handleClickMyPostsButton={props.handleClickMyPostsButton}
+				
+				
+				dispatch={props.dispatch}
 			/>
 		</div>
 	);
