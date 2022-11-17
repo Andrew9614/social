@@ -12,7 +12,6 @@ import styles from './MyPosts.module.css';
 export const MyPosts: React.FC<MyPostsProps> = (props) => {
 
 	const handleChangeTextArea = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		debugger;
 		props.handleChangeMyPostsTextArea(e.target.value)
 	}
 

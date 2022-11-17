@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { App } from './App';
-import { addMessage, addPosts, changeMessageTextArea, changeMyPostsTextArea, subscriber, state } from './redux/state';
+import { store } from './redux/state';
 
 
 
@@ -9,19 +9,18 @@ const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement
 );
 
-const updateApp = (state:State) => {
+const updateApp = (state: State) => {
 	root.render(
 		<React.StrictMode>
 			<App
 				state={state}
-				handleChangeMyPostsTextArea={changeMyPostsTextArea}
-				handleClickMyPostsButton={addPosts}
-				handleChangeMessagesTextArea={changeMessageTextArea}
-				handleClickMessageButton={addMessage}
+				handleChangeMyPostsTextArea={store.changeMyPostsTextArea.bind(store)}
+				handleClickMyPostsButton={store.addPosts.bind(store)}
+				handleChangeMessagesTextArea={store.changeMessageTextArea.bind(store)}
+				handleClickMessageButton={store.addMessage.bind(store)}
 			/>
 		</React.StrictMode>
 	);
 }
-updateApp(state);
-
-subscriber(updateApp);
+updateApp(store.getState());
+store.subscriber(updateApp);
