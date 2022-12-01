@@ -7,6 +7,7 @@ import { Profile } from './components/Profile/Profile';
 import { News } from './components/News/News';
 import { Settings } from './components/Settings/Settings';
 import { Music } from './components/Music/Music';
+import { AppProps } from './type';
 
 
 export const App: React.FC<AppProps> = (props) => {
@@ -20,16 +21,16 @@ export const App: React.FC<AppProps> = (props) => {
 						<Route path='/profile' element={
 							<Profile
 								state={props.state.profilePage}
-								
-								
+
+
 								dispatch={props.dispatch}
 							/>}
 						/>
 						<Route path='/dialogs' element={
 							<Dialogs
 								state={props.state.dialogsPage}
-								
-								
+
+
 								dispatch={props.dispatch}
 							/>}
 						/>

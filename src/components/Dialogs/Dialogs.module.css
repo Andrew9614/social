@@ -9,13 +9,19 @@
 }
 
 .dialog {
-	background-color: rgb(187, 225, 255);
+	background: rgb(255, 255, 255);
+	background: linear-gradient(0deg, rgb(239, 239, 239) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 1) 100%);
 	display: flex;
 	align-items: center;
 	margin-bottom: 5px;
-	border: 2px cornflowerblue solid;
 	border-radius: 10px;
+	box-shadow: 0px 0px 7px rgb(202, 202, 202);
 	padding: 5px;
+	transition: all .3s;
+}
+
+.dialog:hover {
+	box-shadow: 0px 0px 20px rgb(202, 202, 202);
 }
 
 .dialogWrapper a {
@@ -30,11 +36,55 @@
 	border-radius: 50%;
 	margin-right: 10px;
 	border: none;
-
 }
 
 .messages {
 	display: flex;
 	flex-direction: column;
 	padding: 10px;
+}
+
+.sendWrapper {
+	position: sticky;
+	bottom: 0;
+	background-color: rgb(250, 250, 250);
+	display: flex;
+	flex-direction: column;
+}
+
+.sendButton {
+	width: 70%;
+	margin: 10px;
+	padding: 5px;
+	font-size: 15px;
+	font-weight: 500;
+	align-self: center;
+	border: none;
+	background: rgb(255, 255, 255);
+	background: linear-gradient(0deg, rgb(239, 239, 239) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 1) 100%);
+	border-radius: 10px;
+	box-shadow: 0px 0px 7px rgb(202, 202, 202);
+	transition: all .3s;
+	background-color: gra;
+}
+
+.sendButton:hover {
+	box-shadow: 0px 0px 20px rgb(180, 180, 180);
+}
+
+.messageTextArea {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+	margin-top: 10px;
+	resize: none;
+	padding: 10px;
+	border: none;
+	background: none;
+	background-color: white;
+	border-radius: 10px;
+	border: 1px solid rgb(186, 186, 186);
+}
+
+.messageTextArea:focus {
+	outline: none !important;
 }

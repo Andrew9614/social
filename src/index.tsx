@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { App } from './App';
 import { store } from './redux/state';
+import { State } from './redux/type';
 
 
 
@@ -15,10 +16,10 @@ const updateApp = (state: State) => {
 			<App
 				state={state}
 				dispatch={store.dispatch.bind(store)}
-			
-			
-			
-			
+
+
+
+
 			/>
 		</React.StrictMode>
 	);

@@ -3,6 +3,7 @@ import { DialogItem } from './DialogItem/DialogItem';
 import styles from './Dialogs.module.css'
 import { Message } from './Message/Message';
 import { SelfMessage } from './Message/SelfMessage';
+import { DialogsProps } from './type';
 
 
 
@@ -22,11 +23,14 @@ export const Dialogs: React.FC<DialogsProps> = (props) => {
 					el => el.self ?
 						<SelfMessage message={el.message} /> : <Message message={el.message} />
 				)}
-				<textarea
-					onChange={(e) => props.dispatch({ type: 'CHANGE-MESSAGE-TEXT-AREA', message: e.target.value })}
-					value={props.state.newMessageTextArea}
-				/>
-				<button onClick={handleSendClick}>Send</button>
+				<div className={styles.sendWrapper}>
+					<textarea
+						className={styles.messageTextArea}
+						onChange={(e) => props.dispatch({ type: 'CHANGE-MESSAGE-TEXT-AREA', message: e.target.value })}
+						value={props.state.newMessageTextArea}
+					/>
+					<button className={styles.sendButton} onClick={handleSendClick}>Send</button>
+				</div>
 			</div>
 		</div>
 	)

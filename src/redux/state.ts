@@ -1,4 +1,7 @@
-import { Store } from "./type";
+import { dialogsPageReducer } from "./dialogsPageReducer";
+import { profilePageReducer } from "./profilePageReducer";
+import { sidebarReducer } from "./sidebarReducer";
+import { DispatchAction, State, Store } from "./type";
 
 export const store: Store = {
 	_callSubscriber: (_state: State) => { },
@@ -39,42 +42,15 @@ export const store: Store = {
 	getState() {
 		return this._state;
 	},
-	
+
 	subscriber(observer: (_state: State) => void) {
 		this._callSubscriber = observer;
 	},
 
 	dispatch(action: DispatchAction) {
-		switch (action.type) {
-			case 'ADD-MESSAGE':
-				if (!this._state.dialogsPage.newMessageTextArea) return;
-				let newMessage: MessagesData = {
-					id: 9,
-					message: this._state.dialogsPage.newMessageTextArea,
-					self: true
-				};
-				this._state.dialogsPage.messagesData.push(newMessage);
-				this._state.dialogsPage.newMessageTextArea = '';
-				this._callSubscriber(this._state);
-				break;
-			case 'CHANGE-MESSAGE-TEXT-AREA':
-				this._state.dialogsPage.newMessageTextArea = action.message || '';
-				this._callSubscriber(this._state);
-				break;
-			case 'ADD-POST':
-				if (!this._state.profilePage.newMyPostsTextArea) return;
-				let newPost: PostsData = {
-					message: this._state.profilePage.newMyPostsTextArea,
-					likes: 0
-				};
-				this._state.profilePage.postsData.push(newPost);
-				this._state.profilePage.newMyPostsTextArea = '';
-				this._callSubscriber(this._state);
-				break;
-			case 'CHANGE-MY-POST-TEXT-AREA':
-				this._state.profilePage.newMyPostsTextArea = action.message || '';
-				this._callSubscriber(this._state);
-				break
-		}
+		profilePageReducer(this._state.profilePage, action);
+		dialogsPageReducer(this._state.dialogsPage, action);
+		sidebarReducer(this._state.sidebarPage, action);
+		this._callSubscriber(this._state);
 	}
 }
