@@ -1,7 +1,7 @@
 import { dialogsPageReducer } from "./dialogsPageReducer";
 import { profilePageReducer } from "./profilePageReducer";
 import { sidebarReducer } from "./sidebarReducer";
-import { DispatchAction, State, Store } from "./type";
+import { DispatchAction, State, Store } from "./oldType";
 
 export const store: Store = {
 	_callSubscriber: (_state: State) => { },

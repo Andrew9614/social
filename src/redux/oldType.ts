@@ -1,3 +1,10 @@
+export type Store = {
+	_state: State
+	_callSubscriber: Function
+	getState: Function
+	subscriber: Function
+	dispatch: (action: DispatchAction) => void
+}
 export type DispatchAction = {
 	type:
 	'ADD-MESSAGE' |
@@ -5,6 +12,12 @@ export type DispatchAction = {
 	'ADD-POST' |
 	'CHANGE-MY-POST-TEXT-AREA'
 	message?: string
+}
+
+export type State = {
+	dialogsPage: DialogsPage
+	profilePage: ProfilePage
+	sidebarPage: SidebarPage
 }
 
 export type DialogsPage = {
