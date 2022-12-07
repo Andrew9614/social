@@ -1,4 +1,5 @@
 import React from 'react';
+import { StoreContext } from '../../../contex';
 import { MyPosts } from './MyPosts';
 import { MyPostsContainerPropsType } from './myPostType';
 
@@ -13,11 +14,19 @@ export const MyPostsContainer: React.FC<MyPostsContainerPropsType> = (props) => 
 	}
 
 	return (
-		<MyPosts
-			handleClickButton={handleClickButton}
-			handleChangeTextArea={handleChangeTextArea}
-			postsData={props.store.getState().profilePage.postsData}
-			newMyPostsTextArea={props.store.getState().profilePage.newMyPostsTextArea}
-		/>
+		<StoreContext.Consumer>
+			{value => {
+				return (
+					<MyPosts
+						handleClickButton={handleClickButton}
+						handleChangeTextArea={handleChangeTextArea}
+						// postsData={props.store.getState().profilePage.postsData}
+						postsData={value.profilePage.postsData}
+						newMyPostsTextArea={props.store.getState().profilePage.newMyPostsTextArea}
+					/>
+				)
+			}}
+		</StoreContext.Consumer>
+
 	);
 }

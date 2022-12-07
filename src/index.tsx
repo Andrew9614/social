@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { App } from './App';
+import { StoreContext } from './contex';
 import { RootState, store } from './redux/reduxStore';
 
 
@@ -11,9 +12,11 @@ const root = ReactDOM.createRoot(
 const updateApp = (state: RootState) => {
 	root.render(
 		<React.StrictMode>
-			<App
-				store={store}
-			/>
+			<StoreContext.Provider value={store.getState()}>
+				<App
+					store={store}
+				/>
+			</StoreContext.Provider>
 		</React.StrictMode>
 	);
 }
