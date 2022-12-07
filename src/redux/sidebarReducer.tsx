@@ -1,6 +1,5 @@
 import { DispatchAction, SidebarPage } from "./type";
 
-type SidebarReducer = (state: SidebarPage, action: DispatchAction) => SidebarPage | undefined
 
 const initialState: SidebarPage = {
 	friendsListMini: [
@@ -10,6 +9,6 @@ const initialState: SidebarPage = {
 	]
 };
 
-export const sidebarReducer: SidebarReducer = (state = initialState, action) => {
+export const sidebarReducer = (state: SidebarPage = initialState, action: DispatchAction): SidebarPage => {
 	return state;
 }

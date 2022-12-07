@@ -3,7 +3,7 @@ import { DialogsPage, DispatchAction } from "./type";
 const ADD_MESSAGE: DispatchAction['type'] = 'ADD-MESSAGE';
 const CHANGE_MESSAGE_TEXT_AREA: DispatchAction['type'] = 'CHANGE-MESSAGE-TEXT-AREA';
 
-type DialogsPageReducer = (state: DialogsPage, action: DispatchAction) => DialogsPage | undefined
+//type TypeDialogsPageReducer = (state: DialogsPage, action: DispatchAction) => DialogsPage
 
 const initialState: DialogsPage = {
 	dialogsData: [
@@ -21,10 +21,10 @@ const initialState: DialogsPage = {
 	newMessageTextArea: ''
 };
 
-export const dialogsPageReducer: DialogsPageReducer = (state = initialState, action) => {
+export const dialogsPageReducer = (state: DialogsPage = initialState, action: DispatchAction): DialogsPage => {
 	switch (action.type) {
 		case ADD_MESSAGE:
-			if (!state.newMessageTextArea) return;
+			if (!state.newMessageTextArea) return state;
 			let newMessage = {
 				id: 9,
 				message: state.newMessageTextArea,
@@ -32,10 +32,10 @@ export const dialogsPageReducer: DialogsPageReducer = (state = initialState, act
 			};
 			state.messagesData.push(newMessage);
 			state.newMessageTextArea = '';
-			break;
+			return state
 		case CHANGE_MESSAGE_TEXT_AREA:
 			state.newMessageTextArea = action.message || '';
-			break;
+			return state;
+		default: return state;
 	}
-	return state;
 }

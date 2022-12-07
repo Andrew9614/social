@@ -1,18 +1,14 @@
 import React from 'react';
-import { MyPosts } from './MyPosts/MyPosts';
+import { MyPostsContainer } from './MyPosts/MyPostsContainer';
 import styles from './Profile.module.css';
 import { ProfileInfo } from './ProfileInfo/ProfileInfo';
-import { ProfileProps } from './type';
+import { ProfilePropsType } from './profileType';
 
-export const Profile: React.FC<ProfileProps> = (props) => {
+export const Profile: React.FC<ProfilePropsType> = (props) => {
 	return (
 		<div className={styles.content}>
 			<ProfileInfo />
-			<MyPosts
-				postsData={props.state.postsData}
-				newMyPostsTextArea={props.state.newMyPostsTextArea}
-				dispatch={props.dispatch}
-			/>
+			<MyPostsContainer store={props.store} />
 		</div>
 	);
 }
