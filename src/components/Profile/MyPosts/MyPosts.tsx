@@ -1,9 +1,19 @@
 import React from 'react';
 import { Post } from './Post/Post';
 import styles from './MyPosts.module.css';
-import { MyPostsPropsType } from './myPostType';
+import { RootState } from '../../../redux/reduxStore';
 
-export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
+export type MyPostsStateTypes = {
+	postsData: RootState['profilePage']['postsData'];
+	newMyPostsTextArea: string;
+}
+
+export type MyPostsDispatchType = {
+	handleChangeTextArea: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+	handleClickButton: () => void;
+}
+
+export const MyPosts: React.FC<MyPostsStateTypes & MyPostsDispatchType> = (props) => {
 	return (
 		<div className={styles.postsBlock}>
 			<h2>My posts</h2>

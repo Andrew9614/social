@@ -1,24 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import { App } from './App';
-import { StoreContext } from './contex';
-import { RootState, store } from './redux/reduxStore';
+import { store } from './redux/reduxStore';
 
 
 
 const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement
 );
-const updateApp = (state: RootState) => {
+const updateApp = () => {
 	root.render(
 		<React.StrictMode>
-			<StoreContext.Provider value={store.getState()}>
-				<App
-					store={store}
-				/>
-			</StoreContext.Provider>
+			<Provider store={store}>
+				<App />
+			</Provider>
 		</React.StrictMode>
 	);
 }
-updateApp(store.getState());
-store.subscribe(() => updateApp(store.getState()))
+updateApp();
+store.subscribe(() => updateApp())

@@ -27,4 +27,5 @@ body {
 .app-wrapper-content {
 	grid-area: content;
 	background-color: rgb(250, 250, 250);
+	overflow: auto;
 }

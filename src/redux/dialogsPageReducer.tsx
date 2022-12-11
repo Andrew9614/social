@@ -14,9 +14,9 @@ const initialState: DialogsPage = {
 		{ id: 4, name: 'Obema', imgLink: '' }
 	],
 	messagesData: [
-		{ id: 0, message: 'Hello', self: true },
-		{ id: 1, message: 'How are you', self: true },
-		{ id: 2, message: 'I\'m gay', self: false },
+		{ id: 0, message: 'Hello', self: false },
+		{ id: 1, message: 'How are you', self: false },
+		{ id: 2, message: 'I\'m gay', self: true },
 	],
 	newMessageTextArea: ''
 };

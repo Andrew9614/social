@@ -2,12 +2,18 @@ import React from 'react';
 import { DialogItem } from './DialogItem/DialogItem';
 import styles from './Dialogs.module.css'
 import { Message } from './Message/Message';
-import { SelfMessage } from './Message/SelfMessage';
-import { DialogsPropsType } from './dialogsType';
+import { RootState } from '../../redux/reduxStore';
 
+export type DialogsStateType = {
+	state: RootState['dialogsPage'];
+}
 
+export type DialogsDispatchType = {
+	onClick: () => void;
+	onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+}
 
-export const Dialogs: React.FC<DialogsPropsType> = (props) => {
+export const Dialogs: React.FC<DialogsStateType & DialogsDispatchType> = (props) => {
 	return (
 		<div className={styles.dialogs}>
 			<div className={styles.dialogsItems}>
@@ -15,11 +21,12 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
 					el => <DialogItem id={el.id} name={el.name} imgLink={el.imgLink} />
 				)}
 			</div>
-			<div className={styles.messages}>
-				{props.state.messagesData.map(
-					el => el.self ?
-						<SelfMessage message={el.message} /> : <Message message={el.message} />
-				)}
+			<div className={styles.messenger}>
+				<div className={styles.messagesWrapper}>
+					{props.state.messagesData.map(
+						el => <Message message={el.message} self={el.self} />
+					)}
+				</div>
 				<div className={styles.sendWrapper}>
 					<textarea
 						className={styles.messageTextArea}

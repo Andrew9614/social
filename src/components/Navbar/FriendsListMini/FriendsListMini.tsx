@@ -1,7 +1,11 @@
+import { RootState } from '../../../redux/reduxStore';
 import styles from './FriendsListMini.module.css'
-import { FriendsListMiniProps } from './type';
 
-export const FriendsListMini: React.FC<FriendsListMiniProps> = (props) => {
+export type FriendsListMiniStateType = {
+	state: RootState['sidebarPage']['friendsListMini'];
+}
+
+export const FriendsListMini: React.FC<FriendsListMiniStateType> = (props) => {
 	return (
 		<div className={styles.friendsContainer}>
 			Friends:

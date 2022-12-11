@@ -1,28 +1,53 @@
 .messageContainer {
-	align-self: flex-end;
 	margin-left: 10px;
-	padding: 5px;
+	margin: 5px;
 	display: inline-flex;
 	align-items: flex-end;
 	box-sizing: border-box;
 }
 
+.selfMessage {
+	align-self: flex-end;
+}
+
 .textBlockMessage {
+	padding: 5px;
 	background-color: rgb(187, 225, 255);
-	border-radius: 10px;
-	border-bottom-right-radius: 0%;
+	border-radius: 15px;
+	border-bottom-left-radius: 0%;
 	position: relative;
 }
 
-.tailMessage {
-	transform: scaleX(-1);
+.selfMessage .textBlockMessage {
+	border-radius: 15px;
+	border-bottom-right-radius: 0%;
+}
+
+.tailMessageContainer {
 	fill: rgb(187, 225, 255);
 	position: absolute;
 	width: 10px;
+	height: 10px;
 	bottom: 0;
-	right: -10px;
+	right: 99%;
 
 }
+
+.selfMessage .tailMessageContainer {
+	transform: scaleX(-1);
+	right: -10px;
+	bottom: 1px;
+
+}
+
+.tailMessage {
+	width: 100%;
+	max-height: 100%;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
 
 .avatarMessage {
 	image-rendering: -webkit-optimize-contrast !important;

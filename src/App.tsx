@@ -6,24 +6,23 @@ import { Profile } from './components/Profile/Profile';
 import { News } from './components/News/News';
 import { Settings } from './components/Settings/Settings';
 import { Music } from './components/Music/Music';
-import { AppPropsType } from './appType';
 import { DialogsContainer } from './components/Dialogs/DialogsContainer';
 
 
-export const App: React.FC<AppPropsType> = (props) => {
+export const App: React.FC = () => {
 
 	return (
 		<BrowserRouter>
 			<div className='app-wrapper'>
 				<Header />
-				<Navbar state={props.store.getState().sidebarPage} />
+				<Navbar />
 				<div className='app-wrapper-content'>
 					<Routes>
 						<Route path='/profile' element={
-							<Profile store={props.store} />}
+							<Profile />}
 						/>
 						<Route path='/dialogs' element={
-							<DialogsContainer store={props.store} />}
+							<DialogsContainer />}
 						/>
 						<Route path='/news' element={<News />} />
 						<Route path='/music' element={<Music />} />

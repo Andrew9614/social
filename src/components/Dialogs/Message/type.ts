@@ -1,3 +1,4 @@
 export type MessageProps = {
-	message: string
-}
+	message: string;
+	self: boolean
+};
