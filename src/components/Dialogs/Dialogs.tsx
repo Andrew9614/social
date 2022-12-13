@@ -1,4 +1,3 @@
-import React from 'react';
 import { DialogItem } from './DialogItem/DialogItem';
 import styles from './Dialogs.module.css'
 import { Message } from './Message/Message';

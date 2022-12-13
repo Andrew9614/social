@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 import { FriendsListMiniContainer } from './FriendsListMini/FriendsListMiniContainer';
 import styles from './Navbar.module.css';

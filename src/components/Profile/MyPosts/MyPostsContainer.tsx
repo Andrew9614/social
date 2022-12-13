@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import { AppDispatch, RootState } from '../../../redux/reduxStore';
 import { MyPosts, MyPostsDispatchType, MyPostsStateTypes } from './MyPosts';
@@ -14,9 +13,9 @@ const mapStateToProps = (state: RootState): MyPostsStateTypes => {
 const mapDispatchToProps = (dispatch: AppDispatch): MyPostsDispatchType => {
 	return {
 		handleChangeTextArea: (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-			dispatch({ type: 'CHANGE-MY-POST-TEXT-AREA', message: e.target.value })
+			dispatch({ type: 'CHANGE_MY_POST_TEXT_AREA', message: e.target.value })
 		},
-		handleClickButton: () => dispatch({ type: 'ADD-POST' })
+		handleClickButton: () => dispatch({ type: 'ADD_POST' })
 	}
 }
 

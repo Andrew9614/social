@@ -7,10 +7,10 @@ export type Store = {
 }
 export type DispatchAction = {
 	type:
-	'ADD-MESSAGE' |
-	'CHANGE-MESSAGE-TEXT-AREA' |
-	'ADD-POST' |
-	'CHANGE-MY-POST-TEXT-AREA'
+	'ADD_MESSAGE' |
+	'CHANGE_MESSAGE_TEXT_AREA' |
+	'ADD_POST' |
+	'CHANGE_MY_POST_TEXT_AREA'
 	message?: string
 }
 

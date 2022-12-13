@@ -1,7 +1,7 @@
 import { DispatchAction, ProfilePage } from "./type";
 
-const ADD_POST: DispatchAction['type'] = 'ADD-POST';
-const CHANGE_MY_POST_TEXT_AREA: DispatchAction['type'] = 'CHANGE-MY-POST-TEXT-AREA';
+const ADD_POST: DispatchAction['type'] = 'ADD_POST';
+const CHANGE_MY_POST_TEXT_AREA: DispatchAction['type'] = 'CHANGE_MY_POST_TEXT_AREA';
 
 //type ProfilePageReducer = (state: ProfilePage, action: DispatchAction) => ProfilePage
 

@@ -1,10 +1,14 @@
 export type DispatchAction = {
 	type:
-	'ADD-MESSAGE' |
-	'CHANGE-MESSAGE-TEXT-AREA' |
-	'ADD-POST' |
-	'CHANGE-MY-POST-TEXT-AREA'
+	'ADD_MESSAGE' |
+	'CHANGE_MESSAGE_TEXT_AREA' |
+	'ADD_POST' |
+	'CHANGE_MY_POST_TEXT_AREA' |
+	'FOLLOW_CHANGE' |
+	'SET_USERS'
 	message?: string
+	id?: number
+	users?: UserType[]
 }
 
 export type DialogsPage = {
@@ -21,6 +25,22 @@ export type ProfilePage = {
 
 export type SidebarPage = {
 	friendsListMini: FriendsListMini[]
+}
+
+export type UserType = {
+	id: number;
+	status: string;
+	location: {
+		country: string;
+		city: string;
+	};
+	follow: boolean;
+	fullName: string;
+	imgLink: string;
+}
+
+export type UsersDataType = {
+	users: UserType[];
 }
 
 export type DialogsData = {

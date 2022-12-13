@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/reduxStore';
 import { Dialogs, DialogsDispatchType, DialogsStateType } from './Dialogs';
@@ -11,9 +11,9 @@ const mapStateToProps = (state: RootState): DialogsStateType => {
 
 const mapDispatchToProps = (dispatch: AppDispatch): DialogsDispatchType => {
 	return {
-		onClick: () => dispatch({ type: 'ADD-MESSAGE' }),
+		onClick: () => dispatch({ type: 'ADD_MESSAGE' }),
 		onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-			dispatch({ type: 'CHANGE-MESSAGE-TEXT-AREA', message: e.target.value })
+			dispatch({ type: 'CHANGE_MESSAGE_TEXT_AREA', message: e.target.value })
 		}
 	}
 }

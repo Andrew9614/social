@@ -7,6 +7,7 @@ import { News } from './components/News/News';
 import { Settings } from './components/Settings/Settings';
 import { Music } from './components/Music/Music';
 import { DialogsContainer } from './components/Dialogs/DialogsContainer';
+import { UsersContainer } from './components/Users/UsersContainer';
 
 
 export const App: React.FC = () => {
@@ -23,6 +24,7 @@ export const App: React.FC = () => {
 					<Route path='/dialogs' element={
 						<DialogsContainer />}
 					/>
+					<Route path='/users' element={<UsersContainer />} />
 					<Route path='/news' element={<News />} />
 					<Route path='/music' element={<Music />} />
 					<Route path='/settings' element={<Settings />} />

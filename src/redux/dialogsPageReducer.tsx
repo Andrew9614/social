@@ -1,7 +1,7 @@
 import { DialogsPage, DispatchAction } from "./type";
 
-const ADD_MESSAGE: DispatchAction['type'] = 'ADD-MESSAGE';
-const CHANGE_MESSAGE_TEXT_AREA: DispatchAction['type'] = 'CHANGE-MESSAGE-TEXT-AREA';
+const ADD_MESSAGE: DispatchAction['type'] = 'ADD_MESSAGE';
+const CHANGE_MESSAGE_TEXT_AREA: DispatchAction['type'] = 'CHANGE_MY_POST_TEXT_AREA';
 
 //type TypeDialogsPageReducer = (state: DialogsPage, action: DispatchAction) => DialogsPage
 
