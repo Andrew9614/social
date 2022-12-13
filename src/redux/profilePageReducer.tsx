@@ -23,12 +23,15 @@ export const profilePageReducer = (state: ProfilePage = initialState, action: Di
 				message: state.newMyPostsTextArea,
 				likes: 0
 			};
-			state.postsData.push(newPost);
-			state.newMyPostsTextArea = '';
-			return state;
+			return {
+				...state,
+				newMyPostsTextArea: '',
+				postsData: [...state.postsData, newPost]
+			};
 		case CHANGE_MY_POST_TEXT_AREA:
-			state.newMyPostsTextArea = action.message || '';
-			return state;
+			return {
+				...state, newMyPostsTextArea: action.message || ''
+			};
 		default: return state;
 	}
 }

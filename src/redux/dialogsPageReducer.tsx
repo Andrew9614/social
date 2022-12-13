@@ -30,12 +30,16 @@ export const dialogsPageReducer = (state: DialogsPage = initialState, action: Di
 				message: state.newMessageTextArea,
 				self: true
 			};
-			state.messagesData.push(newMessage);
-			state.newMessageTextArea = '';
-			return state
+			return {
+				...state,
+				messagesData: [...state.messagesData, newMessage],
+				newMessageTextArea: ''
+			};
 		case CHANGE_MESSAGE_TEXT_AREA:
-			state.newMessageTextArea = action.message || '';
-			return state;
+			return {
+				...state,
+				newMessageTextArea: action.message || ''
+			};
 		default: return state;
 	}
 }
