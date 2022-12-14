@@ -1,25 +1,28 @@
 import { connect } from 'react-redux';
 import { AppDispatch, RootState } from '../../../redux/reduxStore';
-import { MyPosts, MyPostsDispatchType, MyPostsStateTypes } from './MyPosts';
-
+import { MyPosts } from './MyPosts';
+import { MyPostsDispatchType, MyPostsStateTypes } from './types';
 
 const mapStateToProps = (state: RootState): MyPostsStateTypes => {
-	return {
-		postsData: state.profilePage.postsData,
-		newMyPostsTextArea: state.profilePage.newMyPostsTextArea
-	}
-}
+  return {
+    postsData: state.profilePage.postsData,
+    newMyPostsTextArea: state.profilePage.newMyPostsTextArea,
+  };
+};
 
 const mapDispatchToProps = (dispatch: AppDispatch): MyPostsDispatchType => {
-	return {
-		handleChangeTextArea: (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-			dispatch({ type: 'CHANGE_MY_POST_TEXT_AREA', message: e.target.value })
-		},
-		handleClickButton: () => dispatch({ type: 'ADD_POST' })
-	}
-}
+  return {
+    handleChangeTextArea: (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      dispatch({ type: 'CHANGE_MY_POST_TEXT_AREA', message: e.target.value });
+    },
+    handleClickButton: () => dispatch({ type: 'ADD_POST' }),
+  };
+};
 
-export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts);
+export const MyPostsContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MyPosts);
 
 // export const dMyPostsContainer: React.FC<MyPostsContainerPropsType> = (props) => {
 
@@ -47,4 +50,3 @@ export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyP
 
 // 	);
 // }
-

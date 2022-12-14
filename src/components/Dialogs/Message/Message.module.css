@@ -1,82 +1,78 @@
 .messageContainer {
-	margin-left: 10px;
-	margin: 5px;
-	display: inline-flex;
-	align-items: flex-end;
-	box-sizing: border-box;
+  margin-left: 10px;
+  margin: 5px;
+  display: inline-flex;
+  align-items: flex-end;
+  box-sizing: border-box;
 }
 
 .selfMessage {
-	align-self: flex-end;
+  align-self: flex-end;
 }
 
 .textBlockMessage {
-	padding: 5px;
-	background-color: rgb(187, 225, 255);
-	border-radius: 15px;
-	border-bottom-left-radius: 0%;
-	position: relative;
+  padding: 5px;
+  background-color: rgb(187, 225, 255);
+  border-radius: 15px;
+  border-bottom-left-radius: 0%;
+  position: relative;
 }
 
 .selfMessage .textBlockMessage {
-	border-radius: 15px;
-	border-bottom-right-radius: 0%;
+  border-radius: 15px;
+  border-bottom-right-radius: 0%;
 }
 
 .tailMessageContainer {
-	fill: rgb(187, 225, 255);
-	position: absolute;
-	width: 10px;
-	height: 10px;
-	bottom: 0;
-	right: 99%;
-
+  fill: rgb(187, 225, 255);
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  bottom: 0;
+  right: 99%;
 }
 
 .selfMessage .tailMessageContainer {
-	transform: scaleX(-1);
-	right: -10px;
-	bottom: 1px;
-
+  transform: scaleX(-1);
+  right: -10px;
+  bottom: 1px;
 }
 
 .tailMessage {
-	width: 100%;
-	max-height: 100%;
-	position: absolute;
-	bottom: 0;
-	left: 0;
+  width: 100%;
+  max-height: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 
-
 .avatarMessage {
-	image-rendering: -webkit-optimize-contrast !important;
-	width: 40px;
-	aspect-ratio: 1/1;
-	object-fit: cover;
-	border: 1px solid black;
-	border-radius: 50%;
-	margin-right: 10px;
-
+  image-rendering: -webkit-optimize-contrast !important;
+  width: 40px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border: 1px solid black;
+  border-radius: 50%;
+  margin-right: 10px;
 }
 
 .textMessage {
-	margin-left: 10%;
-	word-wrap: break-word;
-	margin-left: 10px;
-	margin-right: 10px;
-	max-width: 30vw;
+  margin-left: 10%;
+  word-wrap: break-word;
+  margin-left: 10px;
+  margin-right: 10px;
+  max-width: 30vw;
 }
 
 .nameMessage {
-	margin-top: 10px;
-	margin-left: 10px;
-	color: rgb(219, 152, 255);
+  margin-top: 10px;
+  margin-left: 10px;
+  color: rgb(219, 152, 255);
 }
 
 .timeMessage {
-	float: right;
-	margin-right: 10px;
-	margin-bottom: 10px;
-	color: rgb(139, 139, 139);
+  float: right;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  color: rgb(139, 139, 139);
 }

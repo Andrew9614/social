@@ -1,31 +1,31 @@
 html {
-	width: 100%;
-	height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 body {
-	width: 100%;
-	height: 100%;
-	font-family: 'Roboto', sans-serif;
-	font-weight: 300;
-	margin: 0;
-	padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
 }
 
 .app-wrapper {
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	display: grid;
-	grid-template-areas:
-		"header header header"
-		"nav content content";
-	grid-template-rows: 60px 1fr;
-	grid-template-columns: 1fr 5fr;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: grid;
+  grid-template-areas:
+    'header header header'
+    'nav content content';
+  grid-template-rows: 60px 1fr;
+  grid-template-columns: 1fr 5fr;
 }
 
 .app-wrapper-content {
-	grid-area: content;
-	background-color: rgb(250, 250, 250);
-	overflow: auto;
+  grid-area: content;
+  background-color: rgb(250, 250, 250);
+  overflow: auto;
 }

@@ -1,40 +1,40 @@
 import { DialogItem } from './DialogItem/DialogItem';
-import styles from './Dialogs.module.css'
+import styles from './Dialogs.module.css';
 import { Message } from './Message/Message';
-import { RootState } from '../../redux/reduxStore';
+import { DialogsDispatchType, DialogsStateType } from './types';
 
-export type DialogsStateType = {
-	state: RootState['dialogsPage'];
-}
+type DialogsPropsType = DialogsStateType & DialogsDispatchType;
 
-export type DialogsDispatchType = {
-	onClick: () => void;
-	onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-}
-
-export const Dialogs: React.FC<DialogsStateType & DialogsDispatchType> = (props) => {
-	return (
-		<div className={styles.dialogs}>
-			<div className={styles.dialogsItems}>
-				{props.state.dialogsData.map(
-					el => <DialogItem id={el.id} name={el.name} imgLink={el.imgLink} />
-				)}
-			</div>
-			<div className={styles.messenger}>
-				<div className={styles.messagesWrapper}>
-					{props.state.messagesData.map(
-						el => <Message message={el.message} self={el.self} />
-					)}
-				</div>
-				<div className={styles.sendWrapper}>
-					<textarea
-						className={styles.messageTextArea}
-						onChange={props.onChange}
-						value={props.state.newMessageTextArea}
-					/>
-					<button className={styles.sendButton} onClick={props.onClick}>Send</button>
-				</div>
-			</div>
-		</div>
-	)
-}
+export const Dialogs = ({ state, onChange, onClick }: DialogsPropsType) => {
+  return (
+    <div className={styles.dialogs}>
+      <div className={styles.dialogsItems}>
+        {state.dialogsData.map((el) => (
+          <DialogItem
+            key={el.id}
+            id={el.id}
+            name={el.name}
+            imgLink={el.imgLink}
+          />
+        ))}
+      </div>
+      <div className={styles.messenger}>
+        <div className={styles.messagesWrapper}>
+          {state.messagesData.map((el) => (
+            <Message key={el.id} message={el.message} self={el.self} />
+          ))}
+        </div>
+        <div className={styles.sendWrapper}>
+          <textarea
+            className={styles.messageTextArea}
+            onChange={onChange}
+            value={state.newMessageTextArea}
+          />
+          <button className={styles.sendButton} onClick={onClick}>
+            Send
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};

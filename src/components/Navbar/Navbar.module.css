@@ -1,29 +1,26 @@
 .nav {
-	grid-area: nav;
-	background-color: rgb(187, 225, 255);
+  grid-area: nav;
+  background-color: rgb(187, 225, 255);
 }
 
 .item {
-	margin: 10px 20px 0px 20px;
-
+  margin: 10px 20px 0px 20px;
 }
 
 .item a {
-	text-decoration: none;
-	font-weight: 300;
-	color: rgb(0, 0, 0);
-	transition: .2s, font-weight 0ms;
-
+  text-decoration: none;
+  font-weight: 300;
+  color: rgb(0, 0, 0);
+  transition: 0.2s, font-weight 0ms;
 }
 
 .item a:hover {
-	text-shadow: rgb(51, 51, 51) 0px 0px 2px;
-
+  text-shadow: rgb(51, 51, 51) 0px 0px 2px;
 }
 
 .item a.active {
-	font-weight: 400;
-	color: rgb(0, 0, 0);
-	margin-left: 5px;
-	text-shadow: rgb(51, 51, 51) 0px 0px 2px
+  font-weight: 400;
+  color: rgb(0, 0, 0);
+  margin-left: 5px;
+  text-shadow: rgb(51, 51, 51) 0px 0px 2px;
 }

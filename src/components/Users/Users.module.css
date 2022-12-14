@@ -1,8 +1,8 @@
 .userLeft img {
-	aspect-ratio: 1;
-	object-fit: cover;
-	width: 80px;
-	border-radius: 50%;
-	margin-right: 10px;
-	border: none;
+  aspect-ratio: 1;
+  object-fit: cover;
+  width: 80px;
+  border-radius: 50%;
+  margin-right: 10px;
+  border: none;
 }

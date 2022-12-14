@@ -1,5 +1,5 @@
 export type DialogItemProps = {
-	id: number
-	name: string
-	imgLink: string
+  id: number;
+  name: string;
+  imgLink: string;
 };

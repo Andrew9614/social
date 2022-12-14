@@ -1,5 +1,5 @@
-import { FriendsListMini } from "../../../redux/type"
+import { FriendsListMini } from '../../../redux/type';
 
 export type FriendsListMiniProps = {
-	state: FriendsListMini[]
-}
+  state: FriendsListMini[];
+};

@@ -1,37 +1,34 @@
 import { Post } from './Post/Post';
 import styles from './MyPosts.module.css';
-import { RootState } from '../../../redux/reduxStore';
+import { MyPostsDispatchType, MyPostsStateTypes } from './types';
 
-export type MyPostsStateTypes = {
-	postsData: RootState['profilePage']['postsData'];
-	newMyPostsTextArea: string;
-}
+type MyPropsType = MyPostsStateTypes & MyPostsDispatchType;
 
-export type MyPostsDispatchType = {
-	handleChangeTextArea: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-	handleClickButton: () => void;
-}
-
-export const MyPosts: React.FC<MyPostsStateTypes & MyPostsDispatchType> = (props) => {
-	return (
-		<div className={styles.postsBlock}>
-			<h2>My posts</h2>
-			<div>
-				<div>
-					<textarea
-						onChange={props.handleChangeTextArea}
-						value={props.newMyPostsTextArea}
-					/>
-				</div>
-				<div>
-					<button onClick={props.handleClickButton}>Add post</button>
-				</div>
-			</div>
-			<div className={styles.posts}>
-				{props.postsData.map(
-					el => <Post message={el.message} likes={el.likes} />
-				)}
-			</div>
-		</div>
-	);
-}
+export const MyPosts = ({
+  handleChangeTextArea,
+  handleClickButton,
+  newMyPostsTextArea,
+  postsData,
+}: MyPropsType) => {
+  return (
+    <div className={styles.postsBlock}>
+      <h2>My posts</h2>
+      <div>
+        <div>
+          <textarea
+            onChange={handleChangeTextArea}
+            value={newMyPostsTextArea}
+          />
+        </div>
+        <div>
+          <button onClick={handleClickButton}>Add post</button>
+        </div>
+      </div>
+      <div className={styles.posts}>
+        {postsData.map((el) => (
+          <Post key={el.id} message={el.message} likes={el.likes} />
+        ))}
+      </div>
+    </div>
+  );
+};
