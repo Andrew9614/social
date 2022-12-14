@@ -13,6 +13,7 @@ const mapDispatch = (dispatch: AppDispatch): UsersDispatchType => {
   return {
     followOnClick: (id) => dispatch({ type: 'FOLLOW_CHANGE', id: id }),
     setUsers: (users) => dispatch({ type: 'SET_USERS', users: users }),
+		isLoading: (status) => dispatch({type: 'LOADING_STATUS', status: status})
   };
 };
 

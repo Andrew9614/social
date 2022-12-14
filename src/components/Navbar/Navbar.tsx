@@ -46,6 +46,14 @@ export const Navbar: React.FC = () => {
           Settings
         </NavLink>
       </div>
+      <div className={styles.item}>
+        <NavLink
+          to="/users"
+          className={({ isActive }) => (isActive ? styles.active : '')}
+        >
+          Users
+        </NavLink>
+      </div>
       <FriendsListMiniContainer />
     </nav>
   );

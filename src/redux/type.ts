@@ -5,10 +5,12 @@ export type DispatchAction = {
     | 'ADD_POST'
     | 'CHANGE_MY_POST_TEXT_AREA'
     | 'FOLLOW_CHANGE'
-    | 'SET_USERS';
+    | 'SET_USERS'
+    | 'LOADING_STATUS';
   message?: string;
   id?: number;
   users?: UserType[];
+	status?: boolean
 };
 
 export type DialogsPage = {
@@ -27,19 +29,19 @@ export type SidebarPage = {
 };
 
 export type UserType = {
+  name: string;
   id: number;
-  status: string;
-  location: {
-    country: string;
-    city: string;
+  photos: {
+    small: null | string;
+    large: null | string;
   };
-  follow: boolean;
-  fullName: string;
-  imgLink: string;
+  status: null | string;
+  followed: boolean;
 };
 
 export type UsersDataType = {
   users: UserType[];
+  loading: boolean;
 };
 
 export type DialogsData = {

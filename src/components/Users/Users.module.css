@@ -1,3 +1,15 @@
+.usersContainer{
+	display: flex;
+	flex-direction: column;
+	padding: 10px 0 10px 0;
+}
+
+.userContainer{
+	padding: 10px;
+	margin: 10px;
+	border: 2px solid black;
+}
+
 .userLeft img {
   aspect-ratio: 1;
   object-fit: cover;

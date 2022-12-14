@@ -2,9 +2,11 @@ import { DispatchAction, UsersDataType } from './type';
 
 const FOLLOW_CHANGE: DispatchAction['type'] = 'FOLLOW_CHANGE';
 const SET_USERS: DispatchAction['type'] = 'SET_USERS';
+const LOADING_STATUS: DispatchAction['type'] = 'LOADING_STATUS';
 
 const initialState: UsersDataType = {
   users: [],
+	loading: true
 };
 
 export const usersPageReducer = (
@@ -20,7 +22,7 @@ export const usersPageReducer = (
             ? user
             : {
                 ...user,
-                follow: !user.follow,
+                followed: !user.followed,
               };
         }),
       };
@@ -29,6 +31,11 @@ export const usersPageReducer = (
         ...state,
         users: action.users ? action.users : state.users,
       };
+			case LOADING_STATUS:
+				return{
+					...state,
+					loading: action.status || false
+				}
     default:
       return state;
   }
