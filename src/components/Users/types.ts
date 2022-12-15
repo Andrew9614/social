@@ -7,5 +7,12 @@ export type UsersStateType = {
 export type UsersDispatchType = {
   followOnClick: (id: number) => void;
   setUsers: (user: RootState['usersPage']['users']) => void;
-  isLoading: (status:boolean) => void;
+  usersPageUnmount: () => void;
+};
+
+export type UsersPropsType = {
+  users: RootState['usersPage']['users'];
+  hasMore: RootState['usersPage']['emptyResponse'];
+  followOnClick: (id: number) => void;
+  requestMoreUsers: () => void;
 };

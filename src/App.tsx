@@ -9,12 +9,12 @@ import { Music } from './components/Music/Music';
 import { DialogsContainer } from './components/Dialogs/DialogsContainer';
 import { UsersContainer } from './components/Users/UsersContainer';
 
-export const App: React.FC = () => {
+export const App = () => {
   return (
     <div className="app-wrapper">
       <Header />
       <Navbar />
-      <div className="app-wrapper-content">
+      <div id="appWrapperContent" className="app-wrapper-content">
         <Routes>
           <Route path="/profile" element={<Profile />} />
           <Route path="/dialogs" element={<DialogsContainer />} />

@@ -2,11 +2,13 @@ import { DispatchAction, UsersDataType } from './type';
 
 const FOLLOW_CHANGE: DispatchAction['type'] = 'FOLLOW_CHANGE';
 const SET_USERS: DispatchAction['type'] = 'SET_USERS';
-const LOADING_STATUS: DispatchAction['type'] = 'LOADING_STATUS';
+const USERS_PAGE_UNMOUNT: DispatchAction['type'] = 'USERS_PAGE_UNMOUNT';
 
 const initialState: UsersDataType = {
   users: [],
-	loading: true
+  usersPage: 1,
+  usersCount: 10,
+  emptyResponse: false,
 };
 
 export const usersPageReducer = (
@@ -27,15 +29,27 @@ export const usersPageReducer = (
         }),
       };
     case SET_USERS:
+      if (action.users?.length) {
+        return {
+          ...state,
+          users: [
+            ...state.users,
+            ...(action.users ? action.users : state.users),
+          ],
+          usersPage: state.usersPage + 1,
+        };
+      } else {
+        return {
+          ...state,
+          emptyResponse: true,
+        };
+      }
+    case USERS_PAGE_UNMOUNT:
       return {
         ...state,
-        users: action.users ? action.users : state.users,
+        users: [],
+        usersPage: 1,
       };
-			case LOADING_STATUS:
-				return{
-					...state,
-					loading: action.status || false
-				}
     default:
       return state;
   }

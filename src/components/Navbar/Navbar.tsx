@@ -24,6 +24,14 @@ export const Navbar: React.FC = () => {
       </div>
       <div className={styles.item}>
         <NavLink
+          to="/users"
+          className={({ isActive }) => (isActive ? styles.active : '')}
+        >
+          Users
+        </NavLink>
+      </div>
+      <div className={styles.item}>
+        <NavLink
           to="/news"
           className={({ isActive }) => (isActive ? styles.active : '')}
         >
@@ -44,14 +52,6 @@ export const Navbar: React.FC = () => {
           className={({ isActive }) => (isActive ? styles.active : '')}
         >
           Settings
-        </NavLink>
-      </div>
-      <div className={styles.item}>
-        <NavLink
-          to="/users"
-          className={({ isActive }) => (isActive ? styles.active : '')}
-        >
-          Users
         </NavLink>
       </div>
       <FriendsListMiniContainer />

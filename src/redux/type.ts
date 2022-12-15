@@ -6,11 +6,11 @@ export type DispatchAction = {
     | 'CHANGE_MY_POST_TEXT_AREA'
     | 'FOLLOW_CHANGE'
     | 'SET_USERS'
-    | 'LOADING_STATUS';
+    | 'USERS_PAGE_UNMOUNT';
   message?: string;
   id?: number;
   users?: UserType[];
-	status?: boolean
+  status?: boolean;
 };
 
 export type DialogsPage = {
@@ -39,9 +39,15 @@ export type UserType = {
   followed: boolean;
 };
 
+export type AppStateType = {
+  scrollToBottom: boolean;
+};
+
 export type UsersDataType = {
   users: UserType[];
-  loading: boolean;
+  usersPage: number;
+  usersCount: number;
+  emptyResponse: boolean;
 };
 
 export type DialogsData = {

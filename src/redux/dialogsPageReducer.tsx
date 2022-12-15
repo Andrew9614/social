@@ -45,7 +45,7 @@ export const dialogsPageReducer = (
     case ADD_MESSAGE:
       if (!state.newMessageTextArea) return state;
       let newMessage = {
-        id: state.messagesData[state.messagesData.length-1].id+1,
+        id: state.messagesData[state.messagesData.length - 1].id + 1,
         message: state.newMessageTextArea,
         self: true,
       };

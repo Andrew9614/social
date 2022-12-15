@@ -22,7 +22,7 @@ export const profilePageReducer = (
     case ADD_POST:
       if (!state.newMyPostsTextArea) return state;
       let newPost = {
-        id: state.postsData[state.postsData.length-1].id+1,
+        id: state.postsData[state.postsData.length - 1].id + 1,
         message: state.newMyPostsTextArea,
         likes: 0,
       };

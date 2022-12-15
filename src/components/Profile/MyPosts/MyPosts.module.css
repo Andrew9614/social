@@ -11,8 +11,8 @@
 }
 
 .postsSendContainer {
-	align-self: center;
-	width: 90%;
+  align-self: center;
+  width: 90%;
 }
 
 .sendButton button {
@@ -21,20 +21,6 @@
   padding: 10px;
   font-size: 15px;
   font-weight: 500;
-  border: none;
-  background: linear-gradient(
-    0deg,
-    rgb(239, 239, 239) 0%,
-    rgba(255, 255, 255, 1) 50%,
-    rgba(255, 255, 255, 1) 100%
-  );
-  border-radius: 10px;
-  box-shadow: 0px 0px 7px rgb(202, 202, 202);
-  transition: all 0.3s;
-}
-
-.sendButton button:hover {
-  box-shadow: 0px 0px 20px rgb(180, 180, 180);
 }
 
 .sendTextArea textarea {

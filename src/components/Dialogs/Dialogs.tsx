@@ -14,7 +14,10 @@ export const Dialogs = ({ state, onChange, onClick }: DialogsPropsType) => {
             key={el.id}
             id={el.id}
             name={el.name}
-            imgLink={el.imgLink}
+            imgLink={
+              el.imgLink ||
+              'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'
+            }
           />
         ))}
       </div>

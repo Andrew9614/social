@@ -12,7 +12,7 @@ export const MyPosts = ({
 }: MyPropsType) => {
   return (
     <div className={styles.postsBlock}>
-			<div className={styles.postsSendContainer}>
+      <div className={styles.postsSendContainer}>
         <div className={styles.sendTextArea}>
           <textarea
             onChange={handleChangeTextArea}
