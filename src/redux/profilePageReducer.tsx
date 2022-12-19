@@ -1,6 +1,7 @@
-import { DispatchAction, ProfilePage } from './type';
+import { DispatchAction, ProfileInfoType, ProfilePage } from './type';
 
 const ADD_POST: DispatchAction['type'] = 'ADD_POST';
+const SET_PROFILE: DispatchAction['type'] = 'SET_PROFILE';
 const CHANGE_MY_POST_TEXT_AREA: DispatchAction['type'] =
   'CHANGE_MY_POST_TEXT_AREA';
 
@@ -12,6 +13,7 @@ const initialState: ProfilePage = {
     { id: 3, message: 'faggot', likes: 1488 },
   ],
   newMyPostsTextArea: '',
+  profileInfo: null,
 };
 
 export const profilePageReducer = (
@@ -36,7 +38,22 @@ export const profilePageReducer = (
         ...state,
         newMyPostsTextArea: action.message || '',
       };
+    case SET_PROFILE:
+      return {
+        ...state,
+        profileInfo: action.profile || null,
+      };
     default:
       return state;
   }
+};
+
+export const addPost = (): DispatchAction => {
+  return { type: ADD_POST };
+};
+export const changePostText = (message: string): DispatchAction => {
+  return { type: CHANGE_MY_POST_TEXT_AREA, message: message };
+};
+export const setProfile = (profile: ProfileInfoType): DispatchAction => {
+  return { type: SET_PROFILE, profile: profile };
 };

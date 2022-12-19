@@ -6,11 +6,14 @@ export type DispatchAction = {
     | 'CHANGE_MY_POST_TEXT_AREA'
     | 'FOLLOW_CHANGE'
     | 'SET_USERS'
-    | 'USERS_PAGE_UNMOUNT';
+    | 'USERS_PAGE_UNMOUNT'
+    | 'LOADING_STATUS'
+    | 'SET_PROFILE';
   message?: string;
   id?: number;
   users?: UserType[];
   status?: boolean;
+  profile?: ProfileInfoType;
 };
 
 export type DialogsPage = {
@@ -19,9 +22,32 @@ export type DialogsPage = {
   newMessageTextArea: string;
 };
 
+export type ProfileInfoType = {
+  aboutMe: string;
+  contacts: {
+    facebook: string | null;
+    website: string | null;
+    vk: string | null;
+    twitter: string | null;
+    instagram: string | null;
+    youtube: string | null;
+    github: string | null;
+    mainLink: string | null;
+  };
+  lookingForAJob: boolean;
+  lookingForAJobDescription: string;
+  fullName: string;
+  userId: number;
+  photos: {
+    small: string;
+    large: string;
+  };
+};
+
 export type ProfilePage = {
   postsData: PostsData[];
   newMyPostsTextArea: string;
+  profileInfo: ProfileInfoType | null;
 };
 
 export type SidebarPage = {
@@ -48,6 +74,7 @@ export type UsersDataType = {
   usersPage: number;
   usersCount: number;
   emptyResponse: boolean;
+  isLoading: boolean;
 };
 
 export type DialogsData = {

@@ -1,14 +1,21 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { AppDispatch, RootState } from '../../redux/reduxStore';
+import { RootState } from '../../redux/reduxStore';
 import { UsersDispatchType, UsersStateType } from './types';
 import { Users } from './Users';
+import {
+  isLoading,
+  onFollowChange,
+  setUsers,
+  usersPageUnmount,
+} from '../../redux/usersPageReducer';
 
 type UserAPIContainerPropsType = UsersStateType & UsersDispatchType;
 
 export class UsersAPIContainer extends React.Component<UserAPIContainerPropsType> {
   componentDidMount(): void {
+    this.props.isLoading(true);
     axios
       .get(
         'https://social-network.samuraijs.com/api/1.0/users?page=' +
@@ -18,13 +25,16 @@ export class UsersAPIContainer extends React.Component<UserAPIContainerPropsType
       )
       .then((response) => {
         this.props.setUsers(response.data.items);
+        this.props.isLoading(false);
       })
       .catch((error) => {
         console.error(error);
+        this.props.isLoading(false);
       });
   }
 
   requestMoreUsers = () => {
+    this.props.isLoading(true);
     axios
       .get(
         'https://social-network.samuraijs.com/api/1.0/users?page=' +
@@ -34,9 +44,11 @@ export class UsersAPIContainer extends React.Component<UserAPIContainerPropsType
       )
       .then((response) => {
         this.props.setUsers(response.data.items);
+        this.props.isLoading(false);
       })
       .catch((error) => {
         console.error(error);
+        this.props.isLoading(false);
       });
   };
 
@@ -48,7 +60,7 @@ export class UsersAPIContainer extends React.Component<UserAPIContainerPropsType
     return (
       <Users
         users={this.props.state.users}
-        followOnClick={this.props.followOnClick}
+        followOnClick={this.props.onFollowChange}
         hasMore={!this.props.state.emptyResponse}
         requestMoreUsers={this.requestMoreUsers}
       />
@@ -62,12 +74,11 @@ const mapState = (state: RootState): UsersStateType => {
   };
 };
 
-const mapDispatch = (dispatch: AppDispatch): UsersDispatchType => {
-  return {
-    followOnClick: (id) => dispatch({ type: 'FOLLOW_CHANGE', id: id }),
-    setUsers: (users) => dispatch({ type: 'SET_USERS', users: users }),
-    usersPageUnmount: () => dispatch({ type: 'USERS_PAGE_UNMOUNT' }),
-  };
+const mapDispatch: UsersDispatchType = {
+  onFollowChange,
+  setUsers,
+  usersPageUnmount,
+  isLoading,
 };
 
 export const UsersContainer = connect(mapState, mapDispatch)(UsersAPIContainer);

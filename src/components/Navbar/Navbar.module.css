@@ -1,15 +1,21 @@
 .nav {
   grid-area: nav;
-  background-color: rgb(187, 225, 255);
+}
+
+.items{
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: 0px 0px 7px rgb(202, 202, 202);
+	margin: 10px;
+  padding: 10px;
 }
 
 .item {
-  margin: 10px 20px 0px 20px;
+  margin: 10px 20px 10px 20px;
 }
 
 .item a {
   text-decoration: none;
-  font-weight: 300;
   color: rgb(0, 0, 0);
   transition: 0.2s, font-weight 0ms;
 }

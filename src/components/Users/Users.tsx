@@ -1,8 +1,9 @@
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { NavLink } from 'react-router-dom';
+import { Preloader } from '../common/Preloader/Preloader';
 import { UsersPropsType } from './types';
 import styles from './Users.module.css';
 
-// export type UserPropsType = UsersStateType & UsersDispatchType['
 export const Users = ({
   users,
   hasMore,
@@ -10,18 +11,23 @@ export const Users = ({
   requestMoreUsers,
 }: UsersPropsType) => {
   return (
-    //<div className={styles.usersLoading}>{loading ? 'loading...' : ''}</div>
     <InfiniteScroll
+      className={styles.usersContainer}
       dataLength={users.length}
       next={requestMoreUsers}
       hasMore={hasMore}
-      loader={<div className={styles.usersLoading}>Loading...</div>}
+      style={{ overflow: 'hidden' }}
+      loader={
+        <div className={styles.usersLoading}>
+          <Preloader />
+        </div>
+      }
       scrollableTarget="appWrapperContent"
     >
-      <div className={styles.usersContainer}>
-        {users.map((user) => {
-          return (
-            <div key={user.id} className={styles.userContainer}>
+      {users.map((user) => {
+        return (
+          <NavLink key={user.id} to={'/profile/' + user.id}>
+            <div className={styles.userContainer}>
               <div className={styles.userLeft}>
                 <img
                   src={
@@ -30,7 +36,12 @@ export const Users = ({
                   }
                   alt="img"
                 />
-                <button onClick={() => followOnClick(user.id)}>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    followOnClick(user.id);
+                  }}
+                >
                   {user.followed ? 'Unfollow' : 'Follow'}
                 </button>
               </div>
@@ -42,9 +53,9 @@ export const Users = ({
                 <div>{user.status}</div>
               </div>
             </div>
-          );
-        })}
-      </div>
+          </NavLink>
+        );
+      })}
     </InfiniteScroll>
   );
 };

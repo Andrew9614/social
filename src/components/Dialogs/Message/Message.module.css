@@ -35,7 +35,7 @@
 .selfMessage .tailMessageContainer {
   transform: scaleX(-1);
   right: -10px;
-  bottom: 1px;
+  bottom: 0;
 }
 
 .tailMessage {

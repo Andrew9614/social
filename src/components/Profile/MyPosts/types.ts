@@ -6,6 +6,6 @@ export type MyPostsStateTypes = {
 };
 
 export type MyPostsDispatchType = {
-  handleChangeTextArea: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  handleClickButton: () => void;
+  changePostText: (message: string) => void;
+  addPost: () => void;
 };

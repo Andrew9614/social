@@ -5,8 +5,8 @@ import { MyPostsDispatchType, MyPostsStateTypes } from './types';
 type MyPropsType = MyPostsStateTypes & MyPostsDispatchType;
 
 export const MyPosts = ({
-  handleChangeTextArea,
-  handleClickButton,
+  changePostText,
+  addPost,
   newMyPostsTextArea,
   postsData,
 }: MyPropsType) => {
@@ -15,12 +15,12 @@ export const MyPosts = ({
       <div className={styles.postsSendContainer}>
         <div className={styles.sendTextArea}>
           <textarea
-            onChange={handleChangeTextArea}
+            onChange={(e)=>changePostText(e.target.value)}
             value={newMyPostsTextArea}
           />
         </div>
         <div className={styles.sendButton}>
-          <button onClick={handleClickButton}>Add post</button>
+          <button onClick={addPost}>Add post</button>
         </div>
       </div>
       <h2>My posts</h2>

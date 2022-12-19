@@ -63,3 +63,10 @@ export const dialogsPageReducer = (
       return state;
   }
 };
+
+export const addMessage = (): DispatchAction => {
+  return { type: ADD_MESSAGE };
+};
+export const changeMessageText = (message: string): DispatchAction => {
+  return { type: CHANGE_MESSAGE_TEXT_AREA, message: message };
+};

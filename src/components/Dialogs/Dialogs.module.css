@@ -9,23 +9,18 @@
 }
 
 .dialog {
-  background: linear-gradient(
-    0deg,
-    rgb(239, 239, 239) 0%,
-    rgba(255, 255, 255, 1) 50%,
-    rgba(255, 255, 255, 1) 100%
-  );
+  background-color: white;
   display: flex;
   align-items: center;
   margin-bottom: 5px;
-  border-radius: 10px;
+  border-radius: 5px;
   box-shadow: 0px 0px 7px rgb(202, 202, 202);
   padding: 5px;
   transition: all 0.3s;
 }
 
 .dialog:hover {
-  box-shadow: 0px 0px 20px rgb(202, 202, 202);
+  box-shadow: 0px 0px 10px rgb(180, 180, 180);
 }
 
 .dialogWrapper a {
@@ -54,11 +49,15 @@
   flex-direction: column;
   padding: 10px;
   overflow: auto;
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: 0px 0px 7px rgb(202, 202, 202);
 }
 
 .sendWrapper {
-  padding: 10px;
   display: flex;
+	height: 50px;
+	padding-top: 10px;
 }
 
 .sendButton {
@@ -73,17 +72,5 @@
   width: 80%;
   height: 100%;
   margin-right: 10px;
-  padding: 10px;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 300;
-  resize: none;
-  background: none;
-  background-color: white;
-  border-radius: 10px;
-  border: 1px solid rgb(186, 186, 186);
-  box-sizing: border-box;
-}
-
-.messageTextArea:focus {
-  outline: none !important;
+	resize: none;
 }

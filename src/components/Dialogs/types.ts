@@ -5,6 +5,6 @@ export type DialogsStateType = {
 };
 
 export type DialogsDispatchType = {
-  onClick: () => void;
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  addMessage: () => void;
+  changeMessageText: (message:string) => void;
 };

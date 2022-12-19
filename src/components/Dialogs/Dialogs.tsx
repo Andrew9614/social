@@ -5,7 +5,7 @@ import { DialogsDispatchType, DialogsStateType } from './types';
 
 type DialogsPropsType = DialogsStateType & DialogsDispatchType;
 
-export const Dialogs = ({ state, onChange, onClick }: DialogsPropsType) => {
+export const Dialogs = ({ state, addMessage, changeMessageText }: DialogsPropsType) => {
   return (
     <div className={styles.dialogs}>
       <div className={styles.dialogsItems}>
@@ -30,10 +30,10 @@ export const Dialogs = ({ state, onChange, onClick }: DialogsPropsType) => {
         <div className={styles.sendWrapper}>
           <textarea
             className={styles.messageTextArea}
-            onChange={onChange}
+            onChange={(e)=>changeMessageText(e.target.value)}
             value={state.newMessageTextArea}
           />
-          <button className={styles.sendButton} onClick={onClick}>
+          <button className={styles.sendButton} onClick={addMessage}>
             Send
           </button>
         </div>
