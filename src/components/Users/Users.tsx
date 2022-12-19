@@ -1,3 +1,4 @@
+import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { NavLink } from 'react-router-dom';
 import { Preloader } from '../common/Preloader/Preloader';
@@ -39,7 +40,35 @@ export const Users = ({
                 <button
                   onClick={(e) => {
                     e.preventDefault();
-                    followOnClick(user.id);
+                    (!user.followed
+                      ? axios.post(
+                          'https://social-network.samuraijs.com/api/1.0/follow/' +
+                            user.id,
+                          {},
+                          {
+                            withCredentials: true,
+                            headers: {
+                              'API-KEY': '03633ecb-ea01-4458-b5ff-6e8777f70567',
+                            },
+                          }
+                        )
+                      : axios.delete(
+                          'https://social-network.samuraijs.com/api/1.0/follow/' +
+                            user.id,
+                          {
+                            withCredentials: true,
+                            headers: {
+                              'API-KEY': '03633ecb-ea01-4458-b5ff-6e8777f70567',
+                            },
+                          }
+                        )
+                    )
+                      .then((response) => {
+                        followOnClick(user.id);
+                      })
+                      .catch((error) => {
+                        console.error(error);
+                      });
                   }}
                 >
                   {user.followed ? 'Unfollow' : 'Follow'}

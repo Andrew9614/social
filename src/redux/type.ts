@@ -8,12 +8,15 @@ export type DispatchAction = {
     | 'SET_USERS'
     | 'USERS_PAGE_UNMOUNT'
     | 'LOADING_STATUS'
-    | 'SET_PROFILE';
+    | 'AUTH_LOADING_STATUS'
+    | 'SET_PROFILE'
+    | 'SET_AUTH_DATA';
   message?: string;
   id?: number;
   users?: UserType[];
   status?: boolean;
   profile?: ProfileInfoType;
+  authData?: AuthDataType['data'];
 };
 
 export type DialogsPage = {
@@ -74,6 +77,16 @@ export type UsersDataType = {
   usersPage: number;
   usersCount: number;
   emptyResponse: boolean;
+  isLoading: boolean;
+};
+
+export type AuthDataType = {
+  data: {
+    id: string | null;
+    email: string | null;
+    login: string | null;
+  };
+  isLogin: boolean;
   isLoading: boolean;
 };
 

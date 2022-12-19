@@ -1,11 +1,32 @@
 .header {
   grid-area: header;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: cornflowerblue;
-	box-shadow: 0px 0px 7px rgb(202, 202, 202);
-	border-bottom-left-radius: 5px;
-	border-bottom-right-radius: 5px;
+  box-shadow: 0px 0px 7px rgb(202, 202, 202);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .header img {
   height: 60px;
+}
+
+.login {
+  margin-right: 20px;
+	padding: 5px;
+	overflow: hidden;
+	color: white;
+}
+
+.login button {
+  box-shadow: none;
+	background-color: white;
+	color: black
+}
+
+.loader{
+	font-size: 2px;
+	border-left: 1.1em solid #ffffff;
 }

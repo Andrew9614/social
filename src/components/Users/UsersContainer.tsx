@@ -21,7 +21,10 @@ export class UsersAPIContainer extends React.Component<UserAPIContainerPropsType
         'https://social-network.samuraijs.com/api/1.0/users?page=' +
           this.props.state.usersPage +
           '&count=' +
-          this.props.state.usersCount
+          this.props.state.usersCount,
+        {
+          withCredentials: true,
+        }
       )
       .then((response) => {
         this.props.setUsers(response.data.items);
@@ -40,7 +43,10 @@ export class UsersAPIContainer extends React.Component<UserAPIContainerPropsType
         'https://social-network.samuraijs.com/api/1.0/users?page=' +
           this.props.state.usersPage +
           '&count=' +
-          this.props.state.usersCount
+          this.props.state.usersCount,
+        {
+          withCredentials: true,
+        }
       )
       .then((response) => {
         this.props.setUsers(response.data.items);
