@@ -74,7 +74,7 @@ export type AppStateType = {
 
 export type UsersDataType = {
   users: UserType[];
-  usersPage: number;
+  currentPage: number;
   usersCount: number;
   emptyResponse: boolean;
   isLoading: boolean;

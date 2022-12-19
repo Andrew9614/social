@@ -7,7 +7,7 @@ const LOADING_STATUS: DispatchAction['type'] = 'LOADING_STATUS';
 
 const initialState: UsersDataType = {
   users: [],
-  usersPage: 1,
+  currentPage: 1,
   usersCount: 10,
   emptyResponse: false,
   isLoading: false,
@@ -38,7 +38,7 @@ export const usersPageReducer = (
             ...state.users,
             ...(action.users ? action.users : state.users),
           ],
-          usersPage: state.usersPage + 1,
+          currentPage: state.currentPage + 1,
         };
       } else {
         return {
@@ -50,7 +50,7 @@ export const usersPageReducer = (
       return {
         ...state,
         users: [],
-        usersPage: 1,
+        currentPage: 1,
       };
     case LOADING_STATUS:
       return {

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React from 'react';
 import { connect } from 'react-redux/es/exports';
 import {
@@ -13,6 +12,7 @@ import { ProfileDispatchType, ProfileStateType } from './types';
 import { withRouter } from '../common/withRouter';
 import { NavigateFunction } from 'react-router-dom';
 import { Params } from '@remix-run/router';
+import { profileAPI } from '../../api/api';
 
 type ProfileContainerStateType = ProfileStateType;
 
@@ -31,11 +31,8 @@ type ProfileContainerPropsType = ProfileContainerStateType &
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType> {
   componentDidMount(): void {
-    axios
-      .get(
-        'https://social-network.samuraijs.com/api/1.0/profile/' +
-          this.props.router?.params.userId
-      )
+    profileAPI
+      .getUser(this.props.router?.params.userId||'')
       .then((response) => {
         this.props.setProfile(response.data);
       })

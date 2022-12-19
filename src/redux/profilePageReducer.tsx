@@ -41,7 +41,7 @@ export const profilePageReducer = (
     case SET_PROFILE:
       return {
         ...state,
-        profileInfo: action.profile || null,
+        profileInfo: action.profile || state.profileInfo,
       };
     default:
       return state;

@@ -1,6 +1,6 @@
-import axios from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { NavLink } from 'react-router-dom';
+import { followAPI } from '../../api/api';
 import { Preloader } from '../common/Preloader/Preloader';
 import { UsersPropsType } from './types';
 import styles from './Users.module.css';
@@ -40,30 +40,12 @@ export const Users = ({
                 <button
                   onClick={(e) => {
                     e.preventDefault();
-                    (!user.followed
-                      ? axios.post(
-                          'https://social-network.samuraijs.com/api/1.0/follow/' +
-                            user.id,
-                          {},
-                          {
-                            withCredentials: true,
-                            headers: {
-                              'API-KEY': '03633ecb-ea01-4458-b5ff-6e8777f70567',
-                            },
-                          }
-                        )
-                      : axios.delete(
-                          'https://social-network.samuraijs.com/api/1.0/follow/' +
-                            user.id,
-                          {
-                            withCredentials: true,
-                            headers: {
-                              'API-KEY': '03633ecb-ea01-4458-b5ff-6e8777f70567',
-                            },
-                          }
-                        )
+                    (user.followed
+                      ? followAPI.unfollow(user.id)
+                      : followAPI.follow(user.id)
                     )
                       .then((response) => {
+                        console.log(response);
                         followOnClick(user.id);
                       })
                       .catch((error) => {
@@ -76,9 +58,6 @@ export const Users = ({
               </div>
               <div className={styles.userRight}>
                 <div>{user.name}</div>
-                <div>
-                  {'user.location.country'} {'user.location.city'}
-                </div>
                 <div>{user.status}</div>
               </div>
             </div>

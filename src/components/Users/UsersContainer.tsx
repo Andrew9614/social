@@ -1,8 +1,7 @@
 import React from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import { RootState } from '../../redux/reduxStore';
-import { UsersDispatchType, UsersStateType } from './types';
+import { UsersDispatchType } from './types';
 import { Users } from './Users';
 import {
   isLoading,
@@ -10,46 +9,21 @@ import {
   setUsers,
   usersPageUnmount,
 } from '../../redux/usersPageReducer';
+import { usersAPI } from '../../api/api';
 
-type UserAPIContainerPropsType = UsersStateType & UsersDispatchType;
+type UserAPIContainerPropsType = {state:RootState} & UsersDispatchType;
 
 export class UsersAPIContainer extends React.Component<UserAPIContainerPropsType> {
   componentDidMount(): void {
-    this.props.isLoading(true);
-    axios
-      .get(
-        'https://social-network.samuraijs.com/api/1.0/users?page=' +
-          this.props.state.usersPage +
-          '&count=' +
-          this.props.state.usersCount,
-        {
-          withCredentials: true,
-        }
-      )
-      .then((response) => {
-        this.props.setUsers(response.data.items);
-        this.props.isLoading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-        this.props.isLoading(false);
-      });
+    this.requestMoreUsers();
   }
 
   requestMoreUsers = () => {
     this.props.isLoading(true);
-    axios
-      .get(
-        'https://social-network.samuraijs.com/api/1.0/users?page=' +
-          this.props.state.usersPage +
-          '&count=' +
-          this.props.state.usersCount,
-        {
-          withCredentials: true,
-        }
-      )
+    usersAPI
+      .getUsers(this.props.state.usersPage.currentPage, this.props.state.usersPage.usersCount)
       .then((response) => {
-        this.props.setUsers(response.data.items);
+        this.props.setUsers(response.items);
         this.props.isLoading(false);
       })
       .catch((error) => {
@@ -65,20 +39,18 @@ export class UsersAPIContainer extends React.Component<UserAPIContainerPropsType
   render() {
     return (
       <Users
-        users={this.props.state.users}
+        users={this.props.state.usersPage.users}
         followOnClick={this.props.onFollowChange}
-        hasMore={!this.props.state.emptyResponse}
+        hasMore={!this.props.state.usersPage.emptyResponse}
         requestMoreUsers={this.requestMoreUsers}
       />
     );
   }
 }
 
-const mapState = (state: RootState): UsersStateType => {
-  return {
-    state: state.usersPage,
-  };
-};
+const mapState = (state: RootState): { state: RootState } => ({
+  state: state,
+});
 
 const mapDispatch: UsersDispatchType = {
   onFollowChange,
