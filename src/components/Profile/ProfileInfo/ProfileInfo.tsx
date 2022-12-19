@@ -1,14 +1,9 @@
-import { RootState } from '../../../redux/reduxStore';
+import { ProfileInfoDispatchType, ProfileInfoStateType } from '../types';
 import styles from './ProfileInfo.module.css';
 
-export type ProfileStateType = {
-  profileInfo: RootState['profilePage']['profileInfo'];
-};
-export type ProfileDispatchType = {};
+type ProfileInfoPropsType = ProfileInfoStateType & ProfileInfoDispatchType;
 
-type ProfilePropsType = ProfileStateType & ProfileDispatchType;
-
-export const ProfileInfo = ({ profileInfo }: ProfilePropsType) => {
+export const ProfileInfo = ({ profileInfo }: ProfileInfoPropsType) => {
   return (
     <div>
       <div className={styles.profileInfoContainer}>

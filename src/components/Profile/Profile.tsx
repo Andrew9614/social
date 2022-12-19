@@ -1,15 +1,21 @@
-import { RootState } from '../../redux/reduxStore';
-import { MyPostsContainer } from './MyPosts/MyPostsContainer';
+import { MyPosts } from './MyPosts/MyPosts';
 import styles from './Profile.module.css';
 import { ProfileInfo } from './ProfileInfo/ProfileInfo';
-type ProfilePropsType = {
-  state: RootState['profilePage'];
-};
-export const Profile = ({ state }: ProfilePropsType) => {
+import { ProfileDispatchType, ProfileStateType } from './types';
+type ProfilePropsType = ProfileStateType & ProfileDispatchType;
+export const Profile = ({
+  addPost,
+  changePostText,
+  profilePage,
+}: ProfilePropsType) => {
   return (
     <div className={styles.content}>
-      <ProfileInfo profileInfo={state.profileInfo} />
-      <MyPostsContainer />
+      <ProfileInfo profileInfo={profilePage.profileInfo} />
+      <MyPosts
+        addPost={addPost}
+        changePostText={changePostText}
+        profilePage={profilePage}
+      />
     </div>
   );
 };

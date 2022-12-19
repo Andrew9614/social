@@ -1,25 +1,41 @@
 import axios from 'axios';
 import React from 'react';
 import { connect } from 'react-redux/es/exports';
-import { setProfile } from '../../redux/profilePageReducer';
+import {
+  addPost,
+  changePostText,
+  setProfile,
+} from '../../redux/profilePageReducer';
 import { RootState } from '../../redux/reduxStore';
-import { ProfileInfoType } from '../../redux/type';
+import { DispatchAction, ProfileInfoType } from '../../redux/type';
 import { Profile } from './Profile';
+import { ProfileDispatchType, ProfileStateType } from './types';
+import { withRouter } from '../common/withRouter';
+import { NavigateFunction } from 'react-router-dom';
+import { Params } from '@remix-run/router';
 
-type ProfileContainerStateType = {
-  state: RootState['profilePage'];
+type ProfileContainerStateType = ProfileStateType;
+
+type ProfileContainerDispatchType = ProfileDispatchType & {
+  setProfile: (profile: ProfileInfoType) => DispatchAction;
 };
 
-type ProfileContainerDispatchType = {
-  setProfile: (profile: ProfileInfoType) => void;
-};
+type ProfileContainerPropsType = ProfileContainerStateType &
+  ProfileContainerDispatchType & {
+    router?: {
+      location: Location;
+      navigate: NavigateFunction;
+      params: Readonly<Params<string>>;
+    };
+  };
 
-class ProfileContainer extends React.Component<
-  ProfileContainerStateType & ProfileContainerDispatchType
-> {
+class ProfileContainer extends React.Component<ProfileContainerPropsType> {
   componentDidMount(): void {
     axios
-      .get('https://social-network.samuraijs.com/api/1.0/profile/2')
+      .get(
+        'https://social-network.samuraijs.com/api/1.0/profile/' +
+          this.props.router?.params.userId
+      )
       .then((response) => {
         this.props.setProfile(response.data);
       })
@@ -28,18 +44,26 @@ class ProfileContainer extends React.Component<
       });
   }
   render(): React.ReactNode {
-    return <Profile state={this.props.state} />;
+    return (
+      <Profile
+        addPost={this.props.addPost}
+        changePostText={this.props.changePostText}
+        profilePage={this.props.profilePage}
+      />
+    );
   }
 }
 
 const mapState = (state: RootState): ProfileContainerStateType => {
   return {
-    state: state.profilePage,
+    profilePage: state.profilePage,
   };
 };
 
 const mapDispatch: ProfileContainerDispatchType = {
   setProfile,
+  addPost,
+  changePostText,
 };
 
-export default connect(mapState, mapDispatch)(ProfileContainer);
+export default connect(mapState, mapDispatch)(withRouter(ProfileContainer));

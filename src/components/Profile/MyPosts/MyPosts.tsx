@@ -1,22 +1,21 @@
 import { Post } from './Post/Post';
 import styles from './MyPosts.module.css';
-import { MyPostsDispatchType, MyPostsStateTypes } from './types';
+import { MyPostsDispatchType, MyPostsStateType } from '../types';
 
-type MyPropsType = MyPostsStateTypes & MyPostsDispatchType;
+type MyPostPropsType = MyPostsStateType & MyPostsDispatchType;
 
 export const MyPosts = ({
   changePostText,
   addPost,
-  newMyPostsTextArea,
-  postsData,
-}: MyPropsType) => {
+  profilePage,
+}: MyPostPropsType) => {
   return (
     <div className={styles.postsBlock}>
       <div className={styles.postsSendContainer}>
         <div className={styles.sendTextArea}>
           <textarea
-            onChange={(e)=>changePostText(e.target.value)}
-            value={newMyPostsTextArea}
+            onChange={(e) => changePostText(e.target.value)}
+            value={profilePage.newMyPostsTextArea}
           />
         </div>
         <div className={styles.sendButton}>
@@ -25,7 +24,7 @@ export const MyPosts = ({
       </div>
       <h2>My posts</h2>
       <div className={styles.posts}>
-        {postsData.map((el) => (
+        {profilePage.postsData.map((el) => (
           <Post key={el.id} message={el.message} likes={el.likes} />
         ))}
       </div>
