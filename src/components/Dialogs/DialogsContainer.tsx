@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { addMessage, changeMessageText } from '../../redux/dialogsPageReducer';
 import { RootState } from '../../redux/reduxStore';
 import { Dialogs } from './Dialogs';
@@ -15,4 +16,4 @@ const mapDispatch: DialogsDispatchType = {
   changeMessageText,
 };
 
-export const DialogsContainer = connect(mapState, mapDispatch)(Dialogs);
+export const DialogsContainer = connect(mapState, mapDispatch)(withAuthRedirect(Dialogs));

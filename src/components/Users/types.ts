@@ -8,12 +8,14 @@ export type UsersDispatchType = {
   onFollowChange: (id: number) => void;
   setUsers: (user: RootState['usersPage']['users']) => void;
   usersPageUnmount: () => void;
-	isLoading: (status:boolean)=>void
+  toggleUserLoading: (status: boolean) => void;
 };
 
 export type UsersPropsType = {
   users: RootState['usersPage']['users'];
   hasMore: RootState['usersPage']['emptyResponse'];
+  loadingButtons: number[];
   followOnClick: (id: number) => void;
   requestMoreUsers: () => void;
+  isButtonLoading: (status: boolean, id: number) => void;
 };

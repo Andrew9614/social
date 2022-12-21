@@ -8,8 +8,10 @@ import styles from './Users.module.css';
 export const Users = ({
   users,
   hasMore,
+  loadingButtons,
   followOnClick,
   requestMoreUsers,
+  isButtonLoading,
 }: UsersPropsType) => {
   return (
     <InfiniteScroll
@@ -38,8 +40,10 @@ export const Users = ({
                   alt="img"
                 />
                 <button
+                  disabled={loadingButtons.some((id) => id === user.id)}
                   onClick={(e) => {
                     e.preventDefault();
+                    isButtonLoading(true, user.id);
                     (user.followed
                       ? followAPI.unfollow(user.id)
                       : followAPI.follow(user.id)
@@ -47,8 +51,10 @@ export const Users = ({
                       .then((response) => {
                         console.log(response);
                         followOnClick(user.id);
+                        isButtonLoading(false, user.id);
                       })
                       .catch((error) => {
+                        isButtonLoading(false, user.id);
                         console.error(error);
                       });
                   }}

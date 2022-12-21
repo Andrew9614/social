@@ -1,23 +1,37 @@
-export type DispatchAction = {
-  type:
-    | 'ADD_MESSAGE'
-    | 'CHANGE_MESSAGE_TEXT_AREA'
-    | 'ADD_POST'
-    | 'CHANGE_MY_POST_TEXT_AREA'
-    | 'FOLLOW_CHANGE'
-    | 'SET_USERS'
-    | 'USERS_PAGE_UNMOUNT'
-    | 'LOADING_STATUS'
-    | 'AUTH_LOADING_STATUS'
-    | 'SET_PROFILE'
-    | 'SET_AUTH_DATA';
-  message?: string;
-  id?: number;
-  users?: UserType[];
-  status?: boolean;
-  profile?: ProfileInfoType;
-  authData?: AuthDataType['data'];
-};
+import {
+  onFollowChangeType,
+  setUsersType,
+  toggleFollowButtonLoadingType,
+  toggleUserLoadingType,
+  usersPageUnmountType,
+} from './usersPageReducer';
+
+export type DispatchAction =
+  | onFollowChangeType
+  | setUsersType
+  | usersPageUnmountType
+  | toggleUserLoadingType
+  | toggleFollowButtonLoadingType
+  | {
+      type:
+        | 'ADD_MESSAGE'
+        | 'CHANGE_MESSAGE_TEXT_AREA'
+        | 'ADD_POST'
+        | 'CHANGE_MY_POST_TEXT_AREA'
+        | 'FOLLOW_CHANGE'
+        | 'SET_USERS'
+        | 'USERS_PAGE_UNMOUNT'
+        | 'USERS_LOADING_STATUS'
+        | 'AUTH_LOADING_STATUS'
+        | 'SET_PROFILE'
+        | 'SET_AUTH_DATA';
+      message?: string;
+      id?: number;
+      users?: UserType[];
+      status?: boolean;
+      profile?: ProfileInfoType;
+      authData?: AuthDataType['data'];
+    };
 
 export type DialogsPage = {
   dialogsData: DialogsData[];
@@ -77,7 +91,8 @@ export type UsersDataType = {
   currentPage: number;
   usersCount: number;
   emptyResponse: boolean;
-  isLoading: boolean;
+  isUsersLoading: boolean;
+  loadingFollowButtons: number[];
 };
 
 export type AuthDataType = {

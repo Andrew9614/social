@@ -1,36 +1,26 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { RootState } from '../../redux/reduxStore';
-import { UsersDispatchType } from './types';
 import { Users } from './Users';
 import {
-  isLoading,
   onFollowChange,
-  setUsers,
   usersPageUnmount,
+  toggleFollowButtonLoading,
+  getUsers,
 } from '../../redux/usersPageReducer';
-import { usersAPI } from '../../api/api';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 
-type UserAPIContainerPropsType = {state:RootState} & UsersDispatchType;
+// Z A L U P A
+type UserAPIContainerPropsType = typeof mapDispatch & {
+  state: RootState;
+  getUsers: () => void;
+};
+// Z A L U P A
 
 export class UsersAPIContainer extends React.Component<UserAPIContainerPropsType> {
   componentDidMount(): void {
-    this.requestMoreUsers();
+    this.props.getUsers();
   }
-
-  requestMoreUsers = () => {
-    this.props.isLoading(true);
-    usersAPI
-      .getUsers(this.props.state.usersPage.currentPage, this.props.state.usersPage.usersCount)
-      .then((response) => {
-        this.props.setUsers(response.items);
-        this.props.isLoading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-        this.props.isLoading(false);
-      });
-  };
 
   componentWillUnmount(): void {
     this.props.usersPageUnmount();
@@ -42,7 +32,9 @@ export class UsersAPIContainer extends React.Component<UserAPIContainerPropsType
         users={this.props.state.usersPage.users}
         followOnClick={this.props.onFollowChange}
         hasMore={!this.props.state.usersPage.emptyResponse}
-        requestMoreUsers={this.requestMoreUsers}
+        requestMoreUsers={this.props.getUsers}
+        isButtonLoading={this.props.toggleFollowButtonLoading}
+        loadingButtons={this.props.state.usersPage.loadingFollowButtons}
       />
     );
   }
@@ -52,11 +44,12 @@ const mapState = (state: RootState): { state: RootState } => ({
   state: state,
 });
 
-const mapDispatch: UsersDispatchType = {
+const mapDispatch = {
   onFollowChange,
-  setUsers,
   usersPageUnmount,
-  isLoading,
+  toggleFollowButtonLoading,
 };
 
-export const UsersContainer = connect(mapState, mapDispatch)(UsersAPIContainer);
+export const UsersContainer = connect(mapState, { ...mapDispatch, getUsers })(
+  withAuthRedirect(UsersAPIContainer)
+);

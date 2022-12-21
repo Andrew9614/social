@@ -9,7 +9,7 @@ export const Navbar: React.FC = () => {
       <div className={styles.items}>
         <div className={styles.item}>
           <NavLink
-            to="/profile"
+            to="/profile/27184"
             className={({ isActive }) => (isActive ? styles.active : '')}
           >
             Profile

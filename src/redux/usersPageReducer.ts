@@ -1,18 +1,22 @@
+import { ThunkAction } from 'redux-thunk/es/types';
+import { usersAPI } from '../api/api';
+import { RootState } from './reduxStore';
 import { DispatchAction, UsersDataType, UserType } from './type';
 
-const FOLLOW_CHANGE: DispatchAction['type'] = 'FOLLOW_CHANGE';
-const SET_USERS: DispatchAction['type'] = 'SET_USERS';
-const USERS_PAGE_UNMOUNT: DispatchAction['type'] = 'USERS_PAGE_UNMOUNT';
-const LOADING_STATUS: DispatchAction['type'] = 'LOADING_STATUS';
+const FOLLOW_CHANGE = 'FOLLOW_CHANGE';
+const SET_USERS = 'SET_USERS';
+const USERS_PAGE_UNMOUNT = 'USERS_PAGE_UNMOUNT';
+const USERS_LOADING_STATUS = 'USERS_LOADING_STATUS';
+const FOLLOW_BUTTON_LOADING_STATUS = 'FOLLOW_BUTTON_LOADING_STATUS';
 
 const initialState: UsersDataType = {
   users: [],
   currentPage: 1,
   usersCount: 10,
   emptyResponse: false,
-  isLoading: false,
+  isUsersLoading: false,
+  loadingFollowButtons: [],
 };
-
 export const usersPageReducer = (
   state: UsersDataType = initialState,
   action: DispatchAction
@@ -52,25 +56,61 @@ export const usersPageReducer = (
         users: [],
         currentPage: 1,
       };
-    case LOADING_STATUS:
+    case USERS_LOADING_STATUS:
       return {
         ...state,
-        isLoading: action.status || false,
+        isUsersLoading: action.status || false,
+      };
+    case FOLLOW_BUTTON_LOADING_STATUS:
+      return {
+        ...state,
+        loadingFollowButtons: action.status
+          ? [...state.loadingFollowButtons, action.id]
+          : state.loadingFollowButtons.filter((id) => id !== action.id),
       };
     default:
       return state;
   }
 };
 
-export const onFollowChange = (id: number): DispatchAction => {
-  return { type: FOLLOW_CHANGE, id: id };
-};
-export const setUsers = (users: UserType[]): DispatchAction => {
-  return { type: SET_USERS, users: users };
-};
-export const usersPageUnmount = (): DispatchAction => {
-  return { type: USERS_PAGE_UNMOUNT };
-};
-export const isLoading = (status: boolean): DispatchAction => {
-  return { type: LOADING_STATUS, status: status };
+export type onFollowChangeType = ReturnType<typeof onFollowChange>;
+export type setUsersType = ReturnType<typeof setUsers>;
+export type usersPageUnmountType = ReturnType<typeof usersPageUnmount>;
+export type toggleUserLoadingType = ReturnType<typeof toggleUserLoading>;
+export type toggleFollowButtonLoadingType = ReturnType<
+  typeof toggleFollowButtonLoading
+>;
+
+export const onFollowChange = (id: number) =>
+  ({ type: FOLLOW_CHANGE, id: id } as const);
+export const setUsers = (users: UserType[]) =>
+  ({ type: SET_USERS, users: users } as const);
+export const usersPageUnmount = () => ({ type: USERS_PAGE_UNMOUNT } as const);
+export const toggleUserLoading = (status: boolean) =>
+  ({ type: USERS_LOADING_STATUS, status: status } as const);
+export const toggleFollowButtonLoading = (status: boolean, id: number) =>
+  ({ type: FOLLOW_BUTTON_LOADING_STATUS, status: status, id: id } as const);
+
+
+
+export const getUsers = (): ThunkAction<
+  void,
+  RootState,
+  unknown,
+  DispatchAction
+> => {
+  return (dispatch, getState) => {
+    const state = getState();
+    dispatch(toggleUserLoading(true));
+    usersAPI
+      .getUsers(state.usersPage.currentPage, state.usersPage.usersCount)
+      .then((response) => {
+        dispatch(setUsers(response.items));
+        dispatch(toggleUserLoading(false));
+      })
+      .catch((error) => {
+        console.error(error);
+        dispatch(toggleUserLoading(false));
+      });
+  };
 };
