@@ -5,18 +5,20 @@ export type MyPostsStateType = {
 };
 
 export type MyPostsDispatchType = {
-  changePostText: (message: string) => void;
-  addPost: () => void;
+  addPost: (message: string) => void;
 };
 
 export type ProfileInfoStateType = {
   profileInfo: RootState['profilePage']['profileInfo'];
+  profileInfoStatus: string;
 };
 
-export type ProfileInfoDispatchType = any;
+export type ProfileInfoDispatchType = {
+  putProfileStatus: (status: string) => void;
+};
 
 export type ProfileStateType = {
   profilePage: RootState['profilePage'];
 };
 
-export type ProfileDispatchType = MyPostsDispatchType;
+export type ProfileDispatchType = MyPostsDispatchType & ProfileInfoDispatchType;

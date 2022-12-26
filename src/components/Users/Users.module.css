@@ -16,19 +16,15 @@
   margin: 10px 0 10px 0;
   border: 2px none;
   border-radius: 5px;
-  /* background: linear-gradient(
-    0deg,
-    rgb(239, 239, 239) 0%,
-    rgba(255, 255, 255, 1) 50%,
-    rgba(255, 255, 255, 1) 100%
-  ); */
   background-color: white;
   box-shadow: 0px 0px 7px rgb(202, 202, 202);
-  transition: all 0.3s;
+	animation: append-animate 0.1s linear;
 }
 
 .usersLoading {
+	margin: 10px;
   align-self: center;
+	animation: append-animate 0.1s linear;
 }
 
 .userContainer:hover {
@@ -54,4 +50,15 @@
   border-radius: 50%;
   margin-right: 10px;
   border: none;
+}
+
+@keyframes append-animate {
+	from {
+    transform: translateX(10%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0%);
+    opacity: 1;
+  }
 }

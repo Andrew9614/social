@@ -1,15 +1,18 @@
 import * as React from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { RootState } from '../../redux/reduxStore';
 import { FriendsListMiniContainer } from './FriendsListMini/FriendsListMiniContainer';
 import styles from './Navbar.module.css';
 
 export const Navbar: React.FC = () => {
+  const userId = useSelector((state: RootState) => state.authData.data.id);
   return (
     <nav className={styles.nav}>
       <div className={styles.items}>
         <div className={styles.item}>
           <NavLink
-            to="/profile/27184"
+            to={'/profile/' + userId}
             className={({ isActive }) => (isActive ? styles.active : '')}
           >
             Profile

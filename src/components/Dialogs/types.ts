@@ -5,6 +5,5 @@ export type DialogsStateType = {
 };
 
 export type DialogsDispatchType = {
-  addMessage: () => void;
-  changeMessageText: (message:string) => void;
+  addMessage: (message: string) => void;
 };

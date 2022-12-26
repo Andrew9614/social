@@ -1,12 +1,10 @@
-import { DialogsPage, DispatchAction } from './type';
+import { DispatchAction } from './type';
 
-const ADD_MESSAGE: DispatchAction['type'] = 'ADD_MESSAGE';
-const CHANGE_MESSAGE_TEXT_AREA: DispatchAction['type'] =
-  'CHANGE_MESSAGE_TEXT_AREA';
+const ADD_MESSAGE = 'ADD_MESSAGE';
 
-//type TypeDialogsPageReducer = (state: DialogsPage, action: DispatchAction) => DialogsPage
+export type DialogsPage = typeof initialState;
 
-const initialState: DialogsPage = {
+const initialState = {
   dialogsData: [
     {
       id: 0,
@@ -34,7 +32,6 @@ const initialState: DialogsPage = {
     { id: 1, message: 'How are you', self: false },
     { id: 2, message: "I'm gay", self: true },
   ],
-  newMessageTextArea: '',
 };
 
 export const dialogsPageReducer = (
@@ -43,30 +40,22 @@ export const dialogsPageReducer = (
 ): DialogsPage => {
   switch (action.type) {
     case ADD_MESSAGE:
-      if (!state.newMessageTextArea) return state;
       let newMessage = {
         id: state.messagesData[state.messagesData.length - 1].id + 1,
-        message: state.newMessageTextArea,
+        message: action.message,
         self: true,
       };
       return {
         ...state,
         messagesData: [...state.messagesData, newMessage],
-        newMessageTextArea: '',
-      };
-    case CHANGE_MESSAGE_TEXT_AREA:
-      return {
-        ...state,
-        newMessageTextArea: action.message || '',
       };
     default:
       return state;
   }
 };
 
-export const addMessage = (): DispatchAction => {
-  return { type: ADD_MESSAGE };
-};
-export const changeMessageText = (message: string): DispatchAction => {
-  return { type: CHANGE_MESSAGE_TEXT_AREA, message: message };
+export type addMessageType = ReturnType<typeof addMessage>;
+
+export const addMessage = (message: string) => {
+  return { type: ADD_MESSAGE, message: message } as const;
 };

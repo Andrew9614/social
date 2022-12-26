@@ -1,15 +1,19 @@
+import { useDispatch } from 'react-redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { checkIsUserAuth } from '../../redux/authReducer';
+import { RootState } from '../../redux/reduxStore';
+import { DispatchAction } from '../../redux/type';
 import { Preloader } from '../common/Preloader/Preloader';
 import styles from './Header.module.css';
-import { HeaderDispatchType, HeaderStateType } from './types';
-
-type HeaderPropsType = HeaderStateType & HeaderDispatchType;
+import { HeaderStateType } from './types';
 
 export const Header = ({
-  handleClick,
   isLogin,
   login,
   isLoading,
-}: HeaderPropsType) => {
+}: HeaderStateType) => {
+  const dispatch: ThunkDispatch<RootState, unknown, DispatchAction> =
+    useDispatch();
   return (
     <header className={styles.header}>
       <img src="https://pngimg.com/uploads/nike/nike_PNG17.png" alt="logo" />
@@ -19,7 +23,7 @@ export const Header = ({
         ) : isLogin ? (
           login
         ) : (
-          <button onClick={handleClick}>Log in</button>
+          <button onClick={()=>dispatch(checkIsUserAuth())}>Log in</button>
         )}
       </div>
     </header>

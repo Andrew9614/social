@@ -49,7 +49,6 @@ export const Users = ({
                       : followAPI.follow(user.id)
                     )
                       .then((response) => {
-                        console.log(response);
                         followOnClick(user.id);
                         isButtonLoading(false, user.id);
                       })

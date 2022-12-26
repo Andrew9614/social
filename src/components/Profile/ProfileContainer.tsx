@@ -2,22 +2,23 @@ import React from 'react';
 import { connect } from 'react-redux/es/exports';
 import {
   addPost,
-  changePostText,
-  setProfile,
+  getUser,
+  putProfileStatus,
+  getProfileStatus,
 } from '../../redux/profilePageReducer';
 import { RootState } from '../../redux/reduxStore';
-import { DispatchAction, ProfileInfoType } from '../../redux/type';
 import { Profile } from './Profile';
-import { ProfileDispatchType, ProfileStateType } from './types';
 import { withRouter } from '../common/withRouter';
 import { NavigateFunction } from 'react-router-dom';
 import { Params } from '@remix-run/router';
-import { profileAPI } from '../../api/api';
 
-type ProfileContainerStateType = ProfileStateType;
+type ProfileContainerStateType = { state: RootState };
 
-type ProfileContainerDispatchType = ProfileDispatchType & {
-  setProfile: (profile: ProfileInfoType) => DispatchAction;
+type ProfileContainerDispatchType = {
+  getUser: (id: string) => void;
+  addPost: (message: string) => void;
+  putProfileStatus: (status: string) => void;
+  getProfileStatus: (id: string) => void;
 };
 
 type ProfileContainerPropsType = ProfileContainerStateType &
@@ -31,21 +32,15 @@ type ProfileContainerPropsType = ProfileContainerStateType &
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType> {
   componentDidMount(): void {
-    profileAPI
-      .getUser(this.props.router?.params.userId||'')
-      .then((response) => {
-        this.props.setProfile(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    this.props.getUser(this.props.router?.params.userId || '');
+    this.props.getProfileStatus(this.props.router?.params.userId || '');
   }
   render(): React.ReactNode {
     return (
       <Profile
         addPost={this.props.addPost}
-        changePostText={this.props.changePostText}
-        profilePage={this.props.profilePage}
+        profilePage={this.props.state.profilePage}
+        putProfileStatus={this.props.putProfileStatus}
       />
     );
   }
@@ -53,14 +48,15 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
 const mapState = (state: RootState): ProfileContainerStateType => {
   return {
-    profilePage: state.profilePage,
+    state: state,
   };
 };
 
 const mapDispatch: ProfileContainerDispatchType = {
-  setProfile,
+  getUser,
   addPost,
-  changePostText,
+  putProfileStatus,
+  getProfileStatus,
 };
 
 export default connect(mapState, mapDispatch)(withRouter(ProfileContainer));

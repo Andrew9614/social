@@ -1,9 +1,15 @@
+import { useEffect, useRef } from 'react';
 import styles from './Message.module.css';
 import { MessageProps } from './type';
 
 export const Message: React.FC<MessageProps> = (props) => {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (ref.current) ref.current.scrollIntoView({behavior: 'smooth'});
+  }, []);
   return (
     <div
+      ref={ref}
       className={
         props.self
           ? styles.messageContainer + ' ' + styles.selfMessage

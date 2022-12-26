@@ -1,13 +1,14 @@
 .messageContainer {
-  margin-left: 10px;
   margin: 5px;
   display: inline-flex;
   align-items: flex-end;
   box-sizing: border-box;
+	/* animation: append-animate 0.1s linear; */
 }
 
 .selfMessage {
   align-self: flex-end;
+	/* animation: append-animate-self 0.1s linear; */
 }
 
 .textBlockMessage {
@@ -75,4 +76,26 @@
   margin-right: 10px;
   margin-bottom: 10px;
   color: rgb(139, 139, 139);
+}
+
+@keyframes append-animate-self {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes append-animate {
+  from {
+    transform: translateX(-10%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0%);
+    opacity: 1;
+  }
 }

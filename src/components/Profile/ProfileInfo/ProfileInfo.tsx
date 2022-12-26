@@ -1,9 +1,14 @@
 import { ProfileInfoDispatchType, ProfileInfoStateType } from '../types';
 import styles from './ProfileInfo.module.css';
+import { ProfileStatus } from './ProfileStatus';
 
 type ProfileInfoPropsType = ProfileInfoStateType & ProfileInfoDispatchType;
 
-export const ProfileInfo = ({ profileInfo }: ProfileInfoPropsType) => {
+export const ProfileInfo = ({
+  profileInfo,
+  profileInfoStatus,
+  putProfileStatus,
+}: ProfileInfoPropsType) => {
   return (
     <div>
       <div className={styles.profileInfoContainer}>
@@ -22,7 +27,10 @@ export const ProfileInfo = ({ profileInfo }: ProfileInfoPropsType) => {
           <div className={styles.profileInfoRight}>
             <div className={styles.profileInfoDescription}>
               <h2>{profileInfo?.fullName}</h2>
-              <p>{profileInfo?.aboutMe}</p>
+              <ProfileStatus
+                status={profileInfoStatus || 'Set status'}
+                putProfileStatus={putProfileStatus}
+              />
               <p>
                 {profileInfo?.lookingForAJob
                   ? 'Looking for a job at ' +

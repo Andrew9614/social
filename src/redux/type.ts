@@ -1,3 +1,16 @@
+import { ThunkAction } from 'redux-thunk';
+import {
+  isAuthLoadingType,
+  setAuthDataType,
+  setCaptchaType,
+} from './authReducer';
+import { addMessageType } from './dialogsPageReducer';
+import {
+  addPostType,
+  setProfileStatusType,
+  setProfileType,
+} from './profilePageReducer';
+import { RootState } from './reduxStore';
 import {
   onFollowChangeType,
   setUsersType,
@@ -12,59 +25,18 @@ export type DispatchAction =
   | usersPageUnmountType
   | toggleUserLoadingType
   | toggleFollowButtonLoadingType
-  | {
-      type:
-        | 'ADD_MESSAGE'
-        | 'CHANGE_MESSAGE_TEXT_AREA'
-        | 'ADD_POST'
-        | 'CHANGE_MY_POST_TEXT_AREA'
-        | 'FOLLOW_CHANGE'
-        | 'SET_USERS'
-        | 'USERS_PAGE_UNMOUNT'
-        | 'USERS_LOADING_STATUS'
-        | 'AUTH_LOADING_STATUS'
-        | 'SET_PROFILE'
-        | 'SET_AUTH_DATA';
-      message?: string;
-      id?: number;
-      users?: UserType[];
-      status?: boolean;
-      profile?: ProfileInfoType;
-      authData?: AuthDataType['data'];
-    };
+  | addPostType
+  | setProfileType
+  | setProfileStatusType
+  | addMessageType
+  | setAuthDataType
+  | isAuthLoadingType
+  | setCaptchaType;
 
 export type DialogsPage = {
   dialogsData: DialogsData[];
   messagesData: MessagesData[];
   newMessageTextArea: string;
-};
-
-export type ProfileInfoType = {
-  aboutMe: string;
-  contacts: {
-    facebook: string | null;
-    website: string | null;
-    vk: string | null;
-    twitter: string | null;
-    instagram: string | null;
-    youtube: string | null;
-    github: string | null;
-    mainLink: string | null;
-  };
-  lookingForAJob: boolean;
-  lookingForAJobDescription: string;
-  fullName: string;
-  userId: number;
-  photos: {
-    small: string;
-    large: string;
-  };
-};
-
-export type ProfilePage = {
-  postsData: PostsData[];
-  newMyPostsTextArea: string;
-  profileInfo: ProfileInfoType | null;
 };
 
 export type SidebarPage = {
@@ -82,10 +54,6 @@ export type UserType = {
   followed: boolean;
 };
 
-export type AppStateType = {
-  scrollToBottom: boolean;
-};
-
 export type UsersDataType = {
   users: UserType[];
   currentPage: number;
@@ -93,16 +61,6 @@ export type UsersDataType = {
   emptyResponse: boolean;
   isUsersLoading: boolean;
   loadingFollowButtons: number[];
-};
-
-export type AuthDataType = {
-  data: {
-    id: string | null;
-    email: string | null;
-    login: string | null;
-  };
-  isLogin: boolean;
-  isLoading: boolean;
 };
 
 export type DialogsData = {
@@ -128,3 +86,10 @@ export type FriendsListMini = {
   name: string;
   link: string;
 };
+
+export type ThunkType<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  DispatchAction
+>;
