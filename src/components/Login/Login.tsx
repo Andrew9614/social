@@ -1,5 +1,7 @@
 import { ErrorMessage, Form, Formik, Field } from 'formik';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 import { ThunkDispatch } from 'redux-thunk';
 import { AuthRequest } from '../../api/api';
 import { loginUser } from '../../redux/authReducer';
@@ -11,14 +13,20 @@ export type LoginProps = {
 };
 
 export const Login = () => {
+	const getCaptchaURL = (state:RootState)=>{
+		return state.authData.captchaURL;
+	}
   const dispatch: ThunkDispatch<RootState, unknown, DispatchAction> =
     useDispatch();
-  const captcha = useSelector((state: RootState) => state.authData.captchaURL);
-  return (
+  const captcha = useSelector(getCaptchaURL);
+  const [redirect, setRedirect] = useState(false);
+  return redirect ? (
+    <Navigate to={'/'} />
+  ) : (
     <Formik
       initialValues={{
         email: '',
-        password: '',
+        password: '4ARNrECxbXj6nKS',
         rememberMe: false,
         captcha: '',
       }}
@@ -38,7 +46,7 @@ export const Login = () => {
       }}
       onSubmit={(values, { setSubmitting }) => {
         console.log(JSON.stringify(values, null, 2));
-        dispatch(loginUser(values));
+        dispatch(loginUser(values)).then((res) => res && setRedirect(true));
         setSubmitting(false);
       }}
     >
@@ -53,15 +61,13 @@ export const Login = () => {
           <button type="submit" disabled={isSubmitting}>
             Submit
           </button>
-          {captcha ? (
+          {!captcha || (
             <div>
               <img src={captcha} alt="captcha" />
               Write text from image:
               <Field name="captcha" />
               <ErrorMessage name="captcha" component="div" />
             </div>
-          ) : (
-            ''
           )}
         </Form>
       )}

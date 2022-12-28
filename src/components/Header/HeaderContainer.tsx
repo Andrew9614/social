@@ -4,7 +4,7 @@ import { RootState } from '../../redux/reduxStore';
 import { Header } from './Header';
 import { isAuthLoading } from '../../redux/authReducer';
 
-type HeaderContainerPropsType = RootState & {
+type HeaderContainerPropsType = RootState['authData'] & {
   isAuthLoading: (status: boolean) => void;
 };
 
@@ -12,16 +12,16 @@ class HeaderContainer extends React.Component<HeaderContainerPropsType> {
   render() {
     return (
       <Header
-        isLogin={this.props.authData.isLogin}
-				isLoading={this.props.authData.isLoading}
-        login={this.props.authData.data.login || ''}
+        isLogin={this.props.isLogin}
+				isLoading={this.props.isLoading}
+        login={this.props.data.login || ''}
       />
     );
   }
 }
 
-const mapState = (state: RootState) => ({
-  ...state,
+const mapState = (state: RootState):RootState['authData'] => ({
+  ...state.authData
 });
 
 const mapDispatch = {

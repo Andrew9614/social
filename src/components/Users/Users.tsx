@@ -2,8 +2,10 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { NavLink } from 'react-router-dom';
 import { followAPI } from '../../api/api';
 import { Preloader } from '../common/Preloader/Preloader';
-import { UsersPropsType } from './types';
+import { UsersDispatchType, UsersStateType } from './types';
 import styles from './Users.module.css';
+
+type UsersPropsType = UsersStateType & UsersDispatchType
 
 export const Users = ({
   users,

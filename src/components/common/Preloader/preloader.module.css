@@ -5,6 +5,7 @@
   height: 10em;
 }
 .loader {
+	overflow: hidden;
   font-size: 5px;
   position: relative;
   text-indent: -9999em;

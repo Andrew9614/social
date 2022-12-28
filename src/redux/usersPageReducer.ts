@@ -93,7 +93,7 @@ export const toggleFollowButtonLoading = (status: boolean, id: number) =>
 
 
 
-export const getUsers = (): ThunkAction<
+export const requestUsers = (): ThunkAction<
   void,
   RootState,
   unknown,

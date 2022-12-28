@@ -52,7 +52,7 @@ export type AuthRequest = {
 };
 
 export const authAPI = {
-  postUser(request: AuthRequest) {
+  login(request: AuthRequest) {
     return instance.post('auth/login', request).then((result) => result.data);
   },
   getAuth() {
@@ -63,7 +63,7 @@ export const authAPI = {
       .get('security/get-captcha-url')
       .then((result) => result.data);
   },
-  deleteUser() {
-    return instance.delete('auth/logout').then((result) => result.data);
+  logout() {
+    return instance.post('auth/logout').then((result) => result.data);
   },
 };

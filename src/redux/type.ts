@@ -1,4 +1,5 @@
 import { ThunkAction } from 'redux-thunk';
+import { setInitType } from './appReducer';
 import {
   isAuthLoadingType,
   setAuthDataType,
@@ -31,7 +32,8 @@ export type DispatchAction =
   | addMessageType
   | setAuthDataType
   | isAuthLoadingType
-  | setCaptchaType;
+  | setCaptchaType
+  | setInitType;
 
 export type DialogsPage = {
   dialogsData: DialogsData[];

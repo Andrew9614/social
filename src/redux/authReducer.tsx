@@ -58,29 +58,28 @@ export const setCaptcha = (url: string) => {
   return { type: SET_CAPTCHA, url: url } as const;
 };
 
-export const checkIsUserAuth = (): ThunkType => {
-  return (dispatch) => {
-    dispatch(isAuthLoading(true));
-    authAPI
-      .getAuth()
-      .then((response) => {
-        !response.resultCode
-          ? dispatch(setAuthData(response.data, true))
-          : console.log(response.messages);
-        dispatch(isAuthLoading(false));
-      })
-      .catch((error) => {
-        console.error(error);
-        dispatch(isAuthLoading(false));
-      });
-  };
+export const checkIsUserAuth = (): ThunkType<Promise<any>> => (dispatch) => {
+  dispatch(isAuthLoading(true));
+  return authAPI
+    .getAuth()
+    .then((response) => {
+      !response.resultCode
+        ? dispatch(setAuthData(response.data, true))
+        : console.log(response.messages);
+      dispatch(isAuthLoading(false));
+    })
+    .catch((error) => {
+      console.error(error);
+      dispatch(isAuthLoading(false));
+    });
 };
 
-export const loginUser = (request: AuthRequest): ThunkType => {
-  return (dispatch) => {
+export const loginUser =
+  (request: AuthRequest): ThunkType<Promise<any>> =>
+  (dispatch) => {
     dispatch(isAuthLoading(true));
-    authAPI
-      .postUser(request)
+    return authAPI
+      .login(request)
       .then((response) => {
         !response.resultCode
           ? dispatch(checkIsUserAuth())
@@ -88,8 +87,7 @@ export const loginUser = (request: AuthRequest): ThunkType => {
         dispatch(isAuthLoading(false));
         switch (response.resultCode) {
           case 0:
-            dispatch(checkIsUserAuth());
-            break;
+            return dispatch(checkIsUserAuth()).then(()=>true)
           case 10:
             authAPI
               .getCaptcha()
@@ -105,17 +103,16 @@ export const loginUser = (request: AuthRequest): ThunkType => {
             console.log(response.messages);
         }
       })
-
       .catch((error) => {
         console.error(error);
         dispatch(isAuthLoading(false));
       });
   };
-};
-export const logoutUser = (request: AuthRequest): ThunkType => {
+
+export const logoutUser = (): ThunkType => {
   return (dispatch) => {
     authAPI
-      .deleteUser()
+      .logout()
       .then((response) => {
         !response.resultCode
           ? dispatch(
