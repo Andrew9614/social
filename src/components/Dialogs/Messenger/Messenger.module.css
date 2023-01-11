@@ -1,0 +1,71 @@
+.messenger {
+  width: 0%;
+  display: grid;
+  grid-template-rows: 1fr 9fr 1fr;
+  opacity: 0;
+  transition: width 0.2s, opacity 0.2s;
+}
+
+.active {
+  width: 100% !important;
+  opacity: 1 !important;
+}
+
+.messengerHeader {
+  width: 100%;
+  top: 0;
+  height: 50px;
+  z-index: 1;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 10px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.245);
+}
+
+.messagesWrapper {
+  display: flex;
+  flex-direction: column-reverse;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.15);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.messages {
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: column-reverse;
+  position: relative;
+}
+
+.messagesLoading {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  padding: 10px;
+  transform: translate(-50%, 0);
+}
+
+.sendWrapper {
+  display: flex;
+  padding-top: 10px;
+  height: 50px;
+}
+
+.sendButton {
+  width: 20%;
+  height: 100%;
+  padding: 10px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.messageTextArea {
+  width: 80%;
+  height: 100%;
+  margin-right: 10px;
+  resize: none;
+}

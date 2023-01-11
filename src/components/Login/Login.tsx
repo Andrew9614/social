@@ -1,7 +1,7 @@
 import { ErrorMessage, Form, Formik, Field } from 'formik';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { ThunkDispatch } from 'redux-thunk';
 import { AuthRequest } from '../../api/api';
 import { loginUser } from '../../redux/authReducer';
@@ -11,17 +11,19 @@ import { DispatchAction } from '../../redux/type';
 export type LoginProps = {
   loginUser: (request: AuthRequest) => void;
 };
+const getCaptchaURL = (state: RootState) => {
+  return state.authData.captchaURL;
+};
 
 export const Login = () => {
-	const getCaptchaURL = (state:RootState)=>{
-		return state.authData.captchaURL;
-	}
   const dispatch: ThunkDispatch<RootState, unknown, DispatchAction> =
     useDispatch();
   const captcha = useSelector(getCaptchaURL);
+  const location = useLocation();
   const [redirect, setRedirect] = useState(false);
+  const redirectPath = location.state ? location.state : '/profile';
   return redirect ? (
-    <Navigate to={'/'} />
+    <Navigate to={redirectPath} />
   ) : (
     <Formik
       initialValues={{

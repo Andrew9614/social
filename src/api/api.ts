@@ -4,15 +4,16 @@ const instance = axios.create({
   withCredentials: true,
   baseURL: 'https://social-network.samuraijs.com/api/1.0/',
   headers: {
-    'API-KEY': '64704a98-3a43-49ed-82bb-19077dfef292',
+    'API-KEY': '064b4935-7e4e-41f8-bd60-a4ee30f431f3',
   },
 });
 
 export const usersAPI = {
-  getUsers(currentPage: number, usersCount: number) {
-    return instance
-      .get('users?page=' + currentPage + '&count=' + usersCount)
-      .then((result) => result.data);
+  async getUsers(currentPage: number, usersCount: number) {
+    const result = await instance.get(
+      'users?page=' + currentPage + '&count=' + usersCount
+    );
+    return result.data;
   },
 };
 
@@ -31,16 +32,14 @@ export const profileAPI = {
     return instance.get('profile/' + id);
   },
 
-  getUserStatus(id: string) {
-    return instance
-      .get('profile/status/' + id)
-      .then((response) => response.data);
+  async getUserStatus(id: string) {
+    const response = await instance.get('profile/status/' + id);
+    return response.data;
   },
 
-  setUserStatus(status: string) {
-    return instance
-      .put('profile/status', { status: status })
-      .then((result) => result.data);
+  async setUserStatus(status: string) {
+    const result = await instance.put('profile/status', { status: status });
+    return result.data;
   },
 };
 
@@ -52,18 +51,50 @@ export type AuthRequest = {
 };
 
 export const authAPI = {
-  login(request: AuthRequest) {
-    return instance.post('auth/login', request).then((result) => result.data);
+  async login(request: AuthRequest) {
+    const result = await instance.post('auth/login', request);
+    return result.data;
   },
-  getAuth() {
-    return instance.get('auth/me').then((result) => result.data);
+  async getAuth() {
+    const result = await instance.get('auth/me');
+    return result.data;
   },
-  getCaptcha() {
-    return instance
-      .get('security/get-captcha-url')
-      .then((result) => result.data);
+  async getCaptcha() {
+    const result = await instance.get('security/get-captcha-url');
+    return result.data;
   },
-  logout() {
-    return instance.post('auth/logout').then((result) => result.data);
+  async logout() {
+    const result = await instance.post('auth/logout');
+    return result.data;
+  },
+};
+
+export const messageAPI = {
+  async postMessage(id: string, message: string) {
+    return (await instance.post(`dialogs/${id}/messages`, { body: message }))
+      .data;
+  },
+  async getMessages(id: string, page: number, count: number) {
+    return (
+      await instance.get(`dialogs/${id}/messages?page=${page}&count=${count}`)
+    ).data;
+  },
+  async getDialogs() {
+    return (await instance.get('dialogs')).data;
+  },
+  async viewMessage(id: string) {
+    return (await instance.get(`dialogs/messages/${id}/viewed`)).data;
+  },
+  async postMessageToSpam(id: string) {
+    return (await instance.post(`dialogs/messages/${id}/spam`)).data;
+  },
+  async deleteMessage(id: string) {
+    return (await instance.delete(`dialogs/messages/${id}`)).data;
+  },
+  async restoreMessage(id: string) {
+    return (await instance.delete(`dialogs/messages/${id}/restore`)).data;
+  },
+  async getListNewMessages() {
+    return (await instance.get(`dialogs/messages/new/count`)).data;
   },
 };

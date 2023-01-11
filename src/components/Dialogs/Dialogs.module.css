@@ -1,26 +1,45 @@
 .dialogs {
+  display: flex;
   height: 100%;
-  display: grid;
-  grid-template-columns: 1fr 5fr;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.active {
+  width: 100% !important;
+  opacity: 1 !important;
 }
 
 .dialogsItems {
-  padding: 10px;
-}
-
-.dialog {
+	padding: 10px;
+  width: 0%;
+  height: fit-content;
+  opacity: 0;
+  transition: width 0.2s, opacity 0.2s;
   background-color: white;
-  display: flex;
-  align-items: center;
-  margin-bottom: 5px;
   border-radius: 5px;
   box-shadow: 0px 0px 7px rgb(202, 202, 202);
-  padding: 5px;
+}
+
+.dialogWrapper {
+  border-radius: 5px;
+  padding: 10px 10px 0px 10px;
   transition: all 0.3s;
 }
 
-.dialog:hover {
-  box-shadow: 0px 0px 10px rgb(180, 180, 180);
+.dialog {
+  display: flex;
+  align-items: center;
+}
+
+.dialogLastMessage {
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(227, 227, 227);
+}
+
+.dialogWrapper:hover {
+  background-color: rgb(248, 248, 248);
 }
 
 .dialogWrapper a {
@@ -35,43 +54,4 @@
   border-radius: 50%;
   margin-right: 10px;
   border: none;
-}
-
-.messenger {
-  overflow: auto;
-  display: grid;
-  grid-template-rows: 10fr 1fr;
-  padding: 10px;
-}
-
-.messagesWrapper {
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  overflow-x: hidden;
-	overflow-y: auto;
-	background-color: white;
-	border-radius: 5px;
-	box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.34);
-}
-
-.sendWrapper {
-  display: flex;
-	height: 50px;
-	padding-top: 10px;
-}
-
-.sendButton {
-  width: 20%;
-  height: 100%;
-  padding: 10px;
-  font-size: 15px;
-  font-weight: 500;
-}
-
-.messageTextArea {
-  width: 80%;
-  height: 100%;
-  margin-right: 10px;
-	resize: none;
 }

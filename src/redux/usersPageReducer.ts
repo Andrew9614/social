@@ -1,9 +1,9 @@
 import { ThunkAction } from 'redux-thunk/es/types';
-import { usersAPI } from '../api/api';
+import { followAPI, usersAPI } from '../api/api';
 import { RootState } from './reduxStore';
-import { DispatchAction, UsersDataType, UserType } from './type';
+import { DispatchAction, ThunkType, UsersDataType, UserType } from './type';
 
-const FOLLOW_CHANGE = 'FOLLOW_CHANGE';
+const CHANGE_FOLLOW_STATUS = 'CHANGE_FOLLOW_STATUS';
 const SET_USERS = 'SET_USERS';
 const USERS_PAGE_UNMOUNT = 'USERS_PAGE_UNMOUNT';
 const USERS_LOADING_STATUS = 'USERS_LOADING_STATUS';
@@ -22,7 +22,7 @@ export const usersPageReducer = (
   action: DispatchAction
 ): UsersDataType => {
   switch (action.type) {
-    case FOLLOW_CHANGE:
+    case CHANGE_FOLLOW_STATUS:
       return {
         ...state,
         users: state.users.map((user) => {
@@ -82,7 +82,7 @@ export type toggleFollowButtonLoadingType = ReturnType<
 >;
 
 export const onFollowChange = (id: number) =>
-  ({ type: FOLLOW_CHANGE, id: id } as const);
+  ({ type: CHANGE_FOLLOW_STATUS, id: id } as const);
 export const setUsers = (users: UserType[]) =>
   ({ type: SET_USERS, users: users } as const);
 export const usersPageUnmount = () => ({ type: USERS_PAGE_UNMOUNT } as const);
@@ -91,14 +91,7 @@ export const toggleUserLoading = (status: boolean) =>
 export const toggleFollowButtonLoading = (status: boolean, id: number) =>
   ({ type: FOLLOW_BUTTON_LOADING_STATUS, status: status, id: id } as const);
 
-
-
-export const requestUsers = (): ThunkAction<
-  void,
-  RootState,
-  unknown,
-  DispatchAction
-> => {
+export const requestUsers = (): ThunkType => {
   return (dispatch, getState) => {
     const state = getState();
     dispatch(toggleUserLoading(true));
@@ -111,6 +104,23 @@ export const requestUsers = (): ThunkAction<
       .catch((error) => {
         console.error(error);
         dispatch(toggleUserLoading(false));
+      });
+  };
+};
+
+export const changeFollowStatus = (
+  user: UserType
+): ThunkAction<void, RootState, unknown, DispatchAction> => {
+  return (dispatch) => {
+    dispatch(toggleFollowButtonLoading(true, user.id));
+    (user.followed ? followAPI.unfollow(user.id) : followAPI.follow(user.id))
+      .then(() => {
+        dispatch(onFollowChange(user.id));
+        dispatch(toggleFollowButtonLoading(false, user.id));
+      })
+      .catch((error) => {
+        dispatch(toggleFollowButtonLoading(false, user.id));
+        console.error(error);
       });
   };
 };

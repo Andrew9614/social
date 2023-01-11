@@ -6,6 +6,9 @@ import { DispatchAction } from './type';
 const ADD_POST = 'ADD_POST';
 const SET_PROFILE = 'SET_PROFILE';
 const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS';
+const DELETE_POST = 'DELETE_POST';
+const UNMOUNT_PROFILE = 'UNMOUNT_PROFILE';
+const PROFILE_LOADING = 'PROFILE_LOADING';
 
 export type ProfilePage = typeof initialState;
 
@@ -38,6 +41,7 @@ const initialState = {
     },
   },
   profileStatus: '',
+  isProfileLoading: false,
 };
 
 export const profilePageReducer = (
@@ -65,6 +69,18 @@ export const profilePageReducer = (
         ...state,
         profileStatus: action.status,
       };
+    case DELETE_POST:
+      return {
+        ...state,
+        postsData: state.postsData.filter((p) => p.id !== action.id),
+      };
+    case UNMOUNT_PROFILE:
+      return initialState;
+    case PROFILE_LOADING:
+      return {
+        ...state,
+        isProfileLoading: action.status,
+      };
     default:
       return state;
   }
@@ -73,6 +89,9 @@ export const profilePageReducer = (
 export type addPostType = ReturnType<typeof addPost>;
 export type setProfileType = ReturnType<typeof setProfile>;
 export type setProfileStatusType = ReturnType<typeof setProfileStatus>;
+export type deletePostType = ReturnType<typeof deletePost>;
+export type unmountProfileType = ReturnType<typeof unmountProfile>;
+export type isProfileLoadingType = ReturnType<typeof isProfileLoading>;
 
 export const addPost = (message: string) => {
   return { type: ADD_POST, message } as const;
@@ -83,18 +102,30 @@ export const setProfile = (profile: ProfilePage['profileInfo']) => {
 export const setProfileStatus = (status: string) => {
   return { type: SET_PROFILE_STATUS, status: status } as const;
 };
+export const deletePost = (id: number) => {
+  return { type: DELETE_POST, id: id } as const;
+};
+export const unmountProfile = () => {
+  return { type: UNMOUNT_PROFILE } as const;
+};
+export const isProfileLoading = (status: boolean) => {
+  return { type: PROFILE_LOADING, status: status } as const;
+};
 
 export const getUser = (
   id: string
 ): ThunkAction<void, RootState, unknown, DispatchAction> => {
   return (dispatch) => {
+    dispatch(isProfileLoading(true));
     profileAPI
       .getUser(id)
       .then((response) => {
         dispatch(setProfile(response.data));
+        dispatch(isProfileLoading(false));
       })
       .catch((error) => {
         console.error(error);
+        dispatch(isProfileLoading(false));
       });
   };
 };

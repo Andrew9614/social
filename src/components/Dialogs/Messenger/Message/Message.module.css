@@ -1,14 +1,14 @@
 .messageContainer {
-  margin: 5px;
+  margin: 5px 15px 5px 15px;
   display: inline-flex;
   align-items: flex-end;
   box-sizing: border-box;
-	/* animation: append-animate 0.1s linear; */
+  /* animation: append-animate 0.1s linear; */
 }
 
 .selfMessage {
   align-self: flex-end;
-	/* animation: append-animate-self 0.1s linear; */
+  /* animation: append-animate-self 0.1s linear; */
 }
 
 .textBlockMessage {

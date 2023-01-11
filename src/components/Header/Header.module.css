@@ -15,18 +15,18 @@
 
 .login {
   margin-right: 20px;
-	padding: 5px;
-	overflow: hidden;
-	color: white;
+  padding: 5px;
+  overflow: hidden;
+  color: white;
 }
 
 .login button {
   box-shadow: none;
-	background-color: white;
-	color: black
+  background-color: white;
+  color: black;
 }
 
-.loader{
-	font-size: 2px;
-	border-left: 1.1em solid #ffffff;
+.loader {
+  font-size: 2px;
+  border-left: 1.1em solid #ffffff;
 }

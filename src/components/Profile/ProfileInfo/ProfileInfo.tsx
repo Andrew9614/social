@@ -1,3 +1,4 @@
+import { Preloader } from '../../common/Preloader/Preloader';
 import { ProfileInfoDispatchType, ProfileInfoStateType } from '../types';
 import styles from './ProfileInfo.module.css';
 import { ProfileStatus } from './ProfileStatus';
@@ -8,49 +9,57 @@ export const ProfileInfo = ({
   profileInfo,
   profileInfoStatus,
   putProfileStatus,
+  isLoading,
 }: ProfileInfoPropsType) => {
   return (
-    <div>
-      <div className={styles.profileInfoContainer}>
-        <div className={styles.profileInfo}>
-          <div className={styles.profileInfoLeft}>
-            <div className={styles.avatarContainer}>
-              <img
-                src={
-                  profileInfo?.photos.large ||
-                  'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'
-                }
-                alt={profileInfo?.fullName || 'avatar'}
-              />
+    <div className={styles.profileInfoContainer}>
+      {isLoading ? (
+        <Preloader className={styles.preloader}/>
+      ) : (
+        <div>
+          {' '}
+          <div className={styles.profileInfo}>
+            <div className={styles.profileInfoLeft}>
+              <div className={styles.avatarContainer}>
+                <img
+                  src={
+                    profileInfo?.photos.large ||
+                    'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'
+                  }
+                  alt={profileInfo?.fullName || 'avatar'}
+                />
+              </div>
             </div>
-          </div>
-          <div className={styles.profileInfoRight}>
-            <div className={styles.profileInfoDescription}>
-              <h2>{profileInfo?.fullName}</h2>
-              <ProfileStatus
-                status={profileInfoStatus || 'Set status'}
-                putProfileStatus={putProfileStatus}
-              />
-              <p>
-                {profileInfo?.lookingForAJob
-                  ? 'Looking for a job at ' +
-                    profileInfo.lookingForAJobDescription
-                  : 'Not looking for a job'}
-              </p>
-              <div>
-                <p style={{ marginTop: 20, fontSize: 1.5 + 'em' }}>
-                  Contacts:{' '}
+            <div className={styles.profileInfoRight}>
+              <div className={styles.profileInfoDescription}>
+                <h2>{profileInfo?.fullName}</h2>
+                <ProfileStatus
+                  status={profileInfoStatus || 'Set status'}
+                  putProfileStatus={putProfileStatus}
+                />
+                <p>
+                  {profileInfo?.lookingForAJob
+                    ? 'Looking for a job at ' +
+                      profileInfo.lookingForAJobDescription
+                    : 'Not looking for a job'}
                 </p>
-                {/* eslint-disable-next-line array-callback-return */}
-                {Object.entries(profileInfo?.contacts || '').map((contact) => {
-                  if (contact[1])
-                    return <p>{contact[0] + ': ' + contact[1]}</p>;
-                })}
+                <div>
+                  <p style={{ marginTop: 20, fontSize: 1.5 + 'em' }}>
+                    Contacts:{' '}
+                  </p>
+                  {/* eslint-disable-next-line array-callback-return */}
+                  {Object.entries(profileInfo?.contacts || '').map(
+                    (contact) => {
+                      if (contact[1])
+                        return <p>{contact[0] + ': ' + contact[1]}</p>;
+                    }
+                  )}
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

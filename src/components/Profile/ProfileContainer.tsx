@@ -5,6 +5,7 @@ import {
   getUser,
   putProfileStatus,
   getProfileStatus,
+  unmountProfile,
 } from '../../redux/profilePageReducer';
 import { RootState } from '../../redux/reduxStore';
 import { Profile } from './Profile';
@@ -19,6 +20,7 @@ type ProfileContainerDispatchType = {
   addPost: (message: string) => void;
   putProfileStatus: (status: string) => void;
   getProfileStatus: (id: string) => void;
+  unmountProfile: () => void;
 };
 
 type ProfileContainerPropsType = ProfileContainerStateType &
@@ -35,7 +37,16 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     this.props.getUser(this.props.router?.params.userId || '');
     this.props.getProfileStatus(this.props.router?.params.userId || '');
   }
-  render(): React.ReactNode {
+  componentDidUpdate(prevProps: Readonly<ProfileContainerPropsType>): void {
+    if (prevProps.router?.params.userId !== this.props.router?.params.userId) {
+      this.props.getUser(this.props.router?.params.userId || '');
+      this.props.getProfileStatus(this.props.router?.params.userId || '');
+    }
+  }
+  componentWillUnmount(): void {
+    this.props.unmountProfile();
+  }
+  render() {
     return (
       <Profile
         addPost={this.props.addPost}
@@ -57,6 +68,7 @@ const mapDispatch: ProfileContainerDispatchType = {
   addPost,
   putProfileStatus,
   getProfileStatus,
+  unmountProfile,
 };
 
 export default connect(mapState, mapDispatch)(withRouter(ProfileContainer));

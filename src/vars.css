@@ -1,0 +1,8 @@
+:root {
+  --mainBackground:rgb(238, 238, 238);
+	--mainBoxShadow: 0px 0px 7px rgba(0, 0, 0, 0.15);
+	--mainBoxShadowHover: 0px 0px 10px rgba(0, 0, 0, 0.25);
+	--activeButtonColor: rgb(215, 209, 255);
+	--buttonBackground: cornflowerblue;
+	--mainBorderRadius: 5px;
+}

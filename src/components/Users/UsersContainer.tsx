@@ -3,18 +3,17 @@ import { connect } from 'react-redux';
 import { RootState } from '../../redux/reduxStore';
 import { Users } from './Users';
 import {
-  onFollowChange,
   usersPageUnmount,
-  toggleFollowButtonLoading,
   requestUsers,
+  changeFollowStatus,
 } from '../../redux/usersPageReducer';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { UsersDispatchType, UsersStateType } from './types';
 import {
   getEmptyResponse,
   getLoadingButtons,
-  getUsers,
-} from '../../redux/userPageSelector';
+  getUsersSelector,
+} from '../../redux/usersPageSelector';
 
 type UsersContainerDispatchType = {
   requestUsers: () => void;
@@ -39,10 +38,9 @@ export class UsersAPIContainer extends React.Component<UserAPIContainerPropsType
     return (
       <Users
         users={this.props.users}
-        followOnClick={this.props.followOnClick}
         hasMore={!this.props.hasMore}
         requestMoreUsers={this.props.requestUsers}
-        isButtonLoading={this.props.isButtonLoading}
+        changeFollowStatus={this.props.changeFollowStatus}
         loadingButtons={this.props.loadingButtons}
       />
     );
@@ -52,16 +50,15 @@ export class UsersAPIContainer extends React.Component<UserAPIContainerPropsType
 const mapState = (state: RootState): UsersStateType => ({
   hasMore: getEmptyResponse(state),
   loadingButtons: getLoadingButtons(state),
-  users: getUsers(state),
+  users: getUsersSelector(state),
 });
 
 const mapDispatch = {
-  onFollowChange,
   usersPageUnmount,
-  toggleFollowButtonLoading,
 };
 
 export const UsersContainer = connect(mapState, {
   ...mapDispatch,
   requestUsers,
+  changeFollowStatus,
 })(withAuthRedirect(UsersAPIContainer));

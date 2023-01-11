@@ -1,77 +1,86 @@
-import { Field, Form, Formik } from 'formik';
+import { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux/es/exports';
+import { useLocation } from 'react-router-dom';
+import { ThunkDispatch } from 'redux-thunk';
+import { clearDialogs, getDialogs } from '../../redux/dialogsPageReducer';
+import {
+  getDialogsSelector,
+  isDialogsLoadingSelector,
+} from '../../redux/dialogsPageSelectors';
+import { RootState } from '../../redux/reduxStore';
+import { DispatchAction } from '../../redux/type';
+import { Preloader } from '../common/Preloader/Preloader';
 import { DialogItem } from './DialogItem/DialogItem';
 import styles from './Dialogs.module.css';
-import { Message } from './Message/Message';
-import { DialogsDispatchType, DialogsStateType } from './types';
+import { Messenger } from './Messenger/Messenger';
 
-type DialogsPropsType = DialogsStateType & DialogsDispatchType;
+export const Dialogs = () => {
+  const dialogs = useSelector(getDialogsSelector);
+  const isDialogsLoading = useSelector(isDialogsLoadingSelector);
+  const route = useLocation();
+  const dispatch: ThunkDispatch<RootState, unknown, DispatchAction> =
+    useDispatch();
 
-export const Dialogs = ({ state, addMessage }: DialogsPropsType) => {
-  return (
+  const [isFirstStart, setFirstStart] = useState(true);
+  const [isDialogsActive, setDialogsActive] = useState(
+    route.pathname === '/dialogs'
+  );
+  const [isMessengerActive, setMessengerActive] = useState(
+    route.pathname !== '/dialogs'
+  );
+
+  useEffect(() => {
+    if (route.pathname === '/dialogs') {
+      setDialogsActive(true);
+    } else {
+      setDialogsActive(false);
+      setMessengerActive(true);
+    }
+  }, [route]);
+
+  useEffect(() => {
+    dispatch(getDialogs()).then(() => setFirstStart(false));
+  }, [dispatch, isDialogsActive]);
+
+  useEffect(
+    () => () => {
+      dispatch(clearDialogs());
+    },
+    [dispatch]
+  );
+
+  const handleDialogsTransitionEnd = (
+    e: React.TransitionEvent<HTMLDivElement>
+  ) => {
+    if (e.propertyName === 'width' && isDialogsActive)
+      setMessengerActive(false);
+  };
+
+  return isDialogsLoading && isFirstStart && isDialogsActive ? (
+    <Preloader />
+  ) : (
     <div className={styles.dialogs}>
-      <div className={styles.dialogsItems}>
-        {state.dialogsData.map((el) => (
+      <div
+        onTransitionEnd={handleDialogsTransitionEnd}
+        className={
+          styles.dialogsItems + (isDialogsActive ? ' ' + styles.active : '')
+        }
+      >
+        {dialogs.map((el) => (
           <DialogItem
             key={el.id}
             id={el.id}
-            name={el.name}
+            lastMessage={el.lastMessage}
+            name={el.userName}
             imgLink={
-              el.imgLink ||
+              el.photos.small ||
               'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'
             }
           />
         ))}
       </div>
-      <div className={styles.messenger}>
-        <div className={styles.messagesWrapper}>
-          {state.messagesData.map((el) => (
-            <Message key={el.id} message={el.message} self={el.self} />
-          ))}
-        </div>
-        <MessageForm addMessage={addMessage} />
-      </div>
+      {isMessengerActive && <Messenger img={} isDialogsActive={isDialogsActive} />}
     </div>
-  );
-};
-
-type MessageFormProps = { addMessage: (m: string) => void };
-const MessageForm = ({ addMessage }: MessageFormProps) => {
-  return (
-    <Formik
-      initialValues={{
-        message: '',
-      }}
-      onSubmit={(value, { setFieldValue, setSubmitting }) => {
-        setSubmitting(false);
-        setFieldValue('message', '');
-        if (value.message) addMessage(value.message);
-      }}
-    >
-      {({ isSubmitting, handleSubmit }) => (
-        <Form
-          className={styles.sendWrapper}
-          onKeyDown={(e) => {
-            if (e.code === 'Enter' && !e.shiftKey) {
-              e.preventDefault();
-              handleSubmit();
-            }
-          }}
-        >
-          <Field
-            component="textarea"
-            className={styles.messageTextArea}
-            name="message"
-            placeholder="Write your message..."
-          />
-          <button
-            className={styles.sendButton}
-            type="submit"
-            disabled={isSubmitting}
-          >
-            Send
-          </button>
-        </Form>
-      )}
-    </Formik>
   );
 };

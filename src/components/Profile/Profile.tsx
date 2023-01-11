@@ -16,11 +16,9 @@ export const Profile = ({
         profileInfoStatus={profilePage.profileStatus}
         profileInfo={profilePage.profileInfo}
         putProfileStatus={putProfileStatus}
+				isLoading={profilePage.isProfileLoading}
       />
-      <MyPosts
-        addPost={addPost}
-        profilePage={profilePage}
-      />
+      <MyPosts addPost={addPost} profilePage={profilePage} />
     </div>
   );
 };

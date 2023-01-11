@@ -9,14 +9,15 @@ export const ProfileStatus = ({
 }: ProfileStatusProps) => {
   const [statusIsEdit, toggleStatus] = useState(false);
   const [statusValue, setStatusValue] = useState(status);
-	const handleInputBlur = ()=>{
-		toggleStatus(!statusIsEdit);
-		putProfileStatus(statusValue);
-	}
+  const handleInputBlur = () => {
+    toggleStatus(!statusIsEdit);
+    putProfileStatus(statusValue);
+  };
 
-	useEffect(()=>{
-		setStatusValue(status)
-	},[status])
+  useEffect(() => {
+    setStatusValue(status);
+    return () => setStatusValue('');
+  }, [status]);
 
   return (
     <div>

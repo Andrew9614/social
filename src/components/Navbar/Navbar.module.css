@@ -2,11 +2,11 @@
   grid-area: nav;
 }
 
-.items{
-	background-color: white;
-	border-radius: 5px;
-	box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.15);
-	margin: 10px;
+.items {
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.15);
+  margin: 10px;
   padding: 10px;
 }
 

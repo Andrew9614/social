@@ -8,9 +8,9 @@ export type AuthDataType = typeof initialState;
 
 const initialState = {
   data: {
-    id: null,
-    email: null,
-    login: null,
+    id: '',
+    email: '',
+    login: '',
   },
   isLogin: false,
   isLoading: false,
@@ -87,7 +87,7 @@ export const loginUser =
         dispatch(isAuthLoading(false));
         switch (response.resultCode) {
           case 0:
-            return dispatch(checkIsUserAuth()).then(()=>true)
+            return dispatch(checkIsUserAuth()).then(() => true);
           case 10:
             authAPI
               .getCaptcha()
@@ -118,9 +118,9 @@ export const logoutUser = (): ThunkType => {
           ? dispatch(
               setAuthData(
                 {
-                  id: null,
-                  email: null,
-                  login: null,
+                  id: '',
+                  email: '',
+                  login: '',
                 },
                 false
               )

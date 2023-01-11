@@ -13,15 +13,15 @@ class HeaderContainer extends React.Component<HeaderContainerPropsType> {
     return (
       <Header
         isLogin={this.props.isLogin}
-				isLoading={this.props.isLoading}
+        isLoading={this.props.isLoading}
         login={this.props.data.login || ''}
       />
     );
   }
 }
 
-const mapState = (state: RootState):RootState['authData'] => ({
-  ...state.authData
+const mapState = (state: RootState): RootState['authData'] => ({
+  ...state.authData,
 });
 
 const mapDispatch = {

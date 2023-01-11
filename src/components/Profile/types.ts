@@ -11,6 +11,7 @@ export type MyPostsDispatchType = {
 export type ProfileInfoStateType = {
   profileInfo: RootState['profilePage']['profileInfo'];
   profileInfoStatus: string;
+  isLoading: boolean;
 };
 
 export type ProfileInfoDispatchType = {

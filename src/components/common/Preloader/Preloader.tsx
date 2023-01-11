@@ -1,6 +1,8 @@
 import styles from './preloader.module.css';
 export const Preloader = (props: { [key: string]: string }) => {
   return (
-    <div className={`${styles.loader} ${props.className}`}>Loading...</div>
+    <div className={props.className}>
+      <div className={styles.loader}>Loading...</div>
+    </div>
   );
 };

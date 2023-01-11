@@ -5,11 +5,25 @@ import {
   setAuthDataType,
   setCaptchaType,
 } from './authReducer';
-import { addMessageType } from './dialogsPageReducer';
+import {
+  addMessageType,
+  addTempMessageType,
+  clearDialogsType,
+  clearMessagesType,
+  isDialogsLoadingType,
+  isMessageSendingType,
+  isMessagesLoadingType,
+  setDialogsType,
+  setHasMoreType,
+  setMessagesType,
+} from './dialogsPageReducer';
 import {
   addPostType,
+  deletePostType,
+  isProfileLoadingType,
   setProfileStatusType,
   setProfileType,
+  unmountProfileType,
 } from './profilePageReducer';
 import { RootState } from './reduxStore';
 import {
@@ -29,16 +43,33 @@ export type DispatchAction =
   | addPostType
   | setProfileType
   | setProfileStatusType
-  | addMessageType
   | setAuthDataType
   | isAuthLoadingType
   | setCaptchaType
-  | setInitType;
+  | setInitType
+  | deletePostType
+  | unmountProfileType
+  | isProfileLoadingType
+  | setDialogsType
+  | setMessagesType
+  | isDialogsLoadingType
+  | isMessagesLoadingType
+  | isMessageSendingType
+  | addMessageType
+  | addTempMessageType
+  | setHasMoreType
+  | clearDialogsType
+  | clearMessagesType;
 
 export type DialogsPage = {
-  dialogsData: DialogsData[];
-  messagesData: MessagesData[];
-  newMessageTextArea: string;
+  dialogsData: DialogData[];
+  messagesData: MessageData[];
+  isDialogsLoading: boolean;
+  isMessagesLoading: boolean;
+  isMessageSending: boolean;
+  currentPage: number;
+  defaultSize: number;
+  hasMore: boolean;
 };
 
 export type SidebarPage = {
@@ -65,16 +96,31 @@ export type UsersDataType = {
   loadingFollowButtons: number[];
 };
 
-export type DialogsData = {
-  id: number;
-  name: string;
-  imgLink: string;
+export type DialogData = {
+  id: string;
+  userName: string;
+  hasNewMessages: boolean;
+  lastMessage: string;
+  lastDialogActivityDate: string;
+  lastUserActivityDate: string;
+  newMessagesCount: number;
+  photos: {
+    small: string;
+    large: string;
+  };
 };
 
-export type MessagesData = {
-  id: number;
-  message: string;
-  self: boolean;
+export type MessageData = {
+  id: string;
+  body: string;
+  translatedBody: string | null;
+  addedAt: string;
+  senderId: string;
+  senderName: string;
+  recipientId: string;
+  viewed: boolean;
+  temp: boolean | null;
+  error: boolean | null;
 };
 
 export type PostsData = {

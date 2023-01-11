@@ -5,8 +5,8 @@ import { MessageProps } from './type';
 export const Message: React.FC<MessageProps> = (props) => {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (ref.current) ref.current.scrollIntoView({behavior: 'smooth'});
-  }, []);
+    if (ref.current&&props.temp) ref.current.scrollIntoView({ behavior: 'smooth' });
+  }, [props.temp ]);
   return (
     <div
       ref={ref}
@@ -17,7 +17,7 @@ export const Message: React.FC<MessageProps> = (props) => {
       }
     >
       {/* <img src={props.avatar} alt="avatar" className={s.avatarMessage} /> */}
-      <div className={styles.textBlockMessage}>
+      <div style={props.temp?{backgroundColor: 'red'}:{}} className={styles.textBlockMessage}>
         <div className={styles.tailMessageContainer}>
           <svg className={styles.tailMessage} viewBox="0 0 565.29 565.29">
             <path

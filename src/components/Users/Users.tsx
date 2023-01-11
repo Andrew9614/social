@@ -1,19 +1,17 @@
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { NavLink } from 'react-router-dom';
-import { followAPI } from '../../api/api';
 import { Preloader } from '../common/Preloader/Preloader';
 import { UsersDispatchType, UsersStateType } from './types';
 import styles from './Users.module.css';
 
-type UsersPropsType = UsersStateType & UsersDispatchType
+type UsersPropsType = UsersStateType & UsersDispatchType;
 
 export const Users = ({
   users,
   hasMore,
   loadingButtons,
-  followOnClick,
   requestMoreUsers,
-  isButtonLoading,
+  changeFollowStatus,
 }: UsersPropsType) => {
   return (
     <InfiniteScroll
@@ -45,19 +43,7 @@ export const Users = ({
                   disabled={loadingButtons.some((id) => id === user.id)}
                   onClick={(e) => {
                     e.preventDefault();
-                    isButtonLoading(true, user.id);
-                    (user.followed
-                      ? followAPI.unfollow(user.id)
-                      : followAPI.follow(user.id)
-                    )
-                      .then((response) => {
-                        followOnClick(user.id);
-                        isButtonLoading(false, user.id);
-                      })
-                      .catch((error) => {
-                        isButtonLoading(false, user.id);
-                        console.error(error);
-                      });
+                    changeFollowStatus(user);
                   }}
                 >
                   {user.followed ? 'Unfollow' : 'Follow'}
