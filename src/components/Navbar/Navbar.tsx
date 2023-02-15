@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { RootState } from '../../redux/reduxStore';
-import { FriendsListMiniContainer } from './FriendsListMini/FriendsListMiniContainer';
 import styles from './Navbar.module.css';
 
 export const Navbar: React.FC = () => {
@@ -59,8 +58,6 @@ export const Navbar: React.FC = () => {
           </NavLink>
         </div>
       </div>
-
-      <FriendsListMiniContainer />
     </nav>
   );
 };

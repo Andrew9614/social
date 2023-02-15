@@ -10,14 +10,14 @@ export const Users = ({
   users,
   hasMore,
   loadingButtons,
-  requestMoreUsers,
+  requestUsers,
   changeFollowStatus,
 }: UsersPropsType) => {
   return (
     <InfiniteScroll
       className={styles.usersContainer}
       dataLength={users.length}
-      next={requestMoreUsers}
+      next={requestUsers}
       hasMore={hasMore}
       style={{ overflow: 'hidden' }}
       loader={
@@ -43,7 +43,7 @@ export const Users = ({
                   disabled={loadingButtons.some((id) => id === user.id)}
                   onClick={(e) => {
                     e.preventDefault();
-                    changeFollowStatus(user);
+                    changeFollowStatus(user.id, user.followed);
                   }}
                 >
                   {user.followed ? 'Unfollow' : 'Follow'}

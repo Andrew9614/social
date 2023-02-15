@@ -7,7 +7,6 @@ import {
   requestUsers,
   changeFollowStatus,
 } from '../../redux/usersPageReducer';
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { UsersDispatchType, UsersStateType } from './types';
 import {
   getEmptyResponse,
@@ -39,7 +38,7 @@ export class UsersAPIContainer extends React.Component<UserAPIContainerPropsType
       <Users
         users={this.props.users}
         hasMore={!this.props.hasMore}
-        requestMoreUsers={this.props.requestUsers}
+        requestUsers={this.props.requestUsers}
         changeFollowStatus={this.props.changeFollowStatus}
         loadingButtons={this.props.loadingButtons}
       />
@@ -61,4 +60,4 @@ export const UsersContainer = connect(mapState, {
   ...mapDispatch,
   requestUsers,
   changeFollowStatus,
-})(withAuthRedirect(UsersAPIContainer));
+})(UsersAPIContainer);

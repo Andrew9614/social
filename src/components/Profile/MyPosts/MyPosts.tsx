@@ -9,8 +9,8 @@ type MyPostPropsType = MyPostsStateType & MyPostsDispatchType;
 export const MyPosts = ({ addPost, profilePage }: MyPostPropsType) => {
   return (
     <div className={styles.postsBlock}>
+			<h2>My posts</h2>
       <PostForm addPost={addPost} />
-      <h2>My posts</h2>
       <div className={styles.posts}>
         {profilePage.postsData.map((el) => (
           <Post key={el.id} message={el.message} likes={el.likes} />

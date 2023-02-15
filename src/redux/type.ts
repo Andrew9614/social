@@ -13,6 +13,7 @@ import {
   isDialogsLoadingType,
   isMessageSendingType,
   isMessagesLoadingType,
+  removeMessageType,
   setDialogsType,
   setHasMoreType,
   setMessagesType,
@@ -21,6 +22,7 @@ import {
   addPostType,
   deletePostType,
   isProfileLoadingType,
+  setFollowType,
   setProfileStatusType,
   setProfileType,
   unmountProfileType,
@@ -59,7 +61,9 @@ export type DispatchAction =
   | addTempMessageType
   | setHasMoreType
   | clearDialogsType
-  | clearMessagesType;
+  | clearMessagesType
+  | removeMessageType
+  | setFollowType;
 
 export type DialogsPage = {
   dialogsData: DialogData[];

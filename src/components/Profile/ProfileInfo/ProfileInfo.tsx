@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Preloader } from '../../common/Preloader/Preloader';
 import { ProfileInfoDispatchType, ProfileInfoStateType } from '../types';
 import styles from './ProfileInfo.module.css';
@@ -6,15 +7,20 @@ import { ProfileStatus } from './ProfileStatus';
 type ProfileInfoPropsType = ProfileInfoStateType & ProfileInfoDispatchType;
 
 export const ProfileInfo = ({
+  userId,
+  isSelfPage,
+  isFollowLoading,
   profileInfo,
   profileInfoStatus,
   putProfileStatus,
+  handleFollowClick,
   isLoading,
+  isFollow,
 }: ProfileInfoPropsType) => {
   return (
     <div className={styles.profileInfoContainer}>
       {isLoading ? (
-        <Preloader className={styles.preloader}/>
+        <Preloader className={styles.preloader} />
       ) : (
         <div>
           {' '}
@@ -29,14 +35,31 @@ export const ProfileInfo = ({
                   alt={profileInfo?.fullName || 'avatar'}
                 />
               </div>
+              {!isSelfPage && (
+                <div className={styles.buttonsBlock}>
+                  <Link to={'/dialogs/' + userId}>
+                    <button>Message</button>
+                  </Link>
+                  <button
+                    disabled={isFollowLoading}
+                    onClick={handleFollowClick}
+                  >
+                    {isFollow ? 'Unfollow' : 'Follow'}
+                  </button>
+                </div>
+              )}
             </div>
             <div className={styles.profileInfoRight}>
               <div className={styles.profileInfoDescription}>
                 <h2>{profileInfo?.fullName}</h2>
-                <ProfileStatus
-                  status={profileInfoStatus || 'Set status'}
-                  putProfileStatus={putProfileStatus}
-                />
+                {isSelfPage ? (
+                  <ProfileStatus
+                    status={profileInfoStatus || 'Set status'}
+                    putProfileStatus={putProfileStatus}
+                  />
+                ) : (
+                  <div>{profileInfoStatus}</div>
+                )}
                 <p>
                   {profileInfo?.lookingForAJob
                     ? 'Looking for a job at ' +
@@ -47,8 +70,8 @@ export const ProfileInfo = ({
                   <p style={{ marginTop: 20, fontSize: 1.5 + 'em' }}>
                     Contacts:{' '}
                   </p>
-                  {/* eslint-disable-next-line array-callback-return */}
                   {Object.entries(profileInfo?.contacts || '').map(
+                    // eslint-disable-next-line array-callback-return
                     (contact) => {
                       if (contact[1])
                         return <p>{contact[0] + ': ' + contact[1]}</p>;
@@ -63,8 +86,3 @@ export const ProfileInfo = ({
     </div>
   );
 };
-//  <img
-//         className={styles.titleImg}
-//         src="https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000"
-//         alt="back"
-//       />

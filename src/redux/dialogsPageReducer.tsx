@@ -17,6 +17,7 @@ const IS_MESSAGE_SENDING = 'IS_MESSAGE_SENDING';
 const SET_HAS_MORE = 'SET_HAS_MORE';
 const CLEAR_DIALOGS = 'CLEAR_DIALOGS';
 const CLEAR_MESSAGES = 'CLEAR_MESSAGES';
+const REMOVE_MESSAGE = 'REMOVE_MESSAGE';
 
 // const initialState = {
 //   dialogsData: [
@@ -192,7 +193,7 @@ export const dialogsPageReducer = (
         id: action.date.toString(),
         recipientId: action.recipientId,
         senderId: action.senderId,
-        senderName: 'afdaf',
+        senderName: action.senderName,
         temp: true,
         viewed: false,
         translatedBody: null,
@@ -220,6 +221,15 @@ export const dialogsPageReducer = (
         currentPage: 1,
         hasMore: true,
       };
+    case REMOVE_MESSAGE:
+      const index = state.messagesData.findIndex((el) => el.id === action.id);
+      return {
+        ...state,
+        messagesData: [
+          ...state.messagesData.slice(0, index),
+          ...state.messagesData.slice(index + 1),
+        ],
+      };
     default:
       return state;
   }
@@ -235,6 +245,7 @@ export type isMessageSendingType = ReturnType<typeof isMessageSending>;
 export type setHasMoreType = ReturnType<typeof setHasMore>;
 export type clearDialogsType = ReturnType<typeof clearDialogs>;
 export type clearMessagesType = ReturnType<typeof clearMessages>;
+export type removeMessageType = ReturnType<typeof removeMessage>;
 
 const setDialogs = (dialogs: DialogsPage['dialogsData']) => {
   return { type: SET_DIALOGS, dialogs: dialogs } as const;
@@ -279,6 +290,9 @@ export const clearDialogs = () => {
 export const clearMessages = () => {
   return { type: CLEAR_MESSAGES } as const;
 };
+export const removeMessage = (id: string) => {
+  return { type: REMOVE_MESSAGE, id: id } as const;
+};
 
 export const sendMessage =
   (
@@ -311,7 +325,7 @@ export const getDialogs = (): ThunkType<Promise<any>> => async (dispatch) => {
     .then(async (response) => {
       await dispatch(configureDialogs(response));
       dispatch(isDialogsLoading(false));
-			console.log('await')
+      console.log('await');
     })
     .catch((error) => {
       dispatch(isDialogsLoading(false));
@@ -349,9 +363,32 @@ export const configureDialogs =
   (dialogs: DialogData[]): ThunkType<Promise<any>> =>
   async (dispatch) => {
     for (let el of dialogs) {
-      el.lastMessage = (
-        await messageAPI.getMessages(el.id, 1, 1)
-      ).items[0].body;
+      const message = await messageAPI.getMessages(el.id, 1, 1);
+      if (!message.items.length) {
+        dialogs.splice(
+          dialogs.findIndex((i) => i === el),
+          1
+        );
+        continue;
+      }
+      el.lastMessage = message.items[0].body;
     }
     dispatch(setDialogs(dialogs));
+  };
+export const deleteMessage =
+  (messageId: string): ThunkType<Promise<any>> =>
+  async (dispatch) => {
+    messageAPI
+      .deleteMessage(messageId)
+      .then((res) => {
+        console.log(res);
+        if (!res.data.resultCode) {
+          dispatch(removeMessage(messageId));
+        } else {
+          console.error(res.data.messages);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };

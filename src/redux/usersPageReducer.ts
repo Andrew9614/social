@@ -109,17 +109,18 @@ export const requestUsers = (): ThunkType => {
 };
 
 export const changeFollowStatus = (
-  user: UserType
-): ThunkAction<void, RootState, unknown, DispatchAction> => {
-  return (dispatch) => {
-    dispatch(toggleFollowButtonLoading(true, user.id));
-    (user.followed ? followAPI.unfollow(user.id) : followAPI.follow(user.id))
+  id: number,
+	followed: boolean
+): ThunkAction<Promise<void>, RootState, unknown, DispatchAction> => {
+  return async(dispatch) => {
+    dispatch(toggleFollowButtonLoading(true, id));
+    await (followed ? followAPI.unfollow(id) : followAPI.follow(id))
       .then(() => {
-        dispatch(onFollowChange(user.id));
-        dispatch(toggleFollowButtonLoading(false, user.id));
+        dispatch(onFollowChange(id));
+        dispatch(toggleFollowButtonLoading(false, id));
       })
       .catch((error) => {
-        dispatch(toggleFollowButtonLoading(false, user.id));
+        dispatch(toggleFollowButtonLoading(false, id));
         console.error(error);
       });
   };

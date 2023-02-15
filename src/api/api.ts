@@ -18,6 +18,10 @@ export const usersAPI = {
 };
 
 export const followAPI = {
+  getFollow(id: number) {
+    return instance.get('follow/' + id);
+  },
+
   follow(id: number) {
     return instance.post('follow/' + id);
   },

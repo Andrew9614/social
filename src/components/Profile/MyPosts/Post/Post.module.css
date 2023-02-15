@@ -1,10 +1,29 @@
-.item {
-  color: rgb(60, 60, 60);
+.post {
+  display: flex;
+  padding: 10px;
+  margin: 10px 0 10px 0;
+  border: 2px none;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0px 0px 7px rgb(202, 202, 202);
 }
 
-.item img {
-  width: 50px;
-  height: 50px;
+.post img {
+  width: 40px;
+  height: 40px;
   object-fit: cover;
   border-radius: 50%;
+  padding: 10px;
+}
+
+.postLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+	justify-content: space-between;
+}
+
+.postText {
+  margin-left: 20px;
+  white-space: pre-line;
 }

@@ -6,6 +6,6 @@ export type UsersStateType = {
   loadingButtons: number[];
 };
 export type UsersDispatchType = {
-  requestMoreUsers: () => void;
-  changeFollowStatus: (user: RootState['usersPage']['users'][number]) => void;
+  requestUsers: () => void;
+  changeFollowStatus: (id: number, followed: boolean) => void;
 };

@@ -1,7 +1,7 @@
 import { ThunkAction } from 'redux-thunk';
-import { profileAPI } from '../api/api';
+import { followAPI, profileAPI } from '../api/api';
 import { RootState } from './reduxStore';
-import { DispatchAction } from './type';
+import { DispatchAction, ThunkType } from './type';
 
 const ADD_POST = 'ADD_POST';
 const SET_PROFILE = 'SET_PROFILE';
@@ -9,6 +9,7 @@ const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS';
 const DELETE_POST = 'DELETE_POST';
 const UNMOUNT_PROFILE = 'UNMOUNT_PROFILE';
 const PROFILE_LOADING = 'PROFILE_LOADING';
+const SET_FOLLOW = 'SET_FOLLOW';
 
 export type ProfilePage = typeof initialState;
 
@@ -17,7 +18,7 @@ const initialState = {
     { id: 0, message: 'Hello', likes: 5 },
     { id: 1, message: 'fgs', likes: 48 },
     { id: 2, message: 'dsav', likes: 458 },
-    { id: 3, message: 'faggot', likes: 1488 },
+    { id: 3, message: 'hhhhh', likes: 188 },
   ],
   profileInfo: {
     aboutMe: '',
@@ -41,6 +42,7 @@ const initialState = {
     },
   },
   profileStatus: '',
+  isFollow: false,
   isProfileLoading: false,
 };
 
@@ -81,6 +83,11 @@ export const profilePageReducer = (
         ...state,
         isProfileLoading: action.status,
       };
+    case SET_FOLLOW:
+      return {
+        ...state,
+        isFollow: action.status,
+      };
     default:
       return state;
   }
@@ -92,6 +99,7 @@ export type setProfileStatusType = ReturnType<typeof setProfileStatus>;
 export type deletePostType = ReturnType<typeof deletePost>;
 export type unmountProfileType = ReturnType<typeof unmountProfile>;
 export type isProfileLoadingType = ReturnType<typeof isProfileLoading>;
+export type setFollowType = ReturnType<typeof setFollow>;
 
 export const addPost = (message: string) => {
   return { type: ADD_POST, message } as const;
@@ -111,13 +119,15 @@ export const unmountProfile = () => {
 export const isProfileLoading = (status: boolean) => {
   return { type: PROFILE_LOADING, status: status } as const;
 };
+export const setFollow = (status: boolean) => {
+  return { type: SET_FOLLOW, status: status } as const;
+};
 
-export const getUser = (
-  id: string
-): ThunkAction<void, RootState, unknown, DispatchAction> => {
-  return (dispatch) => {
+export const getUser =
+  (id: string): ThunkType<Promise<void>> =>
+  async (dispatch) => {
     dispatch(isProfileLoading(true));
-    profileAPI
+    await profileAPI
       .getUser(id)
       .then((response) => {
         dispatch(setProfile(response.data));
@@ -128,7 +138,14 @@ export const getUser = (
         dispatch(isProfileLoading(false));
       });
   };
-};
+
+export const getFollow =
+  (id: number): ThunkAction<void, RootState, unknown, DispatchAction> =>
+  (dispatch) => {
+    followAPI.getFollow(id).then((res) => {
+      dispatch(setFollow(res.data));
+    });
+  };
 
 export const getProfileStatus = (
   id: string

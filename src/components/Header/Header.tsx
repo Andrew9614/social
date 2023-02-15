@@ -17,7 +17,7 @@ export const Header = ({ isLogin, login, isLoading }: HeaderStateType) => {
         {isLoading ? (
           <Preloader className={styles.loader} />
         ) : isLogin ? (
-          <p onClick={() => dispatch(logoutUser())}>{login}</p>
+          <p onClick={() => dispatch(logoutUser())}>{login==='lehaebat'?'leha':login}</p>
         ) : (
           <button onClick={() => dispatch(checkIsUserAuth())}>Log in</button>
         )}

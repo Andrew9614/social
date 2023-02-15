@@ -6,25 +6,19 @@ import {
   putProfileStatus,
   getProfileStatus,
   unmountProfile,
+  getFollow,
 } from '../../redux/profilePageReducer';
-import { RootState } from '../../redux/reduxStore';
+import { AppDispatch, RootState } from '../../redux/reduxStore';
 import { Profile } from './Profile';
 import { withRouter } from '../common/withRouter';
-import { NavigateFunction } from 'react-router-dom';
+import { Navigate, NavigateFunction } from 'react-router-dom';
 import { Params } from '@remix-run/router';
+import { changeFollowStatus } from '../../redux/usersPageReducer';
 
 type ProfileContainerStateType = { state: RootState };
 
-type ProfileContainerDispatchType = {
-  getUser: (id: string) => void;
-  addPost: (message: string) => void;
-  putProfileStatus: (status: string) => void;
-  getProfileStatus: (id: string) => void;
-  unmountProfile: () => void;
-};
-
 type ProfileContainerPropsType = ProfileContainerStateType &
-  ProfileContainerDispatchType & {
+  ReturnType<typeof mapDispatch> & {
     router?: {
       location: Location;
       navigate: NavigateFunction;
@@ -34,8 +28,12 @@ type ProfileContainerPropsType = ProfileContainerStateType &
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType> {
   componentDidMount(): void {
-    this.props.getUser(this.props.router?.params.userId || '');
-    this.props.getProfileStatus(this.props.router?.params.userId || '');
+    if (this.props.router?.params.userId) {
+      this.props.getUser(this.props.router?.params.userId || '').then(() => {
+        this.props.getFollow(+this.props.state.profilePage.profileInfo.userId);
+      });
+      this.props.getProfileStatus(this.props.router?.params.userId || '');
+    }
   }
   componentDidUpdate(prevProps: Readonly<ProfileContainerPropsType>): void {
     if (prevProps.router?.params.userId !== this.props.router?.params.userId) {
@@ -46,12 +44,35 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
   componentWillUnmount(): void {
     this.props.unmountProfile();
   }
+
+  handleFollowClick = () => {
+    this.props
+      .changeFollowStatus(
+        +this.props.state.profilePage.profileInfo.userId,
+        this.props.state.profilePage.isFollow
+      )
+      .then(() =>
+        this.props.getFollow(+this.props.state.profilePage.profileInfo.userId)
+      );
+  };
+
   render() {
+    if (!this.props.router?.params.userId) {
+      return <Navigate to={'/profile/' + this.props.state.authData.data.id} />;
+    }
     return (
       <Profile
+        isSelfPage={
+          // eslint-disable-next-line eqeqeq
+          this.props.router?.params.userId == this.props.state.authData.data.id
+        }
+        isFollowLoading={this.props.state.usersPage.loadingFollowButtons.some(
+          (id) => id === +this.props.state.profilePage.profileInfo.userId
+        )}
         addPost={this.props.addPost}
         profilePage={this.props.state.profilePage}
         putProfileStatus={this.props.putProfileStatus}
+        handleFollowClick={this.handleFollowClick}
       />
     );
   }
@@ -63,12 +84,15 @@ const mapState = (state: RootState): ProfileContainerStateType => {
   };
 };
 
-const mapDispatch: ProfileContainerDispatchType = {
-  getUser,
-  addPost,
-  putProfileStatus,
-  getProfileStatus,
-  unmountProfile,
-};
+const mapDispatch = (dispatch: AppDispatch) => ({
+  getUser: (id: string) => dispatch(getUser(id)),
+  addPost: (message: string) => dispatch(addPost(message)),
+  putProfileStatus: (status: string) => dispatch(putProfileStatus(status)),
+  getProfileStatus: (id: string) => dispatch(getProfileStatus(id)),
+  unmountProfile: () => dispatch(unmountProfile()),
+  getFollow: (id: number) => dispatch(getFollow(id)),
+  changeFollowStatus: (id: number, followed: boolean) =>
+    dispatch(changeFollowStatus(id, followed)),
+});
 
 export default connect(mapState, mapDispatch)(withRouter(ProfileContainer));
