@@ -4,6 +4,7 @@ import {
   isAuthLoadingType,
   setAuthDataType,
   setCaptchaType,
+	setResponseMessageType,
 } from './authReducer';
 import {
   addMessageType,
@@ -63,7 +64,8 @@ export type DispatchAction =
   | clearDialogsType
   | clearMessagesType
   | removeMessageType
-  | setFollowType;
+  | setFollowType
+  | setResponseMessageType;
 
 export type DialogsPage = {
   dialogsData: DialogData[];

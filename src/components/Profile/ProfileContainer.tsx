@@ -58,7 +58,13 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
   render() {
     if (!this.props.router?.params.userId) {
-      return <Navigate to={'/profile/' + this.props.state.authData.data.id} />;
+      if (this.props.state.authData.data.id) {
+        return (
+          <Navigate to={'/profile/' + this.props.state.authData.data.id} />
+        );
+      } else {
+        return <Navigate to={'/login/' + this.props.state.authData.data.id} />;
+      }
     }
     return (
       <Profile
