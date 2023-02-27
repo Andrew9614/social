@@ -6,6 +6,7 @@ export type MyPostsStateType = {
 
 export type MyPostsDispatchType = {
   addPost: (message: string) => void;
+  addLike: (id: number) => void;
 };
 
 export type ProfileInfoStateType = {

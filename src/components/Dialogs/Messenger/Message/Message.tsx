@@ -73,7 +73,7 @@ export const Message: React.FC<MessageProps> = (props) => {
 
         {/* <div className={styles.nameMessage}>{props.name}</div> */}
         <div className={styles.textMessage}>{props.message.body}</div>
-        {(props.temp && <Preloader innerClass={styles.messageLoading} />) ||
+        {(props.temp && <Preloader className={styles.messageLoading} />) ||
           (!props.viewed && props.self && (
             <div className={styles.messageState} />
           ))}

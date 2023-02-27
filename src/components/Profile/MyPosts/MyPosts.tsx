@@ -6,14 +6,22 @@ import { useRef } from 'react';
 
 type MyPostPropsType = MyPostsStateType & MyPostsDispatchType;
 
-export const MyPosts = ({ addPost, profilePage }: MyPostPropsType) => {
+export const MyPosts = ({ addPost, profilePage, addLike }: MyPostPropsType) => {
   return (
     <div className={styles.postsBlock}>
-			<h2>My posts</h2>
+      <h2>My posts</h2>
       <PostForm addPost={addPost} />
       <div className={styles.posts}>
         {profilePage.postsData.map((el) => (
-          <Post key={el.id} message={el.message} likes={el.likes} />
+          <Post
+            name={profilePage.profileInfo.fullName}
+            addLike={addLike}
+            key={el.id}
+            id={el.id}
+            photoLink={profilePage.profileInfo.photos.small}
+            message={el.message}
+            likes={el.likes}
+          />
         ))}
       </div>
     </div>

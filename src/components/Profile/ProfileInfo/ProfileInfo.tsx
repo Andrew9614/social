@@ -74,7 +74,7 @@ export const ProfileInfo = ({
                     // eslint-disable-next-line array-callback-return
                     (contact) => {
                       if (contact[1])
-                        return <p>{contact[0] + ': ' + contact[1]}</p>;
+                        return <p key={contact[0]}>{contact[0] + ': ' + contact[1]}</p>;
                     }
                   )}
                 </div>

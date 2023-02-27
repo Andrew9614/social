@@ -7,6 +7,7 @@ type ProfilePropsType = ProfileStateType & ProfileDispatchType;
 
 export const Profile = ({
   isSelfPage,
+	addLike,
   addPost,
   isFollowLoading,
   profilePage,
@@ -26,7 +27,7 @@ export const Profile = ({
         putProfileStatus={putProfileStatus}
         isLoading={profilePage.isProfileLoading}
       />
-      <MyPosts addPost={addPost} profilePage={profilePage} />
+      <MyPosts addLike={addLike} addPost={addPost} profilePage={profilePage} />
     </div>
   );
 };

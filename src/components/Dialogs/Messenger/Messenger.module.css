@@ -41,7 +41,13 @@
   overflow-x: hidden;
   overflow-y: auto;
 }
+
+.messagesWrapper > div{
+	height: 100%;
+}
+
 .messages {
+	height: 100% !important;
   padding-bottom: 10px;
   display: flex;
 	align-items: flex-start;

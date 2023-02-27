@@ -1,6 +1,5 @@
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Link } from 'react-router-dom';
-import { deleteMessage } from '../../../redux/dialogsPageReducer';
 import { ProfilePage } from '../../../redux/profilePageReducer';
 import { RootState } from '../../../redux/reduxStore';
 import { Preloader } from '../../common/Preloader/Preloader';
@@ -55,35 +54,29 @@ export const Messenger = ({
         </Link>
       </div>
       <div id="messagesWrapper" className={styles.messagesWrapper}>
-        <InfiniteScroll
-          className={styles.messages}
-          style={{ overflow: 'hidden' }}
-          dataLength={messages.length}
-          next={() => getMessages()}
-          hasMore={hasMore}
-          inverse={true}
-          loader={
-            <div className={styles.messagesLoading}>
-              <Preloader />
-            </div>
-          }
-          scrollableTarget="messagesWrapper"
-        >
-          {isMessagesLoading ? (
-            <Preloader />
-          ) : (
-            messages.map((el) => (
+        {
+          <InfiniteScroll
+            className={styles.messages}
+            style={{ overflow: 'hidden' }}
+            dataLength={messages.length}
+            next={() => getMessages()}
+            hasMore={hasMore}
+            inverse={true}
+            loader={<Preloader className={styles.messagesLoading} />}
+            scrollableTarget="messagesWrapper"
+          >
+            {messages.map((el) => (
               <Message
                 key={el.id}
                 message={el}
                 self={el.senderId === authData.id}
                 temp={el.temp}
                 viewed={el.viewed}
-								deleteMessage={deleteMessage}
+                deleteMessage={deleteMessage}
               />
-            ))
-          )}
-        </InfiniteScroll>
+            ))}
+          </InfiniteScroll>
+        }
       </div>
       <MessageForm addMessage={addMessage} />
     </div>

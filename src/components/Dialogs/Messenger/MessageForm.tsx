@@ -1,6 +1,5 @@
-import { Field, Form, Formik } from "formik";
+import { Field, Form, Formik } from 'formik';
 import styles from './Messenger.module.css';
-
 
 type MessageFormProps = { addMessage: (m: string) => void };
 export const MessageForm = ({ addMessage }: MessageFormProps) => {

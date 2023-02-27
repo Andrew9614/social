@@ -1,4 +1,4 @@
-import { combineReducers, createStore, applyMiddleware } from 'redux';
+import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 import { authReducer } from './authReducer';
 import { dialogsPageReducer } from './dialogsPageReducer';
 import { profilePageReducer } from './profilePageReducer';
@@ -16,9 +16,15 @@ const reducers = combineReducers({
   authData: authReducer,
   appData: appReducer,
 });
+
+const composeEnhancers: <R>(a: R) => R =
+  (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 export const store = createStore(
   reducers,
-  applyMiddleware(thunk as ThunkMiddleware<RootState, DispatchAction>)
+  composeEnhancers(
+    applyMiddleware(thunk as ThunkMiddleware<RootState, DispatchAction>)
+  )
 );
 
 export type RootState = ReturnType<typeof reducers>;

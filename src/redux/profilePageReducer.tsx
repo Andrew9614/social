@@ -4,6 +4,7 @@ import { RootState } from './reduxStore';
 import { DispatchAction, ThunkType } from './type';
 
 const ADD_POST = 'ADD_POST';
+const ADD_LIKE = 'ADD_LIKE';
 const SET_PROFILE = 'SET_PROFILE';
 const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS';
 const DELETE_POST = 'DELETE_POST';
@@ -11,15 +12,40 @@ const UNMOUNT_PROFILE = 'UNMOUNT_PROFILE';
 const PROFILE_LOADING = 'PROFILE_LOADING';
 const SET_FOLLOW = 'SET_FOLLOW';
 
-export type ProfilePage = typeof initialState;
+export type ProfilePage = {
+  postsData: {
+    id: number;
+    message: string;
+    likes: number;
+  }[];
+  profileInfo: {
+    aboutMe: string;
+    contacts: {
+      facebook: null;
+      website: null;
+      vk: null;
+      twitter: null;
+      instagram: null;
+      youtube: null;
+      github: null;
+      mainLink: null;
+    };
+    lookingForAJob: boolean;
+    lookingForAJobDescription: string;
+    fullName: string;
+    userId: string;
+    photos: {
+      small: string;
+      large: string;
+    };
+  };
+  profileStatus: string;
+  isFollow: boolean;
+  isProfileLoading: boolean;
+};
 
 const initialState = {
-  postsData: [
-    { id: 0, message: 'Hello', likes: 5 },
-    { id: 1, message: 'fgs', likes: 48 },
-    { id: 2, message: 'dsav', likes: 458 },
-    { id: 3, message: 'hhhhh', likes: 188 },
-  ],
+  postsData: [],
   profileInfo: {
     aboutMe: '',
     contacts: {
@@ -53,7 +79,9 @@ export const profilePageReducer = (
   switch (action.type) {
     case ADD_POST:
       let newPost = {
-        id: state.postsData[state.postsData.length - 1].id + 1,
+        id: state.postsData.length
+          ? state.postsData[state.postsData.length - 1].id + 1
+          : 1,
         message: action.message,
         likes: 0,
       };
@@ -65,6 +93,14 @@ export const profilePageReducer = (
       return {
         ...state,
         profileInfo: action.profile || state.profileInfo,
+      };
+    case ADD_LIKE:
+      const postData = state.postsData.map((el) =>
+        el.id === action.id ? { ...el, likes: el.likes + 1 } : { ...el }
+      );
+      return {
+        ...state,
+        postsData: postData,
       };
     case SET_PROFILE_STATUS:
       return {
@@ -94,6 +130,7 @@ export const profilePageReducer = (
 };
 
 export type addPostType = ReturnType<typeof addPost>;
+export type addLikeType = ReturnType<typeof addLike>;
 export type setProfileType = ReturnType<typeof setProfile>;
 export type setProfileStatusType = ReturnType<typeof setProfileStatus>;
 export type deletePostType = ReturnType<typeof deletePost>;
@@ -103,6 +140,9 @@ export type setFollowType = ReturnType<typeof setFollow>;
 
 export const addPost = (message: string) => {
   return { type: ADD_POST, message } as const;
+};
+export const addLike = (id: number) => {
+  return { type: ADD_LIKE, id } as const;
 };
 export const setProfile = (profile: ProfilePage['profileInfo']) => {
   return { type: SET_PROFILE, profile: profile } as const;

@@ -1,4 +1,4 @@
-@import "./vars.css";
+@import './vars.css';
 
 html {
   width: 100%;
@@ -64,14 +64,24 @@ textarea:focus {
 }
 
 .app-wrapper nav {
-  display: none;
   position: absolute;
   height: 100%;
   z-index: 2;
+  background-color: white;
   box-shadow: var(--mainBoxShadow);
+  transform: translate(-100%, 0);
 }
 .app-wrapper header {
   z-index: 10;
+}
+
+.preloaderContainer {
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  top: 70px;
+  display: flex;
+  justify-content: center;
 }
 
 @media (min-width: 700px) {
@@ -82,8 +92,9 @@ textarea:focus {
     grid-template-columns: 1fr 5fr;
   }
   .app-wrapper nav {
-    display: block;
+    transform: translate(0, 0);
     position: initial;
+    background: none;
     box-shadow: none;
     z-index: unset;
   }
@@ -101,5 +112,5 @@ textarea:focus {
 .app-wrapper-content {
   grid-area: content;
   overflow: auto;
-	overflow-x: hidden;
+  overflow-x: hidden;
 }

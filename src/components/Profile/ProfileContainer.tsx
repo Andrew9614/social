@@ -7,6 +7,7 @@ import {
   getProfileStatus,
   unmountProfile,
   getFollow,
+  addLike,
 } from '../../redux/profilePageReducer';
 import { AppDispatch, RootState } from '../../redux/reduxStore';
 import { Profile } from './Profile';
@@ -76,6 +77,7 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
           (id) => id === +this.props.state.profilePage.profileInfo.userId
         )}
         addPost={this.props.addPost}
+				addLike={this.props.addLike}
         profilePage={this.props.state.profilePage}
         putProfileStatus={this.props.putProfileStatus}
         handleFollowClick={this.handleFollowClick}
@@ -93,6 +95,7 @@ const mapState = (state: RootState): ProfileContainerStateType => {
 const mapDispatch = (dispatch: AppDispatch) => ({
   getUser: (id: string) => dispatch(getUser(id)),
   addPost: (message: string) => dispatch(addPost(message)),
+  addLike: (id: number) => dispatch(addLike(id)),
   putProfileStatus: (status: string) => dispatch(putProfileStatus(status)),
   getProfileStatus: (id: string) => dispatch(getProfileStatus(id)),
   unmountProfile: () => dispatch(unmountProfile()),

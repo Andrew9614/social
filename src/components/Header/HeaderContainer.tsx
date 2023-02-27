@@ -6,12 +6,14 @@ import { isAuthLoading } from '../../redux/authReducer';
 
 type HeaderContainerPropsType = RootState['authData'] & {
   isAuthLoading: (status: boolean) => void;
+	handleChangeNavbarActive: ()=>void
 };
 
 class HeaderContainer extends React.Component<HeaderContainerPropsType> {
   render() {
     return (
       <Header
+			handleChangeNavbarActive={this.props.handleChangeNavbarActive}
         isLogin={this.props.isLogin}
         isLoading={this.props.isLoading}
         login={this.props.data.login || ''}

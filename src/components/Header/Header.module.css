@@ -1,33 +1,57 @@
 .header {
   grid-area: header;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-areas: 'menu logo login';
   align-items: center;
   background-color: cornflowerblue;
   box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.34);
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
 }
 
-.header img {
-  height: 60px;
+@media (min-width: 700px) {
+  .header {
+    grid-template-areas: 'logo login';
+    grid-template-columns: 1fr 1fr;
+  }
+  .menuButton {
+    display: none;
+  }
+	.logo{
+		justify-self: left;
+	}
+}
+
+.logo {
+  grid-area: logo;
+  margin-left: 10px;
 }
 
 .login {
+  grid-area: login;
   margin-right: 20px;
   padding: 5px;
   overflow: hidden;
   color: white;
+  justify-self: right;
 }
 
 .login button {
   box-shadow: none;
   background-color: white;
   color: black;
-	cursor: pointer;
+  cursor: pointer;
 }
 
-.loader {
-  font-size: 2px;
-  border-left: 1.1em solid #ffffff;
+.loader div {
+  font-size: 3px;
+  border-left: 1.1em solid #fff;
+}
+
+.menuButton {
+  grid-area: menu;
+  margin-left: 10px;
+  justify-self: left;
 }

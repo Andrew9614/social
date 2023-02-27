@@ -1,5 +1,6 @@
 .nav {
   grid-area: nav;
+	transition: transform 0.15s;
 }
 
 .items {
@@ -29,4 +30,12 @@
   color: rgb(0, 0, 0);
   margin-left: 5px;
   text-shadow: rgb(51, 51, 51) 0px 0px 2px;
+}
+
+.nav.active {
+  transform: translate(0,0);	
+}
+
+.nav.active .items{
+	box-shadow: none;
 }

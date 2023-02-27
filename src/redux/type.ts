@@ -4,7 +4,7 @@ import {
   isAuthLoadingType,
   setAuthDataType,
   setCaptchaType,
-	setResponseMessageType,
+  setResponseMessageType,
 } from './authReducer';
 import {
   addMessageType,
@@ -20,6 +20,7 @@ import {
   setMessagesType,
 } from './dialogsPageReducer';
 import {
+  addLikeType,
   addPostType,
   deletePostType,
   isProfileLoadingType,
@@ -65,7 +66,8 @@ export type DispatchAction =
   | clearMessagesType
   | removeMessageType
   | setFollowType
-  | setResponseMessageType;
+  | setResponseMessageType
+  | addLikeType;
 
 export type DialogsPage = {
   dialogsData: DialogData[];

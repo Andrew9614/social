@@ -48,10 +48,13 @@
   left: 0;
 }
 .messageLoading {
-  font-size: 1.2px;
   position: absolute;
   top: 50%;
-  left: -15px;
+  left: -20px;
+  transform: translate(0, -50%);
+}
+.messageLoading div {
+  font-size: 1.2px;
   border-left: 1.1em solid cornflowerblue;
 }
 
@@ -96,7 +99,7 @@
   display: flex;
   position: absolute;
   opacity: 0;
-	left: 1000%;
+  left: 1000%;
   top: 50%;
   padding-left: 20px;
   transform: translate(0, -50%);
@@ -104,8 +107,8 @@
 .selfMessage .messagePopUp {
   padding-left: unset;
   padding-right: 20px;
-	left: unset;
-	right: -1000%;
+  left: unset;
+  right: -1000%;
 }
 
 .messagePopUp button {

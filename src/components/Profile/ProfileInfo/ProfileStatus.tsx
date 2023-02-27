@@ -26,7 +26,7 @@ export const ProfileStatus = ({
           <input
             autoFocus={true}
             onBlur={() => handleInputBlur()}
-            value={statusValue}
+            value={statusValue === 'Set status' ? '' : statusValue}
             onChange={(e) => {
               setStatusValue(e.target.value);
             }}

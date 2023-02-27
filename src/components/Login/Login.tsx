@@ -31,7 +31,8 @@ export const Login = () => {
     <Formik
       initialValues={{
         email: '',
-        password: '4ARNrECxbXj6nKS',
+        // password: '4ARNrECxbXj6nKS',
+        password: '',
         rememberMe: false,
         captcha: '',
       }}
@@ -50,7 +51,7 @@ export const Login = () => {
         return errors;
       }}
       onSubmit={(values, { setSubmitting }) => {
-        console.log(JSON.stringify(values, null, 2));
+        //console.log(JSON.stringify(values, null, 2));
         dispatch(loginUser(values)).then((res) => res && setRedirect(true));
         setSubmitting(false);
       }}

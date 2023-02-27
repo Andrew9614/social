@@ -185,6 +185,11 @@ export const dialogsPageReducer = (
         ...state,
         isDialogsLoading: action.status,
       };
+    case IS_MESSAGES_LOADING:
+      return {
+        ...state,
+        isMessagesLoading: action.status,
+      };
     case ADD_TEMP_MESSAGE:
       const newTempMessage: MessageData = {
         addedAt: action.date.toString(),
@@ -309,7 +314,7 @@ export const sendMessage =
     messageAPI
       .postMessage(recipientId, message)
       .then((response) => {
-        console.log(response.data.message);
+        //console.log(response.data.message);
         if (!response.resultCode)
           dispatch(addMessage(response.data.message, sendTime));
       })
@@ -325,7 +330,6 @@ export const getDialogs = (): ThunkType<Promise<any>> => async (dispatch) => {
     .then(async (response) => {
       await dispatch(configureDialogs(response));
       dispatch(isDialogsLoading(false));
-      console.log('await');
     })
     .catch((error) => {
       dispatch(isDialogsLoading(false));
@@ -362,17 +366,17 @@ export const getMessages =
 export const configureDialogs =
   (dialogs: DialogData[]): ThunkType<Promise<any>> =>
   async (dispatch) => {
-    for (let el of dialogs) {
-      const message = await messageAPI.getMessages(el.id, 1, 1);
-      if (!message.items.length) {
-        dialogs.splice(
-          dialogs.findIndex((i) => i === el),
-          1
-        );
-        continue;
-      }
-      el.lastMessage = message.items[0].body;
-    }
+    // for (let el of dialogs) {
+    //   const message = await messageAPI.getMessages(el.id, 1, 1);
+    //   if (!message.items.length) {
+    //     dialogs.splice(
+    //       dialogs.findIndex((i) => i === el),
+    //       1
+    //     );
+    //     continue;
+    //   }
+    //   el.lastMessage = message.items[0].body;
+    // }
     dispatch(setDialogs(dialogs));
   };
 export const deleteMessage =
@@ -381,7 +385,6 @@ export const deleteMessage =
     messageAPI
       .deleteMessage(messageId)
       .then((res) => {
-        console.log(res);
         if (!res.data.resultCode) {
           dispatch(removeMessage(messageId));
         } else {

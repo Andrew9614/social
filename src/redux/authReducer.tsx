@@ -76,7 +76,7 @@ export const checkIsUserAuth = (): ThunkType<Promise<any>> => (dispatch) => {
     .then((response) => {
       !response.resultCode
         ? dispatch(setAuthData(response.data, true))
-        : console.log(response.messages);
+        : console.error(response.messages);
       dispatch(isAuthLoading(false));
     })
     .catch((error) => {
@@ -92,7 +92,7 @@ export const loginUser =
     return authAPI
       .login(request)
       .then((response) => {
-				console.log(response)
+				//console.log(response)
         dispatch(isAuthLoading(false));
         switch (response.resultCode) {
           case 0:
@@ -103,7 +103,7 @@ export const loginUser =
             authAPI
               .getCaptcha()
               .then((response) => {
-                console.log(response);
+                //console.log(response);
                 dispatch(setCaptcha(response.url));
               })
               .catch((error) => {
