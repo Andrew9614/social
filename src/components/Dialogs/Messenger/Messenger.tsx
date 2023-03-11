@@ -57,7 +57,7 @@ export const Messenger = ({
         {
           <InfiniteScroll
             className={styles.messages}
-            style={{ overflow: 'hidden' }}
+            style={{ overflow: 'unset' }}
             dataLength={messages.length}
             next={() => getMessages()}
             hasMore={hasMore}
