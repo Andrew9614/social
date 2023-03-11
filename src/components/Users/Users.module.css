@@ -18,6 +18,7 @@
   border-radius: 5px;
   background-color: white;
   box-shadow: 0px 0px 7px rgb(202, 202, 202);
+	transition: box-shadow 0.2s;
   animation: append-animate 0.1s linear;
 }
 
@@ -34,6 +35,9 @@
 .userLeft {
   display: flex;
   flex-direction: column;
+}
+.userLeft button{
+	margin-top: 10px;
 }
 .userLeft button:hover {
   cursor: pointer;
