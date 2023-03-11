@@ -16,14 +16,18 @@ import { Preloader } from './components/common/Preloader/Preloader';
 
 export const App = () => {
   const [navbarActive, setNavbarActive] = useState(false);
+
   const handleChangeNavbarActive = (status?: boolean) => {
     setNavbarActive(status ? status : !navbarActive);
   };
+
   const dispatch: ThunkDispatch<RootState, unknown, DispatchAction> =
     useDispatch();
+
   useEffect(() => {
     dispatch(initializeApp());
   }, [dispatch]);
+	
   const isInitComplete = useSelector(
     (state: RootState) => state.appData.isInitComplete
   );
