@@ -5,8 +5,8 @@
   align-items: center;
 }
 
-.formContainer{
-	width: 100%;
+.formContainer {
+  width: 100%;
 }
 .formContainer input {
   margin: 10px 0;
@@ -24,7 +24,8 @@
 
 .inputsWrapper {
   display: flex;
-	flex-direction: column;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .inputsContainer {
@@ -33,6 +34,7 @@
 }
 .inputContainer {
   display: flex;
+	flex-direction: column;
   position: relative;
   align-items: center;
 }
@@ -40,11 +42,9 @@
 .errorMessage {
   padding: 5px;
   font-size: 0.9em;
-  position: absolute;
   background-color: #cc3333;
   color: white;
   border-radius: var(--mainBorderRadius);
-  transform: translate(calc(-100% - 20px), 0);
 }
 
 .formContainer .checkboxContainer input {
@@ -55,21 +55,34 @@
 .submitContainer {
   display: flex;
   align-items: center;
-	//flex-direction: column;
+  flex-direction: column;
 }
 .submitContainer button {
   height: 40px;
   width: 100%;
 }
 
-.captchaContainer{
-	display: flex;
-	flex-direction: column;
-	padding: 10px;
+.captchaContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.infoText {
+  color: gray;
+  font-weight: 300;
+  font-style: italic;
 }
 
 @media (min-width: 700px) {
-  .formContainer{
-		width: 40%;
+  .formContainer {
+    width: 40%;
+  }
+	.inputContainer{
+		flex-direction: row;
 	}
+  .errorMessage {
+    position: absolute;
+    transform: translate(calc(-100% - 20px), 0);
+  }
 }
